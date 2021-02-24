@@ -1,0 +1,39 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${configureUserMatchesCardTitleText}",
+      "spacing": "Medium",
+      "weight": "bolder"
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "choiceset",
+      "isMultiSelect": true,
+      "style": "expanded",
+      "value": "${teamIds}",
+      "choices": [
+        {
+          "type": "Input.Choice",
+          "$data": "${teamPairUpEntities}",
+          "title": "${title}",
+          "value": "${value}"
+        }
+      ],
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "id": "Update matches",
+      "title": "${configureUserMatchesButtonText}",
+      "data": {
+        "command": "${updateMatchesCommand}"
+      }
+    }
+  ]
+}

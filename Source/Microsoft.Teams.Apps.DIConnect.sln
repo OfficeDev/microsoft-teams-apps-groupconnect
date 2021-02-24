@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect", "Microsoft.Teams.Apps.DIConnect\Microsoft.Teams.Apps.DIConnect.csproj", "{4D301889-D089-40DA-A115-79B2060A72A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect.Common", "Microsoft.Teams.Apps.DIConnect.Common\Microsoft.Teams.Apps.DIConnect.Common.csproj", "{FEB52F39-BD7D-404D-9C31-7A443B130D0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect.Data.Func", "Microsoft.Teams.Apps.DIConnect.Data.Func\Microsoft.Teams.Apps.DIConnect.Data.Func.csproj", "{97549F86-AC4A-4CD9-A096-C70F6D15D71A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect.Prep.Func", "Microsoft.Teams.Apps.DIConnect.Prep.Func\Microsoft.Teams.Apps.DIConnect.Prep.Func.csproj", "{02CB890D-EFAA-405D-AE3B-847CEBFC5076}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect.Send.Func", "Microsoft.Teams.Apps.DIConnect.Send.Func\Microsoft.Teams.Apps.DIConnect.Send.Func.csproj", "{4C32909F-3A9A-470F-AEEB-1F50870FAE96}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Teams.Apps.DIConnect.Tests", "Microsoft.Teams.Apps.DIConnect.Tests\Microsoft.Teams.Apps.DIConnect.Tests.csproj", "{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D301889-D089-40DA-A115-79B2060A72A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D301889-D089-40DA-A115-79B2060A72A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D301889-D089-40DA-A115-79B2060A72A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D301889-D089-40DA-A115-79B2060A72A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEB52F39-BD7D-404D-9C31-7A443B130D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEB52F39-BD7D-404D-9C31-7A443B130D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEB52F39-BD7D-404D-9C31-7A443B130D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEB52F39-BD7D-404D-9C31-7A443B130D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97549F86-AC4A-4CD9-A096-C70F6D15D71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97549F86-AC4A-4CD9-A096-C70F6D15D71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97549F86-AC4A-4CD9-A096-C70F6D15D71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97549F86-AC4A-4CD9-A096-C70F6D15D71A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02CB890D-EFAA-405D-AE3B-847CEBFC5076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02CB890D-EFAA-405D-AE3B-847CEBFC5076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02CB890D-EFAA-405D-AE3B-847CEBFC5076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02CB890D-EFAA-405D-AE3B-847CEBFC5076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C32909F-3A9A-470F-AEEB-1F50870FAE96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C32909F-3A9A-470F-AEEB-1F50870FAE96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C32909F-3A9A-470F-AEEB-1F50870FAE96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C32909F-3A9A-470F-AEEB-1F50870FAE96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08E079CE-FCBE-41DB-BF1A-381CB8E8DB98}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {082E8AB4-A506-4AFC-B113-A87C1C31EA00}
+	EndGlobalSection
+EndGlobal

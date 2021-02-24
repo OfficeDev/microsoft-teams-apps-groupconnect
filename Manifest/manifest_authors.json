@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "1c07cd26-a088-4db8-8928-ace382fa219f",
+  "packageName": "com.microsoft.teams.diconnect.comms",
+  "developer": {
+    "name": "<<companyName>>",
+    "websiteUrl": "<<websiteUrl>>",
+    "privacyUrl": "<<privacyUrl>>",
+    "termsOfUseUrl": "<<termsOfUseUrl>>"
+  },
+  "localizationInfo": {
+    "defaultLanguageTag": "en"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Diversity & Inclusion(Comms)",
+    "full": "Diversity & Inclusion Connect App(Comms)"
+  },
+  "description": {
+    "short": "App is meant to help customers promote a culture of diversity and inclusion",
+    "full": "App is meant to help customers promote a culture of diversity and inclusion in their company, directly from Microsoft Teams"
+  },
+  "accentColor": "#64A2CC",
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://<<appDomain>>/configtab",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team"
+      ]
+    }
+  ],
+  "bots": [
+    {
+      "botId": "<<botId>>",
+      "scopes": [
+        "team"
+      ],
+      "supportsFiles": true,
+      "isNotificationOnly": false
+    }
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "<<appDomain>>"
+  ],
+  "webApplicationInfo": {
+    "id": "<<botId>>",
+    "resource": "api://<<appDomain>>"
+  }
+}

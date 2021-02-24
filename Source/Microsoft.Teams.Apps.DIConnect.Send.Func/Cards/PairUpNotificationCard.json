@@ -1,0 +1,47 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${matchUpCardTitleText}",
+      "size": "Medium",
+      "weight": "Bolder",
+      "wrap": true,
+      "maxLines": 2
+    },
+    {
+      "type": "TextBlock",
+      "text": "${matchUpCardSubHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "${matchUpCardContent}",
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "${chatWithUserButtonText}",
+      "url": "${chatInitiateURL}",
+      "style": "positive"
+    },
+    {
+      "type": "Action.OpenUrl",
+      "title": "${proposeMeetupButtonText}",
+      "url": "${meetingLink}"
+    },
+    {
+      "type": "Action.Submit",
+      "id": "Pause matches",
+      "title": "${pauseMatchesButtonText}",
+      "data": {
+        "teamId": "${teamId}",
+        "command": "${pauseMatchesText}"
+      }
+    }
+  ]
+}

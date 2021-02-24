@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNewGroup renders snapshots 1`] = `
+"<div class=\\"ui-provider\\" dir=\\"ltr\\" data-uses-unhanded-props=\\"true\\">
+  <div class=\\"\\">
+    <div class=\\"ui-flex tab-container\\" data-uses-unhanded-props=\\"true\\">
+      <div class=\\"ui-flex top-padding\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text\\" dir=\\"auto\\" data-testid=\\"group_type_field\\" data-uses-unhanded-props=\\"true\\">GroupType</span></div>
+      <div class=\\"ui-dropdown between-space\\" data-testid=\\"group_type_dropdown\\">
+        <div class=\\"ui-dropdown__container\\">
+          <div class=\\"ui-dropdown__selected-items\\"><button role=\\"button\\" data-aa-class=\\"Button\\" class=\\"ui-button ui-dropdown__trigger-button\\" id=\\"dropdown-trigger-button-1\\" type=\\"button\\" aria-haspopup=\\"true\\" data-toggle=\\"true\\" aria-labelledby=\\"dropdown-trigger-button-1\\" data-uses-unhanded-props=\\"true\\"><span dir=\\"auto\\" class=\\"ui-button__content\\" data-uses-unhanded-props=\\"true\\">GroupTypePlaceHolder</span></button></div>
+          <div role=\\"img\\" aria-hidden=\\"true\\" data-aa-class=\\"Box\\" class=\\"ui-box ui-dropdown__toggle-indicator\\" data-uses-unhanded-props=\\"true\\"></div>
+          <ul role=\\"listbox\\" data-aa-class=\\"List\\" class=\\"ui-list ui-dropdown__items-list\\" aria-labelledby=\\"downshift-0-label\\" id=\\"downshift-0-menu\\" tabindex=\\"-1\\" aria-hidden=\\"true\\" data-uses-unhanded-props=\\"true\\"></ul>
+        </div>
+      </div>
+      <div class=\\"ui-flex top-padding\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text\\" dir=\\"auto\\" data-testid=\\"image_link_field\\" data-uses-unhanded-props=\\"true\\">ImageLink</span></div>
+      <div class=\\"ui-box ui-input between-space\\" data-aa-class=\\"Input\\" data-testid=\\"image_url\\" data-uses-unhanded-props=\\"true\\"><input class=\\"ui-box ui-input__input\\" maxlength=\\"200\\" placeholder=\\"ImageLinkPlaceHolder\\" type=\\"text\\" data-uses-unhanded-props=\\"true\\" value=\\"\\"></div>
+      <div>
+        <div class=\\"ui-flex top-padding\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text\\" dir=\\"auto\\" data-testid=\\"tags_field\\" data-uses-unhanded-props=\\"true\\">Tags</span>
+          <div class=\\"ui-flex__item\\"></div>
+        </div>
+        <div class=\\"ui-box ui-input between-space\\" data-aa-class=\\"Input\\" data-uses-unhanded-props=\\"true\\"><input class=\\"ui-box ui-input__input\\" placeholder=\\"TagsPlaceHolder\\" type=\\"text\\" data-uses-unhanded-props=\\"true\\" value=\\"\\"></div>
+        <div class=\\"ui-flex\\" data-uses-unhanded-props=\\"true\\">
+          <div></div>
+        </div>
+      </div>
+      <div class=\\"ui-flex top-padding\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text\\" dir=\\"auto\\" data-testid=\\"location_field\\" data-uses-unhanded-props=\\"true\\">Location</span></div>
+      <div class=\\"ui-box ui-input between-space\\" data-aa-class=\\"Input\\" data-uses-unhanded-props=\\"true\\"><input class=\\"ui-box ui-input__input\\" maxlength=\\"500\\" placeholder=\\"LocationPlaceHolder\\" type=\\"text\\" data-uses-unhanded-props=\\"true\\" value=\\"\\"></div>
+      <div class=\\"ui-flex top-padding\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text margin-space\\" dir=\\"auto\\" data-testid=\\"searchenabled_field\\" data-uses-unhanded-props=\\"true\\">SearchEnabled</span><span role=\\"img\\" aria-hidden=\\"true\\" class=\\"ui-icon\\" title=\\"TagInfo\\"><svg role=\\"presentation\\" focusable=\\"false\\" viewBox=\\"8 8 16 16\\"><g><path class=\\"ui-icon__outline\\" d=\\"M16.5 9C12.4 9 9 12.4 9 16.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5S20.6 9 16.5 9zm0 14c-3.6 0-6.5-2.9-6.5-6.5s2.9-6.5 6.5-6.5 6.5 2.9 6.5 6.5-2.9 6.5-6.5 6.5zm0-7.5c-.3 0-.5.2-.5.5v3.5c0 .3.2.5.5.5s.5-.2.5-.5V16c0-.3-.2-.5-.5-.5z\\"></path><circle class=\\"ui-icon__outline\\" cx=\\"16.5\\" cy=\\"13.5\\" r=\\"1\\"></circle><path class=\\"ui-icon__filled\\" d=\\"M16.5 9C12.4 9 9 12.4 9 16.5s3.4 7.5 7.5 7.5 7.5-3.4 7.5-7.5S20.6 9 16.5 9zm.5 10.5c0 .3-.2.5-.5.5s-.5-.2-.5-.5V16c0-.3.2-.5.5-.5s.5.2.5.5v3.5zm-.5-5c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z\\"></path></g></svg></span>
+        <div aria-checked=\\"false\\" role=\\"checkbox\\" tabindex=\\"0\\" data-is-focusable=\\"true\\" data-aa-class=\\"Checkbox\\" class=\\"ui-checkbox\\" data-uses-unhanded-props=\\"true\\">
+          <div class=\\"ui-box ui-checkbox__indicator\\" data-uses-unhanded-props=\\"true\\"></div>
+        </div>
+      </div>
+    </div>
+    <div class=\\"ui-flex tab-footer\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text error-info\\" data-uses-unhanded-props=\\"true\\"></span><button aria-disabled=\\"false\\" data-aa-class=\\"Button\\" class=\\"ui-button\\" data-testid=\\"submit_button\\" data-uses-unhanded-props=\\"true\\"><span dir=\\"auto\\" class=\\"ui-button__content\\" data-uses-unhanded-props=\\"true\\">SubmitText</span></button></div>
+  </div>
+</div>"
+`;

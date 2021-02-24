@@ -1,0 +1,89 @@
+# ASP.NET
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
+
+pool:
+  vmImage: 'windows-latest'
+  demands:
+  - msbuild
+  - visualstudio
+
+variables:
+  solution: 'Source/Microsoft.Teams.Apps.DIConnect.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  displayName: '.NET Core 3.1.x'
+  inputs:
+    version: '3.1.x'
+    packageType: sdk
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build solution'
+  inputs:
+    command: 'build'
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: Npm@1
+  displayName: npm install
+  inputs:
+    command: 'install'
+    workingDir: 'Source/Microsoft.Teams.Apps.DIConnect/ClientApp'
+    
+- task: RoslynAnalyzers@2
+  displayName: 'Run Roslyn code analyzers'
+  inputs:
+    userProvideBuildInfo: 'msBuildInfo'
+    msBuildVersion: '16.0'
+    msBuildArchitecture: 'DotNetCore'
+    msBuildCommandline: '$(Agent.ToolsDirectory)\dotnet\dotnet.exe build $(solution) --configuration $(buildConfiguration)'
+    rulesetName: 'Skype'
+   
+- task: TSLint@1
+  displayName: 'Run TSLint'
+  inputs:
+    RuleLibrary: 'microsoft'
+    RulesetMicrosoft: 'skypesdlrequired'
+    FileSelectionType: 'projectFile'
+    Project: 'Source/Microsoft.Teams.Apps.DIConnect/ClientApp/tsconfig.json'
+    OutputFormat: 'json'
+    TypeScriptVersion: 'latest'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'Source/Microsoft.Teams.Apps.DIConnect/ClientApp/coverage/cobertura-coverage.xml'
+    displayName: 'Publish Code Coverage'
+
+- task: PoliCheck@1
+  displayName: 'Run Policheck'
+  inputs:
+    inputType: 'Basic'
+    targetType: 'F'
+    targetArgument: '$(Build.SourcesDirectory)'
+    result: 'PoliCheck.xml'
+
+- task: SdtReport@1
+  displayName: 'Generate tool reports'
+  inputs:
+    AllTools: true
+    BinSkimBreakOn: 'Error'
+    CodesignValidationBreakOn: 'Error'
+    FxCopBreakOn: 'ErrorAbove'
+    ModernCopBreakOn: 'Error'
+    PoliCheckBreakOn: 'Severity1'
+    RoslynAnalyzersBreakOn: 'Error'
+    SemmleBreakOn: 'Error'
+    TSLintBreakOn: 'Error'
+    ToolLogsNotFoundAction: 'Standard'
+
+- task: ComponentGovernanceComponentDetection@0
+  displayName: 'Component detection'
+  inputs:
+    scanType: 'Register'
+    verbosity: 'Verbose'
+    alertWarningLevel: 'High'

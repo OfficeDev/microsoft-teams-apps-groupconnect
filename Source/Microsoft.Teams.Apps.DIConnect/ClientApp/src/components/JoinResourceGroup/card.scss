@@ -1,0 +1,191 @@
+﻿.darkContainer .card-bg {
+    background-color: #323131;
+    position: relative;
+    width: 100% !important;
+    height: 35rem;
+    padding: 1.33rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+}
+
+.highContrastContainer .card-bg {
+    background-color: #000;
+    position: relative;
+    width: 100% !important;
+    height: 35rem;
+    padding: 1.33rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+}
+
+.defaultContainer .card-bg {
+    background-color: #fff;
+    position: relative;
+    width: 100% !important;
+    height: 32rem;
+    padding: 1.33rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+}
+
+.darkContainer .site-subdiv-cardview {
+    background-color: #323131;
+}
+
+.highContrastContainer .site-subdiv-cardview {
+    background-color: #000;
+}
+
+.defaultContainer .site-subdiv-cardview {
+    background-color: rgba(37,36,35,.05);
+}
+
+.tile-render {
+    grid-gap: 2rem;
+}
+
+.card-body {
+    height: 19.5rem;
+    padding: 0 !important;
+}
+
+.card-title-text {
+    font-size: 1.5rem;
+    color: #6264A7;
+    margin-top: 0.80rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+}
+
+.tags-flex {
+    height: 3rem;
+    position: relative;
+    width: inherit;
+    margin-bottom: 0.3rem;
+}
+
+.card-content-flex {
+    overflow: hidden;
+}
+
+.footer-flex {
+    width: 100%;
+    bottom: 0.9rem;
+    height: 7.5rem;
+    position: relative;
+    display: block;
+}
+
+.tags-label-wrapper {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin-top: 0.2rem !important;
+    height: 2.67rem !important;
+    margin-right: 0.33rem !important;
+}
+
+.card-content-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word !important;
+    word-break: break-word!important;
+    display: -webkit-box;
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical;
+}
+
+.card-img {
+    width: 100%;
+    height: 16rem !important;
+}
+
+.site-div {
+    height: 100vh !important;
+    width: 100%;
+    position: absolute;
+}
+
+.site-subdiv-cardview {
+    height: 100vh;
+    overflow: hidden;
+    max-width: 170rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.scroll-view {
+    margin-top: 1rem;
+    height: 90vh;
+    overflow-Y: auto;
+    overflow-X: hidden;
+    bottom: 1px;
+}
+
+.grid-column {
+    padding: 0.66rem;
+}
+
+.defaultContainer .joinERGContainer {
+    background-color: #fff;
+    margin-top: 2rem;
+}
+
+.darkContainer .joinERGContainer {
+    background-color: #323131;
+    margin-top: 2rem;
+}
+
+.highContrastContainer .joinERGContainer {
+    background-color: #000;
+    margin-top: 2rem;
+}
+
+.joinERGcontent {
+    padding-left: 3rem;
+    padding-right: 2rem;
+}
+
+.joinERGButton {
+    margin-top: 2rem;
+}
+
+.no-post-added-container {
+    text-align: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.no-data-preview {
+    width: 100%;
+    font-weight: bold;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.add-new-post {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.add-new-post-btn {
+    margin-top: 2rem;
+}
+
+.app-logo {
+    margin-top: 8rem;
+}
+
+@media only screen and (min-width: 651px) {
+    .card-bg {
+        height: 40rem;
+    }
+}

@@ -1,0 +1,46 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${WelcomeTitleText}",
+      "size": "Medium",
+      "weight": "Bolder"
+    },
+    {
+      "type": "TextBlock",
+      "text": "${welcomeHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${discoverGroupsBulletText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${meetPeopleBulletText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${getAnswersBulletText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${aboutGroupsBulletText}",
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "${discoverGroupsButtonText}",
+      "url": "${discoverGroupsUrl}",
+      "style": "positive"
+    }
+  ]
+}

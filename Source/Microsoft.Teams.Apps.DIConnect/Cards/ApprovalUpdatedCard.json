@@ -1,0 +1,186 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${requestSubmittedText}",
+              "size": "Large"
+            }
+          ],
+          "width": "stretch"
+        },
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${approvalStatusText}",
+              "horizontalAlignment": "Right",
+              "color": "${if(approvalStatus == '1', 'good', 'attention')}"
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "${groupDescriptionText}",
+      "wrap": true,
+      "spacing": "Small"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 50,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${nameText}:",
+              "size": "Medium"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 100,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${groupNameText}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 50,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${tagsText}:",
+              "size": "Medium"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 100,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${tagsName}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 50,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${locationText}:",
+              "size": "Medium"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 100,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${locationName}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 50,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${createdByNameText}:",
+              "size": "Medium"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 100,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${createdByName}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "separator": true,
+      "size": "Medium"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 50,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "${searchEnableText}:",
+              "size": "Medium"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 100,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${searchEnableStatusText}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
