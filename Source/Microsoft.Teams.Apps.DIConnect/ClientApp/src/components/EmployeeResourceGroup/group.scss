@@ -1,0 +1,101 @@
+.module-container {
+    margin-left: 3.2rem;
+    margin-right: 3.2rem;
+    height: 100vh;
+}
+
+.tab-container {
+    margin-left: 3.2rem;
+    margin-right: 2.5rem;
+    height: 88vh;
+    overflow: auto;
+}
+
+.darkContainer .dark {
+    background-color: rgb(45, 44, 44);
+}
+
+.darkContainer .tab-footer {
+    background-color: rgb(45, 44, 44);
+}
+
+.tab-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 12vh;
+    padding-bottom: 1rem !important;
+    padding-left: 0.5rem;
+    padding-right: 2.5rem;
+}
+.top-padding {
+    margin-top: 1rem
+}
+
+.between-space {
+    margin-top: 0.4rem
+}
+
+.info-icon {
+  margin-left: 0.5rem
+}
+
+.margin-space {
+    margin-right: 0.5rem
+}
+
+.backgroundcolor {
+    background-color: white
+}
+
+.tags-label-wrapper {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 1rem !important;
+    margin-top: 0.4rem !important;
+    height: 2.2rem !important;
+    margin-right: 0.33rem !important;
+}
+
+.tags-label-wrapper-dark {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 1rem !important;
+    margin-top: 0.4rem !important;
+    height: 2.2rem !important;
+    margin-right: 0.33rem !important;
+    background-color: #484644 !important;
+    color: #ffffff !important;
+}
+
+.error-info {
+    margin-left: 3.2rem;
+    margin-right: 1rem;
+}
+
+.submit-group-success-message-container {
+    margin-left: 5.5rem;
+    margin-right: 5.5rem;
+    height: 100vh;
+}
+
+.margin-top {
+    margin-top: 20rem !important;
+}
+
+.space {
+    margin: 1rem;
+    text-align: center !important;
+}
+
+.preview-image-icon {
+    height: auto !important;
+    width: auto !important
+}
+
+@media only screen and (max-width: 650px) {
+    .space {
+        margin: -0.5rem !important;
+    }
+}

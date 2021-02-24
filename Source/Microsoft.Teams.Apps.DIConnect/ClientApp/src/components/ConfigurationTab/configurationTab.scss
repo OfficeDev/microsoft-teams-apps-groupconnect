@@ -1,0 +1,36 @@
+.title-container {
+    height: 3.5rem;
+    width: 100%!important;
+    border: 0solid#E1E1E1;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.12);
+    border-radius: 3px;
+}
+
+.max-width {
+    width: 7rem;
+}
+
+.faq-setting-button {
+    margin-right: 1px;
+}
+
+.module-container {
+    margin-left: 3.2rem;
+    margin-right: 3.2rem;
+}
+
+.knowledge-base-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    padding-bottom: 1rem !important;
+    padding-left: 0.5rem;
+    padding-right: 2.5rem;
+}
+
+@media only screen and (max-width: 650px) {
+    .text-color {
+        max-width: 15rem;
+    }
+}

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Configuration renders snapshots 1`] = `
+"<div class=\\"ui-provider\\" dir=\\"ltr\\" data-uses-unhanded-props=\\"true\\">
+  <div class=\\"config-container\\">
+    <div class=\\"ui-flex config-card-container\\" id=\\"communicationsTab\\" data-uses-unhanded-props=\\"true\\"><img aria-hidden=\\"true\\" data-aa-class=\\"Image\\" class=\\"ui-image img-container\\" src=\\"http://localhost/artifacts/color.png\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text text-container\\" dir=\\"auto\\" data-uses-unhanded-props=\\"true\\">CommunicationsTabOption</span></div>
+    <div class=\\"ui-flex config-card-container\\" id=\\"configurationTab\\" data-uses-unhanded-props=\\"true\\"><img aria-hidden=\\"true\\" data-aa-class=\\"Image\\" class=\\"ui-image img-container\\" src=\\"http://localhost/artifacts/color.png\\" data-uses-unhanded-props=\\"true\\"><span class=\\"ui-text text-container\\" dir=\\"auto\\" data-uses-unhanded-props=\\"true\\">ConfigurationTabOption</span></div>
+  </div>
+</div>"
+`;

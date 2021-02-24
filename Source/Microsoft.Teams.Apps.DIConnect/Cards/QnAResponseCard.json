@@ -1,0 +1,139 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${responseHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "${questionText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "${answerText}",
+      "maxLines": 500,
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "$when": "${isPromptQuestionsPresent}",
+      "weight": "Bolder",
+      "text": "${promptHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "Container",
+      "$when": "${isPromptQuestionsPresent}",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "$data": "${columnSets}",
+          "columns": [
+            {
+              "type": "Column",
+              "Width": "1",
+              "VerticalContentAlignment": "center",
+              "items": [
+                {
+                  "type": "Image",
+                  "height": "32px",
+                  "width": "32px",
+                  "url": "${imageUrl}"
+                }
+              ],
+              "spacing": "small"
+            },
+            {
+              "type": "Column",
+              "Width": "12",
+              "VerticalContentAlignment": "center",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "size": "medium",
+                  "text": "${promptQuestion}",
+                  "maxLines": 2,
+                  "wrap": true
+                }
+              ],
+              "spacing": "small"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.ShowCard",
+      "id": "share feedback",
+      "title": "${shareFeedbackButtonText}",
+      "card": {
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+        "type": "AdaptiveCard",
+        "version": "1.2",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "${feedbackHeaderText}",
+            "wrap": true
+          },
+          {
+            "type": "TextBlock",
+            "text": "${feedbackTitleText}",
+            "wrap": true
+          },
+          {
+            "type": "Input.ChoiceSet",
+            "id": "FeedbackType",
+            "isMultiSelect": false,
+            "style": "compact",
+            "choices": [
+              {
+                "title": "${helpfulTitleText}",
+                "value": "${helpfulTitleText}"
+              },
+              {
+                "title": "${needsImprovementTitleText}",
+                "value": "${needsImprovementTitleText}"
+              },
+              {
+                "title": "${notHelpfulTitleText}",
+                "value": "${notHelpfulTitleText}"
+              }
+            ],
+            "placeholder": "${choiceSetPlaceholder}"
+          },
+          {
+            "type": "TextBlock",
+            "text": "${descriptionText}",
+            "wrap": true
+          },
+          {
+            "type": "Input.Text",
+            "id": "FeedbackDescription",
+            "placeholder": "${descriptionPlaceHolderText}",
+            "maxLines": 50,
+            "isMultiline": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.Submit",
+            "id": "share",
+            "title": "${shareButtonText}",
+            "data": {
+              "command": "${shareCommand}"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

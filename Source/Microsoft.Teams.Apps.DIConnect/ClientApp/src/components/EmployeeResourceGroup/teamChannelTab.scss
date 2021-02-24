@@ -1,0 +1,62 @@
+﻿.defaultContainer .grp-container {
+    padding-top: 1rem;
+    padding-left: 1.5rem;
+    background-color: #FFFFFF;
+    height: 100%
+}
+
+.img-grp-container {
+    margin-top: 0.5rem;
+    width: 50rem;
+    height: 20rem
+}
+
+.group-text-container {
+    width: 50rem;
+    margin-top: 1rem
+}
+
+.match-container {
+    margin-top: 1.5rem
+}
+
+.tags-container, .location-container, .profile-container, .match-dropdown {
+    margin-top: 1rem
+}
+
+.tag-label, .location-label, .profile-checkbox, .match-dropdown {
+    margin-left: 3rem
+}
+
+.match-dropdown {
+    margin-left: 7rem
+}
+
+.labels {
+    min-width: 14rem;
+}
+
+.save-button {
+    padding-right: 1rem
+}
+
+@media only screen and (max-width: 750px) {
+    .img-grp-container {
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .grp-container {
+        padding: 1rem;
+        height: 100%
+    }
+
+    .group-text-container {
+        width: 100%;
+        margin-top: 1rem
+    }
+
+    .save-button {
+        padding-top: 2rem;
+    }
+}

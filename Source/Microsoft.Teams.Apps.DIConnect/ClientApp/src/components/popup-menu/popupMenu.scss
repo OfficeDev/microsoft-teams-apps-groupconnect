@@ -1,0 +1,47 @@
+﻿.content-items-wrapper {
+    width: 22rem;
+}
+
+.radio-popup-content {
+    width: 19rem !important;
+}
+
+.content-items-body {
+    width: 22rem;
+    max-height: 18rem;
+    overflow-y: auto;
+}
+
+.checkbox-content-width {
+    width: auto;
+    vertical-align: central;
+}
+
+.content-items-header {
+    width: 25rem;
+    height: 3rem;
+}
+
+.filter-popup-menu-divider {
+    margin-top: 1rem;
+}
+
+.clear-button {
+    margin-top: 0.5rem;
+}
+
+.clear-button div {
+    margin-right: 0.5rem;
+    margin-top: 0.09rem;
+}
+
+.no-background {
+    background-color: none;
+}
+
+@media only screen and (max-width: 750px) {
+    .ui-button__content {
+        display: contents;
+        padding: 1rem !important;
+    }
+}

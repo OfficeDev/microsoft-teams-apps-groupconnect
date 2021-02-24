@@ -1,0 +1,107 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "${feedbackText}"
+    },
+    {
+      "type": "TextBlock",
+      "text": "${feedbackSubHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 30,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "**${feedbackText} :**"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 70,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${feedbackType}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 30,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "**${descriptionText} :**"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 70,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${feedbackDescription}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": 30,
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "**${createdOnText} :**"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": 70,
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${feedbackCreatedDate}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "${chatWithUserButtonText}",
+      "url": "${chatInitiateURL}",
+      "style": "positive"
+    }
+  ]
+}

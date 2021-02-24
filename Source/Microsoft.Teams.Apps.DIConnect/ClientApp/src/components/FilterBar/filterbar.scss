@@ -1,0 +1,73 @@
+.command-bar-wrapper {
+    margin-top: 0.5rem;
+    border-radius: 3px;
+    position: relative;
+}
+
+.title-container-mobile {
+    width: 60vw !important;
+    margin-top: 0.3rem;
+    padding-left: 8px;
+    padding-top: 4px;
+}
+
+.filter-button {
+    padding-bottom: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    margin-right: 0rem !important;
+}
+
+.filter-bar-item-container {
+    justify-content: flex-end;
+    margin-right: 1rem !important;
+    margin-top: 0.6rem !important;
+}
+
+.filter-bar-title-container {
+    margin-top: 0.6rem !important;
+}
+
+.search-bar-wrapper {
+    width: 17.5rem;
+    display: inherit;
+}
+
+.discover-search-icon {
+    cursor: pointer !important;
+    margin-left: -2rem;
+    margin-top: 1rem;
+    margin-right: 2rem;
+}
+
+.filter-icon-filled {
+    color: #6264A7;
+}
+
+.filter-icon:hover {
+    color: #6264A7;
+}
+
+.mobile-filterbar-title-wrapper {
+    width: 90vw !important;
+    margin-left: 0.2rem !important;
+    margin-top: 0.2rem !important;
+}
+
+.mobile-filterbar-wrapper {
+    padding-left: 8px;
+    width: 85vw !important;
+    margin-left: -1rem !important;
+}
+
+.searchbar-wrapper-mobile {
+    padding-top: 4px;
+}
+
+.filter-button-mobile {
+margin-bottom: 2rem !important;
+}
+
+.discover-search-icon-mobile {
+    cursor: pointer !important;
+    margin-left: -2rem;
+}
