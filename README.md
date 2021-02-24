@@ -8,10 +8,12 @@ description: Diversity & Inclusion Connect is a custom Teams app that enables co
 urlFragment: microsoft-teams-apps-diversityandinclusion-preview
 ---
 
-# Diversity & Inclusion Connect
+# Diversity & Inclusion (preview)
 
 | [Documentation](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Deployment-guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Solution-overview) |
 | ---- | ---- | ---- |
+
+Note: This is a preview release of Diversity and Inclusion app template. Please expect changes to the app before the final release.
 
 Diversity & Inclusion Connect is a custom Teams app that enables corporate teams to create and send messages intended for multiple teams or large number of employees over chat allowing organization to reach employees right where they collaborate. Utilize this template for multiple scenarios such as new initiative announcements, employee onboarding, modern learning and development or organization-wide broadcasts.  
 
