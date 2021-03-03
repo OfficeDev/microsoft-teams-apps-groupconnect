@@ -15,10 +15,10 @@ urlFragment: microsoft-teams-apps-diversityandinclusion-preview
 
 Note: This is a preview release of Diversity and Inclusion app template. Please expect changes to the app before the final release.
 
-iversity is not just about different people coming together. These differences foster varied ways of thinking, idea generation, viewpoints, etc., and when all these come together, creativity and innovation become a norm and these differences should not only be accepted but actually celebrated. Organizations are looking at diversity as an integral part of business and not as a special initiative.
+Diversity is not just about different people coming together. These differences foster varied ways of thinking, idea generation, viewpoints, etc., and when all these come together, creativity and innovation become a norm and these differences should not only be accepted but actually celebrated. Organizations are looking at diversity as an integral part of business and not as a special initiative.
 
-Using the Diversity and Inclusion app in Microsoft Teams, employees can easily discover existing Diversity and Inclusion (D&I) groups, create new ones which will help them connect and collaborate with like-minded peers in the organization.
-The Diversity and Inclusion app helps an organization build a robust diversity and inclusion culture in their organization using Teams. Users can search for and discover D&I related groups, learn about your organization's D&I resources with a Q&A bot, build stronger bonds with other group members through weekly networking matching and receive announcements from their D&I leadership. With the Diversity and Inclusion app template, you can customize the name and branding to match your organization's preference.
+Using the Diversity and Inclusion app in Microsoft Teams, employees can easily discover existing Diversity and Inclusion groups, create new ones which will help them to connect and collaborate with like-minded peers in the organization.
+The Diversity and Inclusion app helps an organization build a robust diversity and inclusion culture in their organization using Teams. Users can search for and discover D&I related groups, learn about your organization's D&I resources with a Q&A bot, build stronger bonds with other group members through weekly networking matching and receive announcements from their D&I leadership.
 
 ## User personas
 
