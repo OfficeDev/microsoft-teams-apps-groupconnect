@@ -15,41 +15,52 @@ urlFragment: microsoft-teams-apps-diversityandinclusion-preview
 
 Note: This is a preview release of Diversity and Inclusion app template. Please expect changes to the app before the final release.
 
-Diversity & Inclusion Connect is a custom Teams app that enables corporate teams to create and send messages intended for multiple teams or large number of employees over chat allowing organization to reach employees right where they collaborate. Utilize this template for multiple scenarios such as new initiative announcements, employee onboarding, modern learning and development or organization-wide broadcasts.  
+Diversity is not just about different people coming together. These differences foster varied ways of thinking, idea generation, viewpoints, etc., and when all these come together, creativity and innovation become a norm and these differences should not only be accepted but actually celebrated. Organizations are looking at diversity as an integral part of business and not as a special initiative.
 
-The app provides an easy interface for designated users to create, preview, collaborate and send messages.
+Using the Diversity and Inclusion app in Microsoft Teams, employees can easily discover existing Diversity and Inclusion groups, create new ones which will help them to connect and collaborate with like-minded peers in the organization.
+The Diversity and Inclusion app helps an organization build a robust diversity and inclusion culture in their organization using Teams. Users can search for and discover D&I related groups, learn about your organization's D&I resources with a Q&A bot, build stronger bonds with other group members through weekly networking matching and receive announcements from their D&I leadership.
 
-It provides a foundation to build custom targeted communication capabilities such as custom telemetry on how many users acknowledged or interacted with a message.
+## User personas
 
-It contains faq features where users can ask the questions and find answers from the KB. Other existing FAQ+ v3 functionalities like multi-turn, updating from ME etc are also included.
+### Employees or members
+ -  Discover and join existing Employee resource groups (ERGs) and create new ones in the personal tab
+ -  Navigate to a corresponding team in Microsoft Teams from the personal tab to collaborate on goals, events and initiatives  and also as a platform to capture or record ideas
+ -  Get automatically paired with individuals from the same group  to increase belonging and inclusivity
+ -  Ask questions to the bot and get them answered
+ -  Receive Teams notifications on company news, newsletters, events , initiatives etc.
 
-It’ll match users within a Team where Diversity & Inclusion Connect app is added as an app. As a user, it will provide matches for every team that the user is part of where the Diversity & Inclusion Connect app is installed. The matching notification will include details of which team you were matched from.
+### Team Owners
+ -  Ability to view self-created ERG group details in a Teams team
+ -  Configure group level settings  like enabling member matching within the team and its notification frequency
 
-Diversity & Inclusion Connect app allows the team owners to set the matching frequency for pairups. Owner can also change settings in the future through a Settings view.
+### D&I leadership
+ - Get a snapshot of all the ERGs created in the organization
+ - Manage the ERGs and ability to override group level settings for individual ERGs
+ - Broadcast information on company news, newsletters, events , initiatives to the selected audience
 
-· Diversity & Inclusion Conms team (expert) manage list of ERGs
 
-* Comms team users can view a list of all ERGs that have added Diversity & Inclusion app to Team
+Here are some of the workflows in action:
 
-* Can flag a team to be searchable withDiversity & Inclusion app
+1. Discover tab : Employees will be able to discover existing resource groups by using the app in the personal scope
 
-User can search for and request to join a ERG Team
+![Discover D&I groups](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/DiscoverGroups.png)
 
-* The user can see a name, description and image for each ERG
+2. Employees will be able to join any group that they wish and able to navigate to the corresponding Teams team for collaboration
 
-* User can search, filter teams
+![Join a group](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/JoinGroup.png)
 
-* Only ERGs marked as “Searchable” by comms team are shown in this list
+3. Employees will be able to ask a question to the bot and get it answered
 
-* User can click a button to join, which will add them to the Team (or request to add to Team if it is private)
+![Bot response on question by end-user](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/FAQ.png)
 
-![Diversity & Inclusion Connect compose message screen](images/Diversity&InclusionConnectCompose.png)
+4. Get connected with team members through auto pairing notifications sent by the app
 
-## Feedback
+![Auto pairing notifications](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/Icebreaker.png)
 
-Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
+5. The leadership team will be able to broadcast information related to new initiatives, events etc. 
 
-Please report bugs and other code issues [here](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/issues/new).
+![Broadcast messages or information about events](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/BroadcastMessage.png)
+
 
 ## Legal notice
 
@@ -88,3 +99,9 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
+
+## Feedback
+
+Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
+
+Please report bugs and other code issues [here](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/issues/new).
