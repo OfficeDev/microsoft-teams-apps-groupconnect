@@ -1,0 +1,40 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "weight": "bolder",
+      "text": "${configureUserMatchesCardTitleText}",
+      "spacing": "medium"
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "choiceset",
+      "value": "12,34",
+      "style": "expanded",
+      "isMultiSelect": true,
+      "choices": [
+        {
+          "title": "Team name 1",
+          "value": "12"
+        },
+        {
+          "title": "Team name 2",
+          "value": "34"
+        }
+      ],
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "id": "Update matches",
+      "data": {
+        "command": "update matches"
+      },
+      "title": "${configureUserMatchesButtonText}"
+    }
+  ]
+}

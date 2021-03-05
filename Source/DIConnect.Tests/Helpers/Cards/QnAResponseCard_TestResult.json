@@ -1,0 +1,89 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "${responseHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "weight": "bolder",
+      "text": "Question",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "Answer",
+      "wrap": true,
+      "maxLines": 500
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.ShowCard",
+      "id": "share feedback",
+      "card": {
+        "type": "AdaptiveCard",
+        "version": "1.2",
+        "body": [
+          {
+            "type": "TextBlock",
+            "text": "${feedbackHeaderText}",
+            "wrap": true
+          },
+          {
+            "type": "TextBlock",
+            "text": "${feedbackTitleText}",
+            "wrap": true
+          },
+          {
+            "type": "Input.ChoiceSet",
+            "id": "FeedbackType",
+            "style": "compact",
+            "isMultiSelect": false,
+            "choices": [
+              {
+                "title": "${helpfulTitleText}",
+                "value": "${helpfulTitleText}"
+              },
+              {
+                "title": "${needsImprovementTitleText}",
+                "value": "${needsImprovementTitleText}"
+              },
+              {
+                "title": "${notHelpfulTitleText}",
+                "value": "${notHelpfulTitleText}"
+              }
+            ],
+            "placeholder": "${choiceSetPlaceholder}"
+          },
+          {
+            "type": "TextBlock",
+            "text": "${descriptionText}",
+            "wrap": true
+          },
+          {
+            "type": "Input.Text",
+            "id": "FeedbackDescription",
+            "placeholder": "${descriptionPlaceHolderText}",
+            "isMultiline": true,
+            "maxLines": 50
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.Submit",
+            "id": "share",
+            "data": {
+              "command": "share"
+            },
+            "title": "${shareButtonText}"
+          }
+        ]
+      },
+      "title": "${shareFeedbackButtonText}"
+    }
+  ]
+}

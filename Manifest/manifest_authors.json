@@ -18,14 +18,14 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "Diversity & Inclusion(Comms)",
-    "full": "Diversity & Inclusion Connect App(Comms)"
+    "short": "Diversity and Inclusion(Comms)",
+    "full": "Diversity and Inclusion (Comms)"
   },
   "description": {
-    "short": "App is meant to help customers promote a culture of diversity and inclusion",
-    "full": "App is meant to help customers promote a culture of diversity and inclusion in their company, directly from Microsoft Teams"
+    "short": "A tool for communication and settings management for Diversity and Inclusion app",
+    "full": "Your organization's diversity and inclusion leadership team can create and send communications to multiple teams or a large number of individual employees over Teams chat. Manage settings for the Diversity and Inclusion app and oversee existing and new employee groups as needed"
   },
-  "accentColor": "#64A2CC",
+  "accentColor": "#737373",
   "configurableTabs": [
     {
       "configurationUrl": "https://<<appDomain>>/configtab",
