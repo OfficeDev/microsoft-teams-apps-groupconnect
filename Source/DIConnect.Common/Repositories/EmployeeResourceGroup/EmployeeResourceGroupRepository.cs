@@ -40,22 +40,19 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGro
         }
 
         /// <summary>
-        /// Get filtered data entities by group type, group link and group Name from the table storage.
+        /// Get filtered data entities by group link or group name from the table storage.
         /// </summary>
-        /// <param name="groupType">Resource group type.</param>
         /// <param name="groupLink">Resource group link.</param>
         /// <param name="groupName">Resource group name.</param>
-        /// <returns>Filtered data entity.</returns>
-        public async Task<EmployeeResourceGroupEntity> GetFilterDataByGroupLinkOrGroupNameAsync(int groupType, string groupLink, string groupName)
+        /// <returns>Filtered data entities.</returns>
+        public async Task<IEnumerable<EmployeeResourceGroupEntity>> GetFilterDataByGroupLinkOrGroupNameAsync(string groupLink, string groupName)
         {
-            string groupTypeCondition = TableQuery.GenerateFilterConditionForInt("GroupType", QueryComparisons.Equal, groupType);
             string groupLinkCondition = TableQuery.GenerateFilterCondition("GroupLink", QueryComparisons.Equal, groupLink);
             string groupNameCondition = TableQuery.GenerateFilterCondition("GroupName", QueryComparisons.Equal, groupName);
             string condition = TableQuery.CombineFilters(groupNameCondition, TableOperators.Or, groupLinkCondition);
-            condition = TableQuery.CombineFilters(condition, TableOperators.And, groupTypeCondition);
             var entities = await this.GetWithFilterAsync(condition);
 
-            return entities.FirstOrDefault();
+            return entities;
         }
 
         /// <summary>

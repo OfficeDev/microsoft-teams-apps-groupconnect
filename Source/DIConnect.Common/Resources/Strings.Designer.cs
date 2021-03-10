@@ -124,7 +124,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to D&amp;I connect.
+        ///   Looks up a localized string similar to Diversity and Inclusion app.
         /// </summary>
         public static string AppTitle {
             get {
@@ -727,7 +727,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hey there, it looks like the {0} app matched us up. It would be great to connect if you&apos;ve got time..
+        ///   Looks up a localized string similar to Hey there, it looks like the {0} matched us up. It would be great to connect if you&apos;ve got time..
         /// </summary>
         public static string MeetupContent {
             get {

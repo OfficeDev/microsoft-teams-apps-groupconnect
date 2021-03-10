@@ -50,7 +50,7 @@ export const getAllEmployeeResourceGroups = async (): Promise<any> => {
 */
 export const updateEmployeeResourceGroup = async (id: string, payload: {}, groupId: string): Promise<any> => {
     let url = baseAxiosUrl + "/resourcegroups/" + id + "?groupId=" + groupId;
-    return await axios.patch(url, payload);
+    return await axios.patch(url, payload, false);
 }
 
 /**

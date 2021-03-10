@@ -211,18 +211,24 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
     }
 
     /**
-    *Create new group from API
+    *Update employee resource group from API
     */
     private async updateEmployeeResourceGroup(groupDetails: any) {
-        let response = await updateEmployeeResourceGroup(this.state.groupId, groupDetails, this.teamsAadGroupId);
-
-        if (response.status === 400 && !response.data) {
-            this.setState({ submitLoading: false, errorMessage: this.localize("GroupAlreadyExists") });
+        try {
+            let response = await updateEmployeeResourceGroup(this.state.groupId, groupDetails, this.teamsAadGroupId);
+            if (response.status === 200 && response.data) {
+                this.setState({ submitLoading: false, errorMessage: "" });
+                groupDetails.includeInSearchResults = this.state.searchEnabled;
+                microsoftTeams.tasks.submitTask();
+            }
         }
-        else if (response.status === 200 && response.data) {
-            this.setState({ submitLoading: false, errorMessage: "" });
-            groupDetails.includeInSearchResults = this.state.searchEnabled;
-            microsoftTeams.tasks.submitTask();
+        catch (error) {
+            if (error.response.status === 400 || error.response.status === 403 || error.response.status === 404) {
+                this.setState({ submitLoading: false, errorMessage: error.response.data.value });
+            }
+            else {
+                this.setState({ submitLoading: false, errorMessage: this.localize('GeneralErrorMessage') });
+            }
         }
     }
 
@@ -500,10 +506,10 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
                     this.setState({ submitLoading: false, errorMessage: this.localize('TeamNotExists') });
                 }
                 else if (error.response.status === 403) {
-                    this.setState({ submitLoading: false, errorMessage: this.localize('ForbiddenSunmitGroupErrorMessage') });
+                    this.setState({ submitLoading: false, errorMessage: this.localize('ForbiddenSubmitGroupErrorMessage') });
                 }
                 else {
-                    throw error;
+                    this.setState({ submitLoading: false, errorMessage: this.localize('GeneralErrorMessage') });
                 }
             }
         }
@@ -762,7 +768,7 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
                         />
                         <Flex className="top-padding">
                             <Text data-testid="searchenabled_field" className="margin-space" content={this.localize("SearchEnabled")} />
-                            <InfoIcon outline xSpacing="after" title={this.localize("TagInfo")} size="small" />
+                            <InfoIcon outline xSpacing="after" title={this.localize("ProfileMatchingInfo")} size="small" />
                             <Checkbox toggle checked={this.state.searchEnabled} onChange={() => this.onSearchEnableChange(this.state.searchEnabled)} />
                         </Flex>
                         {this.state.selectedGroupType === GroupType.teams && <>< Flex className="top-padding">
@@ -787,7 +793,7 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
 
                     <Flex className="tab-footer" hAlign="end" >
                         <Flex.Item push>
-                            <Text className="error-info" content={this.state.errorMessage} error size="medium" />
+                            <Text className="error-info" content={this.state.errorMessage} error size="small" />
                         </Flex.Item>
                         <Button primary content={this.localize("UpdateButtonText")}
                             onClick={this.handleSubmit}

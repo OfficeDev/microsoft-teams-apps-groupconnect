@@ -656,6 +656,7 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
         let messageId;
         if (this.state.exists) {
             this.editDraftMessage(draftMessage);
+            messageId = this.state.messageId;
         } else {
             messageId = await this.postDraftMessage(draftMessage);
         }

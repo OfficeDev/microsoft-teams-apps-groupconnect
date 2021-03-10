@@ -157,8 +157,9 @@
   "ProfileMatching": "Profile matching",
   "MatchFrequency": "Match frequency",
   "UpdateResourceGroup": "Update group",
-  "ForbiddenSunmitGroupErrorMessage": "It looks like you don't have permission to create an employee group in this team. Ask the team owner to create it for you.",
+  "ForbiddenSubmitGroupErrorMessage": "It looks like you don't have permission to create an employee group in this team. Ask the team owner to create it for you.",
   "UpdateButtonText": "Update",
   "EveryWeek": "Weekly",
-  "EveryMonth": "Monthly"
+  "EveryMonth": "Monthly",
+  "ProfileMatchingInfo": "Allow the app to match you with people to meet in this employee group."
 }

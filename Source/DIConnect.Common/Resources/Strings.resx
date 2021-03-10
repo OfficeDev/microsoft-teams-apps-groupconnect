@@ -142,7 +142,7 @@
     <value>Select a rating</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>D&amp;I connect</value>
+    <value>Diversity and Inclusion app</value>
   </data>
   <data name="ColumnName_DeliveryStatus" xml:space="preserve">
     <value>Delivery Status</value>
@@ -334,7 +334,7 @@
     <value>It's time for a match!</value>
   </data>
   <data name="MeetupContent" xml:space="preserve">
-    <value>Hey there, it looks like the {0} app matched us up. It would be great to connect if you've got time.</value>
+    <value>Hey there, it looks like the {0} matched us up. It would be great to connect if you've got time.</value>
   </data>
   <data name="MeetupTitle" xml:space="preserve">
     <value>Introduction Meet up</value>

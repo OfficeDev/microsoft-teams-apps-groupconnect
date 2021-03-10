@@ -517,7 +517,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
                         Url = $"{this.botOptions.Value.AppBaseUri}/errorpage",
                         Height = ErrorMessageTaskModuleHeight,
                         Width = ErrorMessageTaskModuleWidth,
-                        Title = this.localizer.GetString("ApplicationName"),
+                        Title = this.localizer.GetString("AppTitle"),
                     },
                 },
             };

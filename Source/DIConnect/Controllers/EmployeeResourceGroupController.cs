@@ -147,15 +147,14 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
                     return this.BadRequest(this.localizer.GetString("ResourceGroupNullOrEmptyErrorMessage"));
                 }
 
-                // Storage call to get employee resource group entity if present already.
-                var groupEntity = await this.employeeResourceGroupRepository.GetFilterDataByGroupLinkOrGroupNameAsync(
-                    employeeResourceGroupEntity.GroupType,
+                // Storage call to get employee resource group entities if present already.
+                var groupEntities = await this.employeeResourceGroupRepository.GetFilterDataByGroupLinkOrGroupNameAsync(
                     employeeResourceGroupEntity.GroupLink,
                     employeeResourceGroupEntity.GroupName);
 
-                if (groupEntity != null)
+                if (groupEntities.Any())
                 {
-                    this.logger.LogInformation($"Resource group entity already present with same group name {groupEntity.GroupName} or link :{groupEntity.GroupLink}.");
+                    this.logger.LogInformation($"Resource group entity already present with same group name {groupEntities.First().GroupName} or link :{groupEntities.First().GroupLink}.");
                     return this.BadRequest(this.localizer.GetString("GroupAlreadyExistsErrorMessage"));
                 }
 
@@ -378,53 +377,67 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
                     this.logger.LogError("The employee resource group entity that user is trying to update does not exist.");
                     return this.NotFound(this.localizer.GetString("ResourceGroupNotExistsErrorMessage"));
                 }
+
+                // Validate whether the updated link or name is already exists.
+                if (updateEntity.GroupLink != employeeResourceGroupEntity.GroupLink || updateEntity.GroupName != employeeResourceGroupEntity.GroupName)
+                {
+                    // Storage call to get employee resource group entities if present already.
+                    var groupEntities = await this.employeeResourceGroupRepository.GetFilterDataByGroupLinkOrGroupNameAsync(
+                        employeeResourceGroupEntity.GroupLink,
+                        employeeResourceGroupEntity.GroupName);
+
+                    if (groupEntities.Any() &&
+                        groupEntities.Where(entity => entity.GroupId != updateEntity.GroupId).Any())
+                    {
+                        this.logger.LogInformation($"Resource group entity already present with same group name {groupEntities.First().GroupName} or link :{groupEntities.First().GroupLink}.");
+                        return this.BadRequest(this.localizer.GetString("GroupAlreadyExistsErrorMessage"));
+                    }
+                }
+
+                var userId = this.HttpContext.User.FindFirstValue(Constants.ClaimTypeUserId);
+
+                // Validating if resource group type is 'Teams', user must be member of that group and they should belongs to same tenant.
+                if (employeeResourceGroupEntity.GroupType == (int)ResourceGroupType.Teams)
+                {
+                    string tenantId = ParseTeamIdExtension.GetTenantIdFromDeepLink(employeeResourceGroupEntity.GroupLink);
+
+                    if (!this.options.Value.AllowedTenants.Contains(tenantId))
+                    {
+                        this.logger.LogError($"Tenant is not valid: {tenantId}");
+                        return this.BadRequest(this.localizer.GetString("InvalidTenantErrorMessage"));
+                    }
+
+                    string teamId = ParseTeamIdExtension.GetTeamIdFromDeepLink(employeeResourceGroupEntity.GroupLink);
+                    var groupMembersDetail = await this.groupMembersService.GetGroupMembersAsync(groupId);
+                    var groupMemberAadIds = groupMembersDetail.Select(row => row.Id).ToList();
+
+                    if (!groupMemberAadIds.Contains(userId))
+                    {
+                        this.logger.LogError($"User {userId} is not a member of the team {teamId}");
+                        return this.Forbid(this.localizer.GetString("InvalidGroupMemberErrorMessage"));
+                    }
+
+                    updateEntity.TeamId = teamId;
+                }
                 else
                 {
-                    var userId = this.HttpContext.User.FindFirstValue(Constants.ClaimTypeUserId);
-
-                    // Validating if resource group type is 'Teams', user must be member of that group and they should belongs to same tenant.
-                    if (employeeResourceGroupEntity.GroupType == (int)ResourceGroupType.Teams)
-                    {
-                        string tenantId = ParseTeamIdExtension.GetTenantIdFromDeepLink(updateEntity.GroupLink);
-
-                        if (!this.options.Value.AllowedTenants.Contains(tenantId))
-                        {
-                            this.logger.LogError($"Tenant is not valid: {tenantId}");
-                            return this.BadRequest(this.localizer.GetString("InvalidTenantErrorMessage"));
-                        }
-
-                        string teamId = ParseTeamIdExtension.GetTeamIdFromDeepLink(updateEntity.GroupLink);
-                        var groupMembersDetail = await this.groupMembersService.GetGroupMembersAsync(groupId);
-                        var groupMemberAadIds = groupMembersDetail.Select(row => row.Id).ToList();
-
-                        if (!groupMemberAadIds.Contains(userId))
-                        {
-                            this.logger.LogError($"User {userId} is not a member of the team {teamId}");
-                            return this.Forbid(this.localizer.GetString("InvalidGroupMemberErrorMessage"));
-                        }
-
-                        updateEntity.TeamId = teamId;
-                    }
-                    else
-                    {
-                        updateEntity.TeamId = string.Empty;
-                    }
-
-                    updateEntity.GroupType = employeeResourceGroupEntity.GroupType;
-                    updateEntity.GroupName = employeeResourceGroupEntity.GroupName;
-                    updateEntity.GroupDescription = employeeResourceGroupEntity.GroupDescription;
-                    updateEntity.GroupLink = employeeResourceGroupEntity.GroupLink;
-                    updateEntity.ImageLink = employeeResourceGroupEntity.ImageLink;
-                    updateEntity.Tags = employeeResourceGroupEntity.Tags;
-                    updateEntity.Location = employeeResourceGroupEntity.Location;
-                    updateEntity.IncludeInSearchResults = employeeResourceGroupEntity.IncludeInSearchResults;
-                    updateEntity.IsProfileMatchingEnabled = employeeResourceGroupEntity.IsProfileMatchingEnabled;
-                    updateEntity.MatchingFrequency = employeeResourceGroupEntity.MatchingFrequency;
-                    updateEntity.UpdatedByObjectId = userId;
-                    updateEntity.UpdatedOn = DateTime.UtcNow;
-
-                    await this.employeeResourceGroupRepository.InsertOrMergeAsync(updateEntity);
+                    updateEntity.TeamId = string.Empty;
                 }
+
+                updateEntity.GroupType = employeeResourceGroupEntity.GroupType;
+                updateEntity.GroupName = employeeResourceGroupEntity.GroupName;
+                updateEntity.GroupDescription = employeeResourceGroupEntity.GroupDescription;
+                updateEntity.GroupLink = employeeResourceGroupEntity.GroupLink;
+                updateEntity.ImageLink = employeeResourceGroupEntity.ImageLink;
+                updateEntity.Tags = employeeResourceGroupEntity.Tags;
+                updateEntity.Location = employeeResourceGroupEntity.Location;
+                updateEntity.IncludeInSearchResults = employeeResourceGroupEntity.IncludeInSearchResults;
+                updateEntity.IsProfileMatchingEnabled = employeeResourceGroupEntity.IsProfileMatchingEnabled;
+                updateEntity.MatchingFrequency = employeeResourceGroupEntity.MatchingFrequency;
+                updateEntity.UpdatedByObjectId = userId;
+                updateEntity.UpdatedOn = DateTime.UtcNow;
+
+                await this.employeeResourceGroupRepository.InsertOrMergeAsync(updateEntity);
 
                 return this.Ok(updateEntity);
             }

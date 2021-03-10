@@ -39,7 +39,7 @@
       }
     },
     "UserAppExternalId": {
-      "defaultValue": "148a66bb-e83d-425a-927d-09f4299a9274",
+      "defaultValue": "fe0dfdaa-f1f7-4d85-9fd1-35b4edf4ffd1",
       "minLength": 1,
       "type": "String",
       "metadata": {
