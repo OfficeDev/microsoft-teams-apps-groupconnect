@@ -386,8 +386,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
                         employeeResourceGroupEntity.GroupLink,
                         employeeResourceGroupEntity.GroupName);
 
-                    if (groupEntities.Any() &&
-                        groupEntities.Where(entity => entity.GroupId != updateEntity.GroupId).Any())
+                    if (groupEntities.Any(entity => entity.GroupId != updateEntity.GroupId))
                     {
                         this.logger.LogInformation($"Resource group entity already present with same group name {groupEntities.First().GroupName} or link :{groupEntities.First().GroupLink}.");
                         return this.BadRequest(this.localizer.GetString("GroupAlreadyExistsErrorMessage"));
