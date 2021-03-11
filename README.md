@@ -10,7 +10,7 @@ urlFragment: microsoft-teams-apps-diversityandinclusion-preview
 
 # Diversity & Inclusion (preview)
 
-| [Documentation](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Deployment-guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Solution-overview) |
+| [Documentation](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Deployment-guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Solution-overview) |
 | ---- | ---- | ---- |
 
 Note: This is a preview release of Diversity and Inclusion app template. Please expect changes to the app before the final release.
@@ -43,28 +43,28 @@ Here are some of the workflows in action:
 
 1. Discover tab : Employees will be able to discover existing resource groups by using the app in the personal scope
 
-![Discover D&I groups](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/DiscoverGroups.png)
+![Discover D&I groups](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/DiscoverGroups.png)
 
 2. Employees will be able to join any group that they wish and able to navigate to the corresponding Teams team for collaboration
 
-![Join a group](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/JoinGroup.png)
+![Join a group](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/JoinGroup.png)
 
 3. Employees will be able to ask a question to the bot and get it answered
 
-![Bot response on question by end-user](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/FAQ.png)
+![Bot response on question by end-user](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/FAQ.png)
 
 4. Get connected with team members through auto pairing notifications sent by the app
 
-![Auto pairing notifications](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/Icebreaker.png)
+![Auto pairing notifications](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/Icebreaker.png)
 
 5. The leadership team will be able to broadcast information related to new initiatives, events etc. 
 
-![Broadcast messages or information about events](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/wiki/Images/BroadcastMessage.png)
+![Broadcast messages or information about events](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/BroadcastMessage.png)
 
 
 ## Legal notice
 
-This app template is provided under the [MIT License](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/blob/master/LICENSE) terms.  In addition to these terms, by using this app template you agree to the following:
+This app template is provided under the [MIT License](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/blob/master/LICENSE) terms.  In addition to these terms, by using this app template you agree to the following:
 
 - You, not Microsoft, will license the use of your app to users or organization. 
 
@@ -104,4 +104,4 @@ Any use of third-party trademarks or logos are subject to those third-party's po
 
 Thoughts? Questions? Ideas? Share them with us on [Teams UserVoice](https://microsoftteams.uservoice.com/forums/555103-public)!
 
-Please report bugs and other code issues [here](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion-preview-/issues/new).
+Please report bugs and other code issues [here](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/issues/new).
