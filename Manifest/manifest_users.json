@@ -18,14 +18,14 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "Diversity & Inclusion",
-    "full": "Diversity & Inclusion Connect App"
+    "short": "Diversity and Inclusion",
+    "full": "Diversity and Inclusion"
   },
   "description": {
-    "short": "App is meant to help customers promote a culture of diversity and inclusion",
-    "full": "App is meant to help customers promote a culture of diversity and inclusion in their company, directly from Microsoft Teams"
+    "short": "Discover or create employee groups focused on diversity and inclusion",
+    "full": "An easy-to-browse interface helps employees find and join groups focused on promoting diversity and inclusion in their organization. Every group has a Teams channel associated with it where members can chat and post resources and events. The app's bot facilitates matching group members, setting up introductory meetings, and answering employee questions about diversity programs by querying your org's knowledge base. In the event an employee doesn't find a group that meets their interests, they can request to have a new one created"
   },
-  "accentColor": "#64A2CC",
+  "accentColor": "#737373",
   "bots": [
     {
       "botId": "<<botId>>",

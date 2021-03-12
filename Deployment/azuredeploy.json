@@ -24,15 +24,6 @@
         "description": "The client secret of the bot Azure Active Directory app."
       }
     },
-    "manifestId": {
-      "type": "string",
-      "minLength": 36,
-      "maxLength": 36,
-      "defaultValue": "fe0dfdaa-f1f7-4d85-9fd1-35b4edf4ffd1",
-      "metadata": {
-        "description": "Manifest Id (Required for deep-linking). This needs to be same as manifest Id provided in manifest_users.json file inside Manifest folder."
-      }
-    },
     "teamLink": {
       "type": "string",
       "minLength": 1,
@@ -72,17 +63,6 @@
       "type": "String",
       "metadata": {
         "description": "Comma-delimited list of the supported cultures."
-      }
-    },
-    "customDomainOption": {
-      "type": "string",
-      "allowedValues": [
-        "Custom domain name (recommended)",
-        "Azure Front Door"
-      ],
-      "defaultValue": "Azure Front Door",
-      "metadata": {
-        "description": "How the app will be hosted on a domain that is not *.azurewebsites.net. Azure Front Door is an easy option that the template can set up automatically, but it comes with ongoing monthly costs. "
       }
     },
     "appDisplayName": {
@@ -237,9 +217,6 @@
     ],
     "isSharedPlan": "[contains(variables('sharedSkus'), parameters('hostingPlanSku'))]",
     "skuFamily": "[if(equals(parameters('hostingPlanSku'), 'Shared'), 'D', take(parameters('hostingPlanSku'), 1))]",
-    "useFrontDoor": "[equals(parameters('customDomainOption'), 'Azure Front Door')]",
-    "frontDoorName": "[parameters('baseResourceName')]",
-    "frontDoorDomain": "[toLower(concat(variables('frontDoorName'), '.azurefd.net'))]",
     "ProactivelyInstallUserApp": "[parameters('ProactivelyInstallUserApp')]",
     "UserAppExternalId": "[parameters('UserAppExternalId')]",
     "i18n:DefaultCulture": "[parameters('DefaultCulture')]",
@@ -303,7 +280,7 @@
           "appSettings": [
             {
               "name": "PROJECT",
-              "value": "Source/Microsoft.Teams.Apps.DIConnect/Microsoft.Teams.Apps.DIConnect.csproj"
+              "value": "Source/DIConnect/Microsoft.Teams.Apps.DIConnect.csproj"
             },
             {
               "name": "SITE_ROLE",
@@ -339,7 +316,7 @@
             },
             {
               "name": "AzureAd:ApplicationIdURI",
-              "value": "[if(variables('useFrontDoor'), concat('api://', variables('frontDoorDomain')), '')]"
+              "value": "[concat('api://', variables('botAppDomain'))]"
             },
             {
               "name": "MicrosoftAppId",
@@ -351,7 +328,7 @@
             },
             {
               "name": "ManifestId",
-              "value": "[parameters('manifestId')]"
+              "value": "[variables('UserAppExternalId')]"
             },
             {
               "name": "StorageAccountConnectionString",
@@ -371,7 +348,7 @@
             },
             {
               "name": "AppBaseUri",
-              "value": "[concat('https://', variables('frontDoorDomain'))]"
+              "value": "[concat('https://', variables('botAppDomain'))]"
             },
             {
               "name": "AdminTeamLink",
@@ -383,7 +360,7 @@
             },
             {
               "name": "QnAMakerHostUrl",
-              "value": ""
+              "value": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('qnaMakerAppServiceName'))).hostNames[0])]"
             },
             {
               "name": "ScoreThreshold",
@@ -395,7 +372,7 @@
             },
             {
               "name": "QnAMakerApiEndpointUrl",
-              "value": ""
+              "value": "https://westus.api.cognitive.microsoft.com"
             },
             {
               "name": "UseKeyVault",
@@ -417,7 +394,7 @@
           "cors": {
             "supportCredentials": true,
             "allowedOrigins": [
-              "[concat('https://', variables('frontDoorDomain'))]"
+              "[concat('https://', variables('botAppDomain'))]"
             ]
           }
         }
@@ -660,7 +637,7 @@
           "appSettings": [
             {
               "name": "PROJECT",
-              "value": "Source\\Microsoft.Teams.Apps.DIConnect.Prep.Func\\Microsoft.Teams.Apps.DIConnect.Prep.Func.csproj"
+              "value": "Source\\DIConnect.Prep.Func\\Microsoft.Teams.Apps.DIConnect.Prep.Func.csproj"
             },
             {
               "name": "SITE_ROLE",
@@ -771,7 +748,7 @@
           "appSettings": [
             {
               "name": "PROJECT",
-              "value": "Source\\Microsoft.Teams.Apps.DIConnect.Send.Func\\Microsoft.Teams.Apps.DIConnect.Send.Func.csproj"
+              "value": "Source\\DIConnect.Send.Func\\Microsoft.Teams.Apps.DIConnect.Send.Func.csproj"
             },
             {
               "name": "SITE_ROLE",
@@ -874,7 +851,7 @@
           "appSettings": [
             {
               "name": "PROJECT",
-              "value": "Source\\Microsoft.Teams.Apps.DIConnect.Data.Func\\Microsoft.Teams.Apps.DIConnect.Data.Func.csproj"
+              "value": "Source\\DIConnect.Data.Func\\Microsoft.Teams.Apps.DIConnect.Data.Func.csproj"
             },
             {
               "name": "SITE_ROLE",
@@ -966,128 +943,6 @@
       ]
     },
     {
-      "apiVersion": "2019-04-01",
-      "type": "Microsoft.Network/frontDoors",
-      "name": "[variables('frontDoorName')]",
-      "condition": "[variables('useFrontDoor')]",
-      "location": "Global",
-      "dependsOn": [
-        "[resourceId('Microsoft.Web/sites', variables('botAppName'))]"
-      ],
-      "properties": {
-        "backendPools": [
-          {
-            "name": "backendPool1",
-            "properties": {
-              "backends": [
-                {
-                  "address": "[variables('botAppDomain')]",
-                  "backendHostHeader": "[variables('botAppDomain')]",
-                  "httpPort": 80,
-                  "httpsPort": 443,
-                  "priority": 1,
-                  "weight": 50,
-                  "enabledState": "Enabled"
-                }
-              ],
-              "healthProbeSettings": {
-                "id": "[resourceId('Microsoft.Network/frontDoors/healthProbeSettings', variables('frontDoorName'), 'healthProbeSettings1')]"
-              },
-              "loadBalancingSettings": {
-                "id": "[resourceId('Microsoft.Network/frontDoors/loadBalancingSettings', variables('frontDoorName'), 'loadBalancingSettings1')]"
-              },
-              "resourceState": "Enabled"
-            }
-          }
-        ],
-        "healthProbeSettings": [
-          {
-            "name": "healthProbeSettings1",
-            "properties": {
-              "intervalInSeconds": 255,
-              "path": "/health",
-              "protocol": "Https",
-              "resourceState": "Enabled"
-            }
-          }
-        ],
-        "frontendEndpoints": [
-          {
-            "name": "frontendEndpoint1",
-            "properties": {
-              "hostName": "[variables('frontDoorDomain')]",
-              "sessionAffinityEnabledState": "Disabled",
-              "sessionAffinityTtlSeconds": 0
-            }
-          }
-        ],
-        "loadBalancingSettings": [
-          {
-            "name": "loadBalancingSettings1",
-            "properties": {
-              "additionalLatencyMilliseconds": 0,
-              "sampleSize": 4,
-              "successfulSamplesRequired": 2
-            }
-          }
-        ],
-        "routingRules": [
-          {
-            "name": "routingRule1",
-            "properties": {
-              "frontendEndpoints": [
-                {
-                  "id": "[resourceId('Microsoft.Network/frontDoors/frontendEndpoints', variables('frontDoorName'), 'frontendEndpoint1')]"
-                }
-              ],
-              "acceptedProtocols": [
-                "Https"
-              ],
-              "patternsToMatch": [
-                "/*"
-              ],
-              "routeConfiguration": {
-                "@odata.type": "#Microsoft.Azure.FrontDoor.Models.FrontdoorForwardingConfiguration",
-                "forwardingProtocol": "HttpsOnly",
-                "backendPool": {
-                  "id": "[resourceId('Microsoft.Network/frontDoors/backendPools', variables('frontDoorName'), 'backendPool1')]"
-                }
-              },
-              "enabledState": "Enabled"
-            }
-          },
-          {
-            "name": "routingRule2",
-            "properties": {
-              "frontendEndpoints": [
-                {
-                  "id": "[resourceId('Microsoft.Network/frontDoors/frontendEndpoints', variables('frontDoorName'), 'frontendEndpoint1')]"
-                }
-              ],
-              "acceptedProtocols": [
-                "Https"
-              ],
-              "patternsToMatch": [
-                "/api/*"
-              ],
-              "routeConfiguration": {
-                "@odata.type": "#Microsoft.Azure.FrontDoor.Models.FrontdoorRedirectConfiguration",
-                "customFragment": null,
-                "customHost": "[variables('botAppDomain')]",
-                "customPath": "",
-                "redirectProtocol": "HttpsOnly",
-                "customQueryString": null,
-                "redirectType": "PermanentRedirect"
-              },
-              "enabledState": "Enabled"
-            }
-          }
-        ],
-        "enabledState": "Enabled",
-        "friendlyName": "[variables('frontDoorName')]"
-      }
-    },
-    {
       "name": "[variables('azureSearchName')]",
       "type": "Microsoft.Search/searchServices",
       "apiVersion": "2015-08-19",
@@ -1155,7 +1010,7 @@
             "[resourceId('Microsoft.Search/searchServices/', variables('azureSearchName'))]"
           ],
           "properties": {
-             "AzureSearchName": "[variables('azureSearchName')]",
+            "AzureSearchName": "[variables('azureSearchName')]",
             "AzureSearchAdminKey": "[listAdminKeys(resourceId('Microsoft.Search/searchServices/', variables('azureSearchName')), '2015-08-19').primaryKey]",
             "UserAppInsightsKey": "[reference(resourceId('Microsoft.Insights/components/', variables('qnaMakerAppInsightsName')), '2015-05-01').InstrumentationKey]",
             "UserAppInsightsName": "[variables('qnaMakerAppInsightsName')]",
@@ -1184,9 +1039,6 @@
         "displayName": "KeyVault"
       },
       "properties": {
-        "enabledForDeployment": "true",
-        "enabledForTemplateDeployment": "true",
-        "enabledForDiskEncryption": "true",
         "tenantId": "[parameters('subscriptionTenantId')]",
         "accessPolicies": [
           {
@@ -1194,7 +1046,7 @@
             "objectId": "[reference(concat('Microsoft.Web/sites/', variables('botAppName')), '2018-02-01', 'Full').identity.principalId]",
             "permissions": {
               "secrets": [
-                "all"
+                "get"
               ]
             }
           }
@@ -1250,30 +1102,6 @@
     {
       "type": "Microsoft.KeyVault/vaults/secrets",
       "apiVersion": "2018-02-14",
-      "name": "[concat(variables('keyVaultName'), '/','QnAMakerHostUrl--SecretKey')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]"
-      ],
-      "properties": {
-        "value": "[concat('https://', reference(resourceId('Microsoft.Web/sites', variables('qnaMakerAppServiceName'))).hostNames[0])]"
-      }
-    },
-    {
-      "type": "Microsoft.KeyVault/vaults/secrets",
-      "apiVersion": "2018-02-14",
-      "name": "[concat(variables('keyVaultName'), '/','QnAMakerApiEndpointUrl--SecretKey')]",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]"
-      ],
-      "properties": {
-        "value": "https://westus.api.cognitive.microsoft.com"
-      }
-    },
-    {
-      "type": "Microsoft.KeyVault/vaults/secrets",
-      "apiVersion": "2018-02-14",
       "name": "[concat(variables('keyVaultName'), '/','QnAMakerSubscriptionKey')]",
       "location": "[parameters('location')]",
       "dependsOn": [
@@ -1291,7 +1119,7 @@
     },
     "appDomain": {
       "type": "string",
-      "value": "[if(variables('useFrontDoor'), variables('frontDoorDomain'), concat('Please create a custom domain name for ', variables('botAppDomain'), ' and use that in the manifest'))]"
+      "value": "[concat('Please create a custom domain name for ', variables('botAppDomain'), ' and use that in the manifest')]"
     }
   }
 }

@@ -1,0 +1,106 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "medium",
+      "weight": "bolder",
+      "text": "${feedbackText}"
+    },
+    {
+      "type": "TextBlock",
+      "text": "${feedbackSubHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "30",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "bolder",
+              "text": "**${feedbackText} :**"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "70",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Helpful",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "30",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "bolder",
+              "text": "**${descriptionText} :**"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "70",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Testing the description",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "30",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "bolder",
+              "text": "**${createdOnText} :**"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "70",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "27-02-2021",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "url": "https://teams.microsoft.com/l/chat/0/0?users=%40microsoft.com&message=Hi there%2C",
+      "title": "${chatWithUserButtonText}",
+      "style": "positive"
+    }
+  ]
+}

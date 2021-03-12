@@ -1,0 +1,186 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "large",
+              "weight": "bolder",
+              "text": "${requestSubmittedText}"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "color": "good",
+              "text": "${approvalStatusText}",
+              "horizontalAlignment": "right"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Resource group description",
+      "wrap": true,
+      "spacing": "small"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "50",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "medium",
+              "weight": "bolder",
+              "text": "${nameText}:"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "100",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Resource group name",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "50",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "medium",
+              "weight": "bolder",
+              "text": "${tagsText}:"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "100",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "50",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "medium",
+              "weight": "bolder",
+              "text": "${locationText}:"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "100",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "West US",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "50",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "medium",
+              "weight": "bolder",
+              "text": "${createdByNameText}:"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "100",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Mod",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "size": "medium",
+      "text": " ",
+      "separator": true
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "50",
+          "items": [
+            {
+              "type": "TextBlock",
+              "size": "medium",
+              "weight": "bolder",
+              "text": "${searchEnableText}:"
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "100",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${searchEnableStatusText}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

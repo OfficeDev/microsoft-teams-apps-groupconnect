@@ -1,0 +1,23 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "weight": "bolder",
+      "text": "${configureMatchesCardTitle}",
+      "wrap": true,
+      "spacing": "medium"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "id": "Configure matches",
+      "data": {
+        "command": "configure matches"
+      },
+      "title": "${configureMatchesButtonText}"
+    }
+  ]
+}

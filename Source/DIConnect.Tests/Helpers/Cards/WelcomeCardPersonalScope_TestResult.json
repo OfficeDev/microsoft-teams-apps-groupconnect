@@ -1,0 +1,45 @@
+{
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "medium",
+      "weight": "bolder",
+      "text": "${WelcomeTitleText}"
+    },
+    {
+      "type": "TextBlock",
+      "text": "${welcomeHeaderText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${discoverGroupsBulletText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${meetPeopleBulletText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${getAnswersBulletText}",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "* ${aboutGroupsBulletText}",
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "url": "https://teams.microsoft.com/l/entity/123/Discover",
+      "title": "${discoverGroupsButtonText}",
+      "style": "positive"
+    }
+  ]
+}
