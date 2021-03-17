@@ -8,3 +8,17 @@
 .semiBold {
   font-weight: 600;
 }
+
+.title-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical;
+}
+
+@media only screen and (max-width: 650px) {
+    .width {
+        max-width: 10rem;
+    }
+}

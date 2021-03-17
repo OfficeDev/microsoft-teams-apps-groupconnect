@@ -768,12 +768,12 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
                         />
                         <Flex className="top-padding">
                             <Text data-testid="searchenabled_field" className="margin-space" content={this.localize("SearchEnabled")} />
-                            <InfoIcon outline xSpacing="after" title={this.localize("ProfileMatchingInfo")} size="small" />
+                            <InfoIcon outline xSpacing="after" title={this.localize("TagInfo")} size="small" />
                             <Checkbox toggle checked={this.state.searchEnabled} onChange={() => this.onSearchEnableChange(this.state.searchEnabled)} />
                         </Flex>
                         {this.state.selectedGroupType === GroupType.teams && <>< Flex className="top-padding">
                             <Text data-testid="searchenabled_field" className="margin-space" content={this.localize("ProfileMatching")} />
-                            <InfoIcon outline xSpacing="after" title={this.localize("TagInfo")} size="small" />
+                            <InfoIcon outline xSpacing="after" title={this.localize("ProfileMatchingInfo")} size="small" />
                             <Checkbox toggle checked={this.state.isProfileMatchingEnabled} onChange={() => this.onProfileMatchEnableChange(this.state.isProfileMatchingEnabled)} />
                         </Flex>
                             <Flex className="top-padding">

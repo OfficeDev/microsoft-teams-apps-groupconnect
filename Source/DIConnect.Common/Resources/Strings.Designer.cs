@@ -133,7 +133,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat with {0}.
+        ///   Looks up a localized string similar to Start a chat.
         /// </summary>
         public static string ChatWithMatchButtonText {
             get {
@@ -268,7 +268,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&apos;ve paused your matches.
+        ///   Looks up a localized string similar to OK, let&apos;s go to your settings..
         /// </summary>
         public static string ConfigureNotificationCardTitle {
             get {
@@ -300,15 +300,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         public static string CreatedByNameText {
             get {
                 return ResourceManager.GetString("CreatedByNameText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shared.
-        /// </summary>
-        public static string CreatedOn {
-            get {
-                return ResourceManager.GetString("CreatedOn", resourceCulture);
             }
         }
         
@@ -475,16 +466,16 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rating.
+        ///   Looks up a localized string similar to Reply in chat.
         /// </summary>
-        public static string Feedback {
+        public static string FeedbackCardChatButtonText {
             get {
-                return ResourceManager.GetString("Feedback", resourceCulture);
+                return ResourceManager.GetString("FeedbackCardChatButtonText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feedback.
+        ///   Looks up a localized string similar to Feedback:.
         /// </summary>
         public static string FeedbackDescriptionTitleText {
             get {
@@ -493,7 +484,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Someone from the Diversity and Inclusion team will respond via chat..
+        ///   Looks up a localized string similar to Your feedback will go to the Diversity and Inclusion team..
         /// </summary>
         public static string FeedbackHeaderText {
             get {
@@ -502,7 +493,34 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to **{0}** submitted feedback.
+        ///   Looks up a localized string similar to Rating:.
+        /// </summary>
+        public static string FeedbackRatingTitleText {
+            get {
+                return ResourceManager.GetString("FeedbackRatingTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review this feedback.
+        /// </summary>
+        public static string FeedbackReviewTitleText {
+            get {
+                return ResourceManager.GetString("FeedbackReviewTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared:.
+        /// </summary>
+        public static string FeedbackSharedOn {
+            get {
+                return ResourceManager.GetString("FeedbackSharedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submitted by **{0}**.
         /// </summary>
         public static string FeedbackSubHeaderText {
             get {
@@ -1056,15 +1074,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         public static string UnSupportedBotCommand {
             get {
                 return ResourceManager.GetString("UnSupportedBotCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Manage matching settings.
-        /// </summary>
-        public static string UpdateCardButtonTitle {
-            get {
-                return ResourceManager.GetString("UpdateCardButtonTitle", resourceCulture);
             }
         }
         

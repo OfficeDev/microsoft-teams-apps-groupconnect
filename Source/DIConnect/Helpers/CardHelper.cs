@@ -244,14 +244,15 @@ namespace Microsoft.Teams.Apps.DIConnect.Helpers
             this.logger.LogInformation("Get share feedback notification card initiated.");
             var shareFeedbackCardContents = new ShareFeedbackCardData()
             {
-                FeedbackText = this.localizer.GetString("Feedback"),
-                FeedbackSubHeaderText = this.localizer.GetString("FeedbackSubHeaderText", userDetails.GivenName),
+                FeedbackCardHeaderText = this.localizer.GetString("FeedbackReviewTitleText"),
+                FeedbackText = this.localizer.GetString("FeedbackRatingTitleText"),
+                FeedbackSubHeaderText = this.localizer.GetString("FeedbackSubHeaderText", userDetails.Name),
                 FeedbackType = feedbackData.FeedbackType,
                 DescriptionText = this.localizer.GetString("FeedbackDescriptionTitleText"),
                 FeedbackDescription = feedbackData.FeedbackDescription,
-                CreatedOnText = this.localizer.GetString("CreatedOn"),
+                CreatedOnText = this.localizer.GetString("FeedbackSharedOn"),
                 FeedbackCreatedDate = DateTime.UtcNow.ToShortDateString(),
-                ChatWithUserButtonText = this.localizer.GetString("ChatWithMatchButtonText", userDetails.GivenName),
+                ChatWithUserButtonText = this.localizer.GetString("FeedbackCardChatButtonText"),
                 ChatInitiateURL = new Uri($"{Constants.ChatInitiateURL}?users={Uri.EscapeDataString(userDetails.UserPrincipalName)}&message={Uri.EscapeDataString(Strings.InitiateChatText)}").ToString(),
             };
 
@@ -369,7 +370,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Helpers
             var updateMatchesCardContents = new ResumePairupMatchesCardData()
             {
                 UpdateCardTitle = this.localizer.GetString("UpdateCardTitle"),
-                UpdateCardButtonText = this.localizer.GetString("UpdateCardButtonTitle"),
+                UpdateCardButtonText = this.localizer.GetString("ConfigureNotificationCardButtonText"),
                 ConfigureMatchesCommand = Constants.ConfigureMatchesCommand,
             };
 
