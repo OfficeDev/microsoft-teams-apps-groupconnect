@@ -493,6 +493,15 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feedback.
+        /// </summary>
+        public static string FeedbackLabelText {
+            get {
+                return ResourceManager.GetString("FeedbackLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rating:.
         /// </summary>
         public static string FeedbackRatingTitleText {

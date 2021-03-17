@@ -471,4 +471,7 @@
   <data name="FeedbackRatingTitleText" xml:space="preserve">
     <value>Rating:</value>
   </data>
+  <data name="FeedbackLabelText" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
 </root>

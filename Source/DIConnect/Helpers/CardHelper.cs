@@ -196,7 +196,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Helpers
                 NeedsImprovementTitleText = this.localizer.GetString("NeedsImprovementTitleText"),
                 NotHelpfulTitleText = this.localizer.GetString("NotHelpfulTitleText"),
                 ChoiceSetPlaceholder = this.localizer.GetString("ChoiceSetPlaceholder"),
-                DescriptionText = this.localizer.GetString("FeedbackDescriptionTitleText"),
+                DescriptionText = this.localizer.GetString("FeedbackLabelText"),
                 DescriptionPlaceHolderText = this.localizer.GetString("DescriptionPlaceHolderText"),
                 ShareButtonText = this.localizer.GetString("ShareButtonText"),
                 ShareCommand = Constants.ShareCommand,
