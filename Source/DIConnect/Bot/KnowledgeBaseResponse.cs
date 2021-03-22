@@ -13,6 +13,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
     using Microsoft.Extensions.Localization;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
+    using Microsoft.Teams.Apps.DIConnect.Common.Repositories;
     using Microsoft.Teams.Apps.DIConnect.Common.Resources;
     using Microsoft.Teams.Apps.DIConnect.Common.Services;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot;
@@ -23,6 +24,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
     /// </summary>
     public class KnowledgeBaseResponse
     {
+        /// <summary>
+        /// Repository for app config data activity.
+        /// </summary>
+        private readonly AppConfigRepository appConfigRepository;
+
         /// <summary>
         /// Represents question and answer maker service provider.
         /// </summary>
@@ -51,18 +57,21 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         /// <summary>
         /// Initializes a new instance of the <see cref="KnowledgeBaseResponse"/> class.
         /// </summary>
+        /// <param name="appConfigRepository">Repository for app config data activity.</param>
         /// <param name="qnaService">Question and answer maker service provider.</param>
         /// <param name="botOptions"> A set of key/value application bot configuration properties.</param>
         /// <param name="cardHelper">Instance of class that handles adaptive card helper methods.</param>
         /// <param name="localizer">Localization service.</param>
         /// <param name="logger">Logger implementation to send logs to the logger service.</param>
         public KnowledgeBaseResponse(
+            AppConfigRepository appConfigRepository,
             IQnAService qnaService,
             IOptions<BotOptions> botOptions,
             CardHelper cardHelper,
             IStringLocalizer<Strings> localizer,
             ILogger<KnowledgeBaseResponse> logger)
         {
+            this.appConfigRepository = appConfigRepository ?? throw new ArgumentNullException(nameof(appConfigRepository));
             this.qnaService = qnaService ?? throw new ArgumentNullException(nameof(qnaService));
             this.botOptions = botOptions ?? throw new ArgumentNullException(nameof(botOptions));
             this.cardHelper = cardHelper ?? throw new ArgumentNullException(nameof(cardHelper));
@@ -82,7 +91,17 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         {
             try
             {
-                var queryResult = await this.qnaService.GenerateAnswerAsync(question: question);
+                var knowledgeBaseEntity = await this.appConfigRepository.GetAsync(AppConfigTableName.SettingsPartition, AppConfigTableName.KnowledgeBaseIdRowKey);
+
+                if (knowledgeBaseEntity == null || string.IsNullOrEmpty(knowledgeBaseEntity.Value))
+                {
+                    this.logger.LogInformation($"Unable to get the knowledge base ID from storage.");
+                    await turnContext.SendActivityAsync(this.localizer.GetString("KnowledgeBaseNotConfiguredText"));
+
+                    return;
+                }
+
+                var queryResult = await this.qnaService.GenerateAnswerAsync(question: question, knowledgeBaseId: knowledgeBaseEntity.Value);
 
                 if (queryResult == null || queryResult.Answers == null)
                 {

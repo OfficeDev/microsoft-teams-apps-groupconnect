@@ -14,6 +14,12 @@ namespace Microsoft.Teams.Apps.DIConnect.Models.CardSetting
     public class ShareFeedbackCardData
     {
         /// <summary>
+        /// Gets or sets feedback card header text value.
+        /// </summary>
+        [JsonProperty("feedbackCardHeaderText")]
+        public string FeedbackCardHeaderText { get; set; }
+
+        /// <summary>
         /// Gets or sets feedback text value.
         /// </summary>
         [JsonProperty("feedbackText")]

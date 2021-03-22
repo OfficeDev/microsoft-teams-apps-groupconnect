@@ -34,7 +34,7 @@ jest.mock("@microsoft/teams-js", () => ({
 let container: any = null;
 const groups: Array<IDiscoverResourceGroupsPost> = [
     {
-        groupId: "1234", groupType: "teams", groupName: "group1", groupDescription: "test desc1", imageLink: "link1", groupLink: "group link1", tags: ["test1", "test2"], location: "pune"
+        groupId: "1234", groupType: 0, groupName: "group1", groupDescription: "test desc1", imageLink: "link1", groupLink: "group link1", tags: ["test1", "test2"], location: "pune"
     }
 ];
 beforeEach(() => {

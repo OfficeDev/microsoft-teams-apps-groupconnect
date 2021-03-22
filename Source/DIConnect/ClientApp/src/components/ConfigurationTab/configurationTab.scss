@@ -6,8 +6,12 @@
     border-radius: 3px;
 }
 
-.max-width {
-    width: 7rem;
+.max-width-description {
+    max-width: 87rem;
+}
+
+.max-width-title {
+    max-width: 20rem;
 }
 
 .faq-setting-button {
@@ -29,8 +33,51 @@
     padding-right: 2.5rem;
 }
 
-@media only screen and (max-width: 650px) {
-    .text-color {
+@media only screen and (min-width : 1001px) and (max-width : 1200px) {
+    .max-width-description {
+        max-width: 60rem;
+    }
+
+    .max-width-title {
+        max-width: 18rem;
+    }
+}
+
+@media only screen and (min-width : 851px) and (max-width : 1000px) {
+    .max-width-description {
+        max-width: 50rem;
+    }
+    .max-width-title {
         max-width: 15rem;
+    }
+}
+
+@media only screen and (min-width : 651px) and (max-width : 850px) {
+    .max-width-description {
+        max-width: 37rem;
+    }
+
+    .max-width-title {
+        max-width: 20rem;
+    }
+}
+
+@media screen and (min-width : 451px) and (max-width: 650px) {
+    .max-width-description {
+        max-width: 25rem;
+    }
+
+    .max-width-title {
+        max-width: 15rem;
+    }
+}
+
+@media screen and (min-width : 0px) and (max-width: 450px) {
+    .max-width-description {
+        max-width: 8rem;
+    }
+
+    .max-width-title {
+        max-width: 5rem;
     }
 }
