@@ -42,7 +42,7 @@
   "SendToRosters": "Send in chat to members of the following teams",
   "SentToRosters": "Sent in chat to people in teams",
   "SendToRostersPlaceHolder": "Choose team(s) members",
-  "SendToGroups": "Send in chat to members of the group(s) you specify (E.g., M365 group, Distribution group, or Security group.)",
+  "SendToGroups": "Send in chat to members of the group(s) you specify (for example: M365 group, distribution group, or security group)",
   "SendToGroupsPlaceHolder": "Type the name or email address of the group(s)",
   "SendToGroupsNote": "Note: The message will be sent to all members of the group(s) who have the Diversity and Inclusion app added.",
   "SendToGroupsPermissionNote": "Permissions needed. Ask your IT admin to enable this option for you.",
