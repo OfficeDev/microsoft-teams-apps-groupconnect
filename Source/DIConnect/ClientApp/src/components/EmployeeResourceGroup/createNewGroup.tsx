@@ -63,7 +63,7 @@ export interface ITagValidationParameters {
 class CreateNewGroup extends React.Component<WithTranslation, IState> {
     localize: TFunction;
     userObjectId: string = "";
-
+    
     constructor(props: Readonly<WithTranslation>) {
         super(props);
         this.localize = this.props.t;
@@ -151,7 +151,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
                     GroupId: this.state.searchEnabled ? response.data.groupId : null,
                 };
                 microsoftTeams.tasks.submitTask(toBot);
-            }
+            }            
         }
         catch (error) {
             if (error.response.status === 400 || error.response.status === 403) {
@@ -224,7 +224,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
     /**
 	*Check if tag is valid
 	*/
-    private checkIfTagIsValid = () => {
+    private checkIfTagIsValid = () => {        
         let validationParams: ITagValidationParameters = { isEmpty: false, isLengthValid: true, isExisting: false, isTagsCountValid: false, containsSemicolon: false };
         if (this.state.tag.trim() === "") {
             validationParams.isEmpty = true;
@@ -235,7 +235,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
         }
 
         let tags = this.state.tagsList;
-        let isTagExist = tags.find(tag => tag.toLowerCase() === this.state.tag.toLowerCase());
+        let isTagExist = tags.find(tag => tag.toLowerCase() === this.state.tag.toLowerCase()); 
 
         if (this.state.tag.split(";").length > 1 || this.state.tag.split(",").length > 1) {
             validationParams.containsSemicolon = true;

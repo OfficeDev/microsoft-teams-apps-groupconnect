@@ -246,7 +246,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Send.Func
                 MatchUpCardTitleText = this.localizer.GetString("MatchUpCardTitleContent"),
                 MatchUpCardSubHeaderText = this.localizer.GetString("MatchUpCardMatchedText"),
                 MatchUpCardContent = this.localizer.GetString("MatchUpCardContentPart1", recipient.UserGivenName, teamName),
-                ChatWithUserButtonText = this.localizer.GetString("ChatWithMatchButtonText", recipient.UserGivenName),
+                ChatWithUserButtonText = this.localizer.GetString("ChatWithMatchButtonText"),
                 ChatInitiateURL = new Uri($"{ChatInitiateURL}?users={Uri.EscapeDataString(recipient.UserPrincipalName)}&message={Uri.EscapeDataString(this.localizer.GetString("InitiateChatText"))}").ToString(),
                 ProposeMeetupButtonText = this.localizer.GetString("ProposeMeetupButtonText"),
                 MeetingLink = new Uri(meetingLink).ToString(),

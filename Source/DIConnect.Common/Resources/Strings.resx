@@ -136,7 +136,7 @@
     <value>Approved</value>
   </data>
   <data name="ChatWithMatchButtonText" xml:space="preserve">
-    <value>Chat with {0}</value>
+    <value>Start a chat</value>
   </data>
   <data name="ChoiceSetPlaceholder" xml:space="preserve">
     <value>Select a rating</value>
@@ -177,8 +177,8 @@
   <data name="ColumnName_UserName" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="CreatedOn" xml:space="preserve">
-    <value>Shared</value>
+  <data name="FeedbackSharedOn" xml:space="preserve">
+    <value>Shared:</value>
   </data>
   <data name="DescriptionPlaceHolderText" xml:space="preserve">
     <value>Enter feedback to help us improve the experience</value>
@@ -193,7 +193,7 @@
     <value>Manage match settings</value>
   </data>
   <data name="ConfigureNotificationCardTitle" xml:space="preserve">
-    <value>I've paused your matches</value>
+    <value>OK, let's go to your settings.</value>
   </data>
   <data name="ConfigureUserMatchesCardButtonText" xml:space="preserve">
     <value>Save</value>
@@ -243,14 +243,14 @@
   <data name="FailtoPrepareMessageFormat" xml:space="preserve">
     <value>Failed to prepare the message for sending:{0}</value>
   </data>
-  <data name="Feedback" xml:space="preserve">
-    <value>Rating</value>
+  <data name="FeedbackReviewTitleText" xml:space="preserve">
+    <value>Review this feedback</value>
   </data>
   <data name="FeedbackHeaderText" xml:space="preserve">
-    <value>Someone from the Diversity and Inclusion team will respond via chat.</value>
+    <value>Your feedback will go to the Diversity and Inclusion team.</value>
   </data>
   <data name="FeedbackSubHeaderText" xml:space="preserve">
-    <value>**{0}** submitted feedback</value>
+    <value>Submitted by **{0}**</value>
   </data>
   <data name="FeedbackSubmittedMessage" xml:space="preserve">
     <value>Thanks for your feedback! I've shared it with the team. This helps us learn and improve.</value>
@@ -429,9 +429,6 @@
   <data name="UnSupportedBotCommand" xml:space="preserve">
     <value>Sorry, the Diversity &amp; Inclusion bot can't respond to you. Contact your IT admin to check that the bot is set up properly.</value>
   </data>
-  <data name="UpdateCardButtonTitle" xml:space="preserve">
-    <value>Manage matching settings</value>
-  </data>
   <data name="UpdateCardTitle" xml:space="preserve">
     <value>All set! You can manage your settings at any time.</value>
   </data>
@@ -439,7 +436,7 @@
     <value>Update matches</value>
   </data>
   <data name="FeedbackDescriptionTitleText" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Feedback:</value>
   </data>
   <data name="AboutGroupsBulletText" xml:space="preserve">
     <value>Stay updated on communications around diversity and inclusion</value>
@@ -467,5 +464,14 @@
   </data>
   <data name="NoMatchesToManageText" xml:space="preserve">
     <value>No active matches to manage settings.</value>
+  </data>
+  <data name="FeedbackCardChatButtonText" xml:space="preserve">
+    <value>Reply in chat</value>
+  </data>
+  <data name="FeedbackRatingTitleText" xml:space="preserve">
+    <value>Rating:</value>
+  </data>
+  <data name="FeedbackLabelText" xml:space="preserve">
+    <value>Feedback</value>
   </data>
 </root>

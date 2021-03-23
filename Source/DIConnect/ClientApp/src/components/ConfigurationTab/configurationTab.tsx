@@ -79,18 +79,16 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
             key: "labels",
             content: (
                 <Flex vAlign="center" fill gap="gap.small">
-                    <Flex.Item size="size.quarter" variables={{ 'size.quarter': '20%' }} >
+                    <Flex.Item size="size.quarter" variables={{ 'size.quarter': '18%' }} grow={1} >
                         <Text
-                            truncated
+                            className="max-width-title"
                             content={this.localize("GroupName")}
                         >
                         </Text>
                     </Flex.Item>
-                    <Flex.Item size="size.quarter" variables={{ 'size.quarter': '3%' }} shrink={false}>
-                        <Text></Text>
-                    </Flex.Item>
-                    <Flex.Item size="size.quarter" variables={{ 'size.quarter': '50%' }} shrink={false}>
+                    <Flex.Item size="size.quarter" variables={{ 'size.quarter': '55%' }} shrink={false}>
                         <Text
+                            className="max-width-description"
                             truncated
                             content={this.localize("Description")}
                         >
@@ -99,14 +97,13 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
                     <Flex.Item size="size.quarter" variables={{ 'size.quarter': '5%' }}>
                         <Text></Text>
                     </Flex.Item>
-                    <Flex.Item size="size.quarter" variables={{ 'size.quarter': '20%' }} >
+                    <Flex.Item size="size.quarter" variables={{ 'size.quarter': '20%' }}>
                         <Text
-                            truncated
                             content={this.localize("SearchEnabled")}
                         >
                         </Text>
                     </Flex.Item>
-                    <Flex.Item shrink={0}>
+                    <Flex.Item >
                         <Text></Text>
                     </Flex.Item>
                 </Flex>
@@ -119,19 +116,21 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
     private configurationContent = (group: any) => {
         return (
             <Flex className="listContainer" vAlign="center" fill gap="gap.small">
-                <Flex.Item size="size.quarter" variables={{ 'size.quarter': '15%' }} grow={1}>
+                <Flex.Item size="size.quarter" variables={{ 'size.quarter': '20%' }} grow={1}>
                     <Text size="medium"
-                        className="text-color"
+                        className="max-width-title"
                         truncated
                         content={group.groupName}
+                        title={group.groupName}
                         onClick={() => this.openEditTaskModule(group.groupId)}
                     >
                     </Text>
                 </Flex.Item>
-                <Flex.Item size="size.quarter" variables={{ 'size.quarter': '50%' }}>
+                <Flex.Item size="size.quarter" variables={{ 'size.quarter': '55%' }}>
                     <Text
-                        className="max-width"
+                        className="max-width-description"
                         truncated
+                        title={group.groupDescription}
                         content={group.groupDescription}
                     >
                     </Text>
@@ -139,7 +138,7 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
                 <Flex.Item size="size.quarter" variables={{ 'size.quarter': '5%' }}>
                     <Text></Text>
                 </Flex.Item>
-                <Flex.Item size="size.quarter" variables={{ 'size.quarter': '15%' }} >
+                <Flex.Item size="size.quarter" variables={{ 'size.quarter': '15%' }}>
                     <Checkbox toggle checked={group.includeInSearchResults} onChange={() => this.onSearchEnableChange(group.includeInSearchResults, group, group.groupId)} />
                 </Flex.Item>
                 <Flex>
