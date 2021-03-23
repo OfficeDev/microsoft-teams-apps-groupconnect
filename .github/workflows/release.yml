@@ -11,6 +11,7 @@ env:
   send_func_path: ".\\Source\\DIConnect.Send.Func\\Microsoft.Teams.Apps.DIConnect.Send.Func.csproj"
   prep_func_path: ".\\Source\\DIConnect.Prep.Func\\Microsoft.Teams.Apps.DIConnect.Prep.Func.csproj"
   data_func_path: ".\\Source\\DIConnect.Data.Func\\Microsoft.Teams.Apps.DIConnect.Data.Func.csproj"
+  CI: ""
 jobs:
   build_botapp:
     runs-on: windows-latest
