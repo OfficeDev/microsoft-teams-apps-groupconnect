@@ -6,6 +6,7 @@
 namespace Microsoft.Teams.Apps.DIConnect.Common.Services
 {
     using System;
+    using System.Globalization;
     using System.Threading.Tasks;
     using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
     using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
@@ -50,7 +51,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services
             QnASearchResultList qnaSearchResult = await this.qnaMakerRuntimeClient.Runtime.GenerateAnswerAsync(knowledgeBaseId, new QueryDTO()
             {
                 Question = question.Trim(),
-                ScoreThreshold = Convert.ToDouble(this.options.ScoreThreshold),
+                ScoreThreshold = Convert.ToDouble(this.options.ScoreThreshold, CultureInfo.InvariantCulture),
             });
 
             return qnaSearchResult;
