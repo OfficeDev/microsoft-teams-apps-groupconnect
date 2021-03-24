@@ -474,4 +474,7 @@
   <data name="FeedbackLabelText" xml:space="preserve">
     <value>Feedback</value>
   </data>
+  <data name="KnowledgeBaseNotConfiguredText" xml:space="preserve">
+    <value>Sorry, this app is not set up to respond to questions.</value>
+  </data>
 </root>

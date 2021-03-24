@@ -17,7 +17,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services
         /// Get answer from knowledge base for a given question.
         /// </summary>
         /// <param name="question">Question text.</param>
+        /// <param name="knowledgeBaseId">Knowledge base unique Id.</param>
         /// <returns>QnA search result object as response.</returns>
-        Task<QnASearchResultList> GenerateAnswerAsync(string question);
+        Task<QnASearchResultList> GenerateAnswerAsync(string question, string knowledgeBaseId);
     }
 }

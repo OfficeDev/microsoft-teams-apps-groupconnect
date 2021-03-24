@@ -230,7 +230,6 @@ namespace Microsoft.Teams.Apps.DIConnect
             string endpointKey = Task.Run(() => qnaMakerClient.EndpointKeys.GetKeysAsync()).Result.PrimaryEndpointKey;
 
             services.AddSingleton<IQnAService>((provider) => new QnAService(
-                provider.GetRequiredService<AppConfigRepository>(),
                 provider.GetRequiredService<IOptionsMonitor<QnAMakerSettings>>(),
                 new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(endpointKey)) { RuntimeEndpoint = this.Configuration["QnAMakerHostUrl"] }));
             services.AddScoped<IGroupMembersService>(sp => sp.GetRequiredService<IGraphServiceFactory>().GetGroupMembersService());

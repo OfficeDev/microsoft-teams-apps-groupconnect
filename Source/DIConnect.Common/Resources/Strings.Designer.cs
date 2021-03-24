@@ -700,6 +700,15 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, this app is not set up to respond to questions..
+        /// </summary>
+        public static string KnowledgeBaseNotConfiguredText {
+            get {
+                return ResourceManager.GetString("KnowledgeBaseNotConfiguredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
         public static string LocationText {
