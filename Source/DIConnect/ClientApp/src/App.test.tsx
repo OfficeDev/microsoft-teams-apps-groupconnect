@@ -1,5 +1,5 @@
 // <copyright file="App.test.tsx" company="Microsoft Corporation">
-// Copyright (c) Microsoft.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 // </copyright>
 
