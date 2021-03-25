@@ -1,5 +1,5 @@
 // <copyright file="createNewGroup.tsx" company="Microsoft Corporation">
-// Copyright (c) Microsoft.s
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 // </copyright>
 

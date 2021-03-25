@@ -1,5 +1,5 @@
 ﻿// <copyright file="employeeResourceGroupApi.ts" company="Microsoft Corporation">
-// Copyright (c) Microsoft.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 // </copyright>
 
