@@ -15,28 +15,39 @@ urlFragment: microsoft-teams-apps-groupconnect
 
 
 
-Diversity is not just about different people coming together. These differences foster varied ways of thinking, idea generation, viewpoints, etc., and when all these come together, creativity and innovation become a norm and these differences should not only be accepted but actually celebrated. Organizations are looking at diversity as an integral part of business and not as a special initiative.
+Engaged employees produce better business outcomes than other employees - across industry, company size and geography, and in good economic times and bad. Leaders are looking to technology to connect with employees and help employees connect with each other within Employee Groups. 
+ 
+There are various types of employee groups, all of which benefit from better connectivity:
 
-Using the Group Connect app in Microsoft Teams, employees can easily discover existing employee groups, create new ones which will help them to connect and collaborate with like-minded peers in the organization.
-The Group Connect app helps an organization build a robust inclusion culture in their organization using Teams. Users can search for and discover employee groups, learn about your organization's employee resources with a Q&A bot, build stronger bonds with other group members through weekly networking matching and receive announcements from their employee group initiative leadership.
+ -  Employee resource groups 
+ -  Business resource groups 
+ -  Affinity groups 
+ -  Social cause groups 
+ -  Common interest groups 
+ -  Local interest groups 
+ -  Professional development groups 
+
+Teams provides amazing collaboration and communication platform, which is extensible for business purposes. For employees who already are spending much of their workday communicating and collaborating in Teams, the Group Connect App can help easily connect people with other employee with similar interests, and it can also help organization leaders communicate and reiterate strategic priorities.  
+
+Group Connect App is an open-source Teams app to help employees easily connect to community groups inside their company via Microsoft Teams. Group Connect App helps employees easily discover existing groups, create new ones which will help them to connect and collaborate with like-minded peers in the organization. The app can help an organization build a robust culture in their organization. Users can search for and discover related groups, learn about your organization's resources with a Q&A bot, build stronger bonds with other group members through weekly networking matching, and receive announcements from their leadership. 
 
 ## User personas
 
 ### Employees or members
- -  Discover and join existing Employee resource groups (ERGs) and create new ones in the personal tab
- -  Navigate to a corresponding team in Microsoft Teams from the personal tab to collaborate on goals, events and initiatives  and also as a platform to capture or record ideas
- -  Get automatically paired with individuals from the same group  to increase belonging and inclusivity
- -  Ask questions to the bot and get them answered
- -  Receive Teams notifications on company news, newsletters, events , initiatives etc.
+ -  Discover and join existing employee groups and create new ones in the personal tab.
+ -  Navigate to a corresponding team in Microsoft Teams from the personal tab to collaborate on goals, events and initiatives and also as a platform to capture or record ideas. 
+ -  Get automatically paired with individuals from the same group to increase belonging. 
+ -  Ask questions to the bot and get them answered 
+ -  Receive Teams notifications on company news, newsletters, events , initiatives etc. 
 
-### Team Owners
- -  Ability to view self-created ERG group details in a Teams team
- -  Configure group level settings  like enabling member matching within the team and its notification frequency
+### Team owners
+ -  Ability to view self-created group details in a Teams team
+ -  Configure group level settings like enabling member matching within the team and its notification frequency
 
 ### Employee group leadership
- - Get a snapshot of all the ERGs created in the organization
- - Manage the ERGs and ability to override group level settings for individual ERGs
- - Broadcast information on company news, newsletters, events , initiatives to the selected audience
+ -  Get a snapshot of all the registered employee groups created in the organization. 
+ -  Broadcast information on company news, newsletters, events, initiatives to the selected audience 
+ -  Manage the groups and ability to override group level settings. Configure group level settings like enabling member matching within the team and its notification frequency 
 
 
 Here are some of the workflows in action:
