@@ -67,7 +67,7 @@
     },
     "appDisplayName": {
       "type": "string",
-      "defaultValue": "Diversity & Inclusion Connect",
+      "defaultValue": "Group Connect",
       "minLength": 1,
       "metadata": {
         "description": "The app (and bot) display name."
@@ -75,7 +75,7 @@
     },
     "appDescription": {
       "type": "string",
-      "defaultValue": "Diversity & Inclusion Connect app template is meant to help customers promote a culture of diversity and inclusion in their company, directly from Microsoft Teams",
+      "defaultValue": "Group Connect app template is meant to help customers discover and join employee groups in their organization, directly from Microsoft Teams",
       "minLength": 1,
       "metadata": {
         "description": "The app (and bot) description."
