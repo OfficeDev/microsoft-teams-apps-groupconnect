@@ -4,21 +4,21 @@ languages:
 - csharp
 products:
 - office-teams
-description: Diversity & Inclusion Connect is a custom Teams app that enables corporate teams to create and send messages intended for multiple teams or large number of employees over chat allowing organization to reach employees.
+description: Group Connect is a custom Teams app that enables corporate teams to create and send messages intended for multiple teams or large number of employees over chat allowing organization to reach employees.
 urlFragment: microsoft-teams-apps-diversityandinclusion-preview
 ---
 
-# Diversity & Inclusion (preview)
+# Group Connect
 
 | [Documentation](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Deployment-guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Solution-overview) |
 | ---- | ---- | ---- |
 
-Note: This is a preview release of Diversity and Inclusion app template. Please expect changes to the app before the final release.
+
 
 Diversity is not just about different people coming together. These differences foster varied ways of thinking, idea generation, viewpoints, etc., and when all these come together, creativity and innovation become a norm and these differences should not only be accepted but actually celebrated. Organizations are looking at diversity as an integral part of business and not as a special initiative.
 
-Using the Diversity and Inclusion app in Microsoft Teams, employees can easily discover existing Diversity and Inclusion groups, create new ones which will help them to connect and collaborate with like-minded peers in the organization.
-The Diversity and Inclusion app helps an organization build a robust diversity and inclusion culture in their organization using Teams. Users can search for and discover D&I related groups, learn about your organization's D&I resources with a Q&A bot, build stronger bonds with other group members through weekly networking matching and receive announcements from their D&I leadership.
+Using the Group Connect app in Microsoft Teams, employees can easily discover existing employee groups, create new ones which will help them to connect and collaborate with like-minded peers in the organization.
+The Group Connect app helps an organization build a robust inclusion culture in their organization using Teams. Users can search for and discover employee groups, learn about your organization's employee resources with a Q&A bot, build stronger bonds with other group members through weekly networking matching and receive announcements from their employee group initiative leadership.
 
 ## User personas
 
@@ -33,7 +33,7 @@ The Diversity and Inclusion app helps an organization build a robust diversity a
  -  Ability to view self-created ERG group details in a Teams team
  -  Configure group level settings  like enabling member matching within the team and its notification frequency
 
-### D&I leadership
+### Employee group leadership
  - Get a snapshot of all the ERGs created in the organization
  - Manage the ERGs and ability to override group level settings for individual ERGs
  - Broadcast information on company news, newsletters, events , initiatives to the selected audience
