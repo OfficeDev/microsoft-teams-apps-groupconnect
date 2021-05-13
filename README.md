@@ -5,7 +5,7 @@ languages:
 products:
 - office-teams
 description: Group Connect is a custom Teams app that enables corporate teams to create and send messages intended for multiple teams or large number of employees over chat allowing organization to reach employees.
-urlFragment: microsoft-teams-apps-diversityandinclusion-preview
+urlFragment: microsoft-teams-apps-groupconnect
 ---
 
 # Group Connect
