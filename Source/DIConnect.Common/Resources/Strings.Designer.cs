@@ -124,7 +124,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diversity and Inclusion app.
+        ///   Looks up a localized string similar to Group Connect app.
         /// </summary>
         public static string AppTitle {
             get {
@@ -484,7 +484,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your feedback will go to the Diversity and Inclusion team..
+        ///   Looks up a localized string similar to Your feedback will go to the Group Connect team..
         /// </summary>
         public static string FeedbackHeaderText {
             get {
@@ -736,7 +736,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&apos;m the Diversity and Inclusion chatbot, and I can help you meet other people in the employee groups you&apos;ve joined..
+        ///   Looks up a localized string similar to I&apos;m the Group Connect chatbot, and I can help you meet other people in the employee groups you&apos;ve joined..
         /// </summary>
         public static string MatchUpCardMatchedText {
             get {
@@ -1087,7 +1087,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, the Diversity &amp; Inclusion bot can&apos;t respond to you. Contact your IT admin to check that the bot is set up properly..
+        ///   Looks up a localized string similar to Sorry, the Group Connect bot can&apos;t respond to you. Contact your IT admin to check that the bot is set up properly..
         /// </summary>
         public static string UnSupportedBotCommand {
             get {
@@ -1114,7 +1114,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&apos;m the Diversity and Inclusion chatbot, and I&apos;m here to help you:.
+        ///   Looks up a localized string similar to I&apos;m the Group Connect chatbot, and I&apos;m here to help you:.
         /// </summary>
         public static string WelcomeHeaderText {
             get {

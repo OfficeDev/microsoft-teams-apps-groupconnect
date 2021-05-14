@@ -142,7 +142,7 @@
     <value>Select a rating</value>
   </data>
   <data name="AppTitle" xml:space="preserve">
-    <value>Diversity and Inclusion app</value>
+    <value>Group Connect app</value>
   </data>
   <data name="ColumnName_DeliveryStatus" xml:space="preserve">
     <value>Delivery Status</value>
@@ -247,7 +247,7 @@
     <value>Review this feedback</value>
   </data>
   <data name="FeedbackHeaderText" xml:space="preserve">
-    <value>Your feedback will go to the Diversity and Inclusion team.</value>
+    <value>Share your feedback to help us improve</value>
   </data>
   <data name="FeedbackSubHeaderText" xml:space="preserve">
     <value>Submitted by **{0}**</value>
@@ -328,7 +328,7 @@
     <value>If you've got the inclination, set something up. See, meeting people *is* easy!</value>
   </data>
   <data name="MatchUpCardMatchedText" xml:space="preserve">
-    <value>I'm the Diversity and Inclusion chatbot, and I can help you meet other people in the employee groups you've joined.</value>
+    <value>I'm the Group Connect chatbot, and I can help you meet other people in the employee groups you've joined.</value>
   </data>
   <data name="MatchUpCardTitleContent" xml:space="preserve">
     <value>It's time for a match!</value>
@@ -427,7 +427,7 @@
     <value>Yes</value>
   </data>
   <data name="UnSupportedBotCommand" xml:space="preserve">
-    <value>Sorry, the Diversity &amp; Inclusion bot can't respond to you. Contact your IT admin to check that the bot is set up properly.</value>
+    <value>Sorry, I’m having trouble responding. Please ask your IT admin to check that Group Connect bot is set up properly.</value>
   </data>
   <data name="UpdateCardTitle" xml:space="preserve">
     <value>All set! You can manage your settings at any time.</value>
@@ -439,7 +439,7 @@
     <value>Feedback:</value>
   </data>
   <data name="AboutGroupsBulletText" xml:space="preserve">
-    <value>Stay updated on communications around diversity and inclusion</value>
+    <value>Receive important communications about groups</value>
   </data>
   <data name="DiscoverGroupsBulletText" xml:space="preserve">
     <value>Discover employee groups in your org</value>
@@ -454,7 +454,7 @@
     <value>Meet people in the groups you join</value>
   </data>
   <data name="WelcomeHeaderText" xml:space="preserve">
-    <value>I'm the Diversity and Inclusion chatbot, and I'm here to help you:</value>
+    <value>I'm the Group Connect chatbot, and I'm here to help you:</value>
   </data>
   <data name="WelcomeTitleText" xml:space="preserve">
     <value>Hello there!</value>

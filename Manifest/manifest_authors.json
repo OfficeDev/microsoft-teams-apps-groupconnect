@@ -3,7 +3,7 @@
   "manifestVersion": "1.5",
   "version": "1.0.0",
   "id": "0c7397fc-9062-4eed-a16b-d8da7c330b8a",
-  "packageName": "com.microsoft.teams.diconnect.comms",
+  "packageName": "com.microsoft.teams.groupconnect.comms",
   "developer": {
     "name": "<<companyName>>",
     "websiteUrl": "<<websiteUrl>>",
@@ -18,12 +18,11 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "Diversity and Inclusion(Comms)",
-    "full": "Diversity and Inclusion (Comms)"
+    "short": "Group Connect (Comms)"
   },
   "description": {
-    "short": "A tool for communication and settings management for Diversity and Inclusion app",
-    "full": "Your organization's diversity and inclusion leadership team can create and send communications to multiple teams or a large number of individual employees over Teams chat. Manage settings for the Diversity and Inclusion app and oversee existing and new employee groups as needed"
+    "short": "A tool for communication and settings management for Group Connect app",
+    "full": "Your internal team responsible for managing employee groups can use this companion to the Group connect app to send communications, manage settings, and oversee existing and new employee groups or resources as needed"
   },
   "accentColor": "#737373",
   "configurableTabs": [
