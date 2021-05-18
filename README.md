@@ -54,23 +54,23 @@ Here are some of the workflows in action:
 
 1. Discover tab : Employees will be able to discover existing resource groups by using the app in the personal scope
 
-![Discover D&I groups](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/DiscoverGroups.png)
+![Discover D&I groups](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/temp_group_connect_landing.png)
 
 2. Employees will be able to join any group that they wish and able to navigate to the corresponding Teams team for collaboration
 
-![Join a group](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/JoinGroup.png)
+![Join a group](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/temp_group_connect_teamView.png)
 
 3. Employees will be able to ask a question to the bot and get it answered
 
-![Bot response on question by end-user](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/FAQ.png)
+![Bot response on question by end-user](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/temp_group_connect_matching_QnA.png)
 
 4. Get connected with team members through auto pairing notifications sent by the app
 
-![Auto pairing notifications](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/Icebreaker.png)
+![Auto pairing notifications](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/temp_group_connect_matching.png)
 
 5. The leadership team will be able to broadcast information related to new initiatives, events etc. 
 
-![Broadcast messages or information about events](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/BroadcastMessage.png)
+![Broadcast messages or information about events](https://github.com/OfficeDev/microsoft-teams-apps-diversityandinclusion/wiki/Images/temp_group_connect_broadcast.png)
 
 
 ## Legal notice
