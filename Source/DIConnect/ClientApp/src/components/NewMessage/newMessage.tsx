@@ -6,12 +6,12 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { withTranslation, WithTranslation } from "react-i18next";
-import { Input, TextArea, Radiobutton, RadiobuttonGroup } from 'msteams-ui-components-react';
+import { TextArea, Radiobutton, RadiobuttonGroup } from 'msteams-ui-components-react';
 import { initializeIcons } from 'office-ui-fabric-react';
 import * as AdaptiveCards from "adaptivecards";
-import { Button, Loader, Dropdown, Text, Flex, ChevronStartIcon } from '@fluentui/react-northstar';
+import { Input, Button, Loader, Dropdown, Text, Flex, ChevronStartIcon } from '@fluentui/react-northstar';
 import * as microsoftTeams from "@microsoft/teams-js";
-
+import Resizer from 'react-image-file-resizer';
 import './newMessage.scss';
 import './teamTheme.scss';
 import { getDraftNotification, getTeams, createDraftNotification, updateDraftNotification, searchGroups, getGroups, verifyGroupAccess } from '../../apis/messageListApi';
@@ -89,6 +89,7 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
     readonly localize: TFunction;
     private card: any;
     history: any;
+    fileInput: any;
 
     constructor(props: INewMessageProps) {
         super(props);
@@ -127,7 +128,8 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
             errorImageUrlMessage: "",
             errorButtonUrlMessage: "",
         }
-
+        this.fileInput = React.createRef();
+        this.handleImageSelection = this.handleImageSelection.bind(this);
         this.history = props.history;
     }
 
@@ -173,6 +175,46 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
             }
         });
     }
+
+    //function to handle the selection of the OS file upload box
+    private handleImageSelection() {
+        //get the first file selected
+        const file = this.fileInput.current.files[0];
+        if (file) { //if we have a file
+            //resize the image to fit in the adaptivecard
+            Resizer.imageFileResizer(file, 400, 400, 'JPEG', 80, 0,
+                uri => {
+                    if (uri.toString().length < 32768) {
+                        //everything is ok with the image, lets set it on the card and update
+                        setCardImageLink(this.card, uri.toString());
+                        this.updateCard();
+                        //lets set the state with the image value
+                        this.setState({
+                            imageLink: uri.toString()
+                        }
+                        );
+                    } else {
+                        //images bigger than 32K cannot be saved, set the error message to be presented
+                        this.setState({
+                            errorImageUrlMessage: this.localize("ErrorImageTooBig")
+                        });
+                    }
+
+                },
+                'base64'); //we need the image in base64
+        }
+    }
+
+    //Function calling a click event on a hidden file input
+    private handleUploadClick = (event: any) => {
+        //reset the error message and the image link as the upload will reset them potentially
+        this.setState({
+            errorImageUrlMessage: "",
+            imageLink: ""
+        });
+        //fire the fileinput click event and run the handleimageselection function
+        this.fileInput.current.click();
+    };
 
     private makeDropdownItems = (items: any[] | undefined) => {
         const resultedTeams: dropdownItem[] = [];
@@ -339,6 +381,7 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
                     <div className="taskModule">
                         <div className="formContainer">
                             <div className="formContentContainer" >
+                                <Flex>
                                 <Input
                                     className="inputField"
                                     value={this.state.title}
@@ -347,18 +390,35 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
                                     onChange={this.onTitleChanged}
                                     autoComplete="off"
                                     required
-                                />
-
-                                <Input
-                                    className="inputField"
-                                    value={this.state.imageLink}
-                                    label={this.localize("ImageURL")}
-                                    placeholder={this.localize("ImageURLPlaceHolder")}
-                                    onChange={this.onImageLinkChanged}
-                                    errorLabel={this.state.errorImageUrlMessage}
-                                    autoComplete="off"
-                                />
-
+                                    fluid
+                                    />
+                                </Flex>
+                                <Flex gap="gap.smaller" vAlign="end" className="inputField">
+                                    <Input
+                                        label={this.localize("ImageURL")}
+                                        placeholder={this.localize("ImageLinkPlaceholder")}
+                                        value={this.state.imageLink}
+                                        onChange={this.onImageLinkChanged}
+                                        autoComplete="off"
+                                        data-testid="image_url"
+                                        error={this.state.errorImageUrlMessage !== ""}
+                                        fluid
+                                        />
+                                    <Flex.Item push>
+                                        <Button onClick={this.handleUploadClick}
+                                            text
+                                            size="small"
+                                            content={this.localize("UploadImage")}
+                                        />
+                                    </Flex.Item>
+                                    <input type="file" accept="image/"
+                                        style={{ display: 'none' }}
+                                        onChange={this.handleImageSelection}
+                                        ref={this.fileInput} />
+                                </Flex>
+                                <Flex className="inputField">
+                                <Text className={(this.state.errorImageUrlMessage === "") ? "hide" : "show"} error size="small" content={this.state.errorImageUrlMessage} />
+                                </Flex>
                                 <TextArea
                                     className="inputField textArea"
                                     autoFocus
@@ -367,16 +427,18 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
                                     value={this.state.summary}
                                     onChange={this.onSummaryChanged}
                                 />
-
+                                <Flex>
                                 <Input
                                     className="inputField"
                                     value={this.state.author}
                                     label={this.localize("Author")}
                                     placeholder={this.localize("AuthorPlaceHolder")}
                                     onChange={this.onAuthorChanged}
-                                    autoComplete="off"
+                                        autoComplete="off"
+                                        fluid
                                 />
-
+                                </Flex>
+                                <Flex>
                                 <Input
                                     className="inputField"
                                     value={this.state.btnTitle}
@@ -384,17 +446,20 @@ class NewMessage extends React.Component<INewMessageProps, formState> {
                                     placeholder={this.localize("ButtonTitlePlaceHolder")}
                                     onChange={this.onBtnTitleChanged}
                                     autoComplete="off"
+                                    fluid
                                 />
-
+                                </Flex>
+                                <Flex>
                                 <Input
                                     className="inputField"
                                     value={this.state.btnLink}
                                     label={this.localize("ButtonURL")}
                                     placeholder={this.localize("ButtonURLPlaceHolder")}
                                     onChange={this.onBtnLinkChanged}
-                                    errorLabel={this.state.errorButtonUrlMessage}
-                                    autoComplete="off"
-                                />
+                                    error={this.state.errorButtonUrlMessage !== ""}
+                                    fluid
+                                    />
+                                </Flex>
                             </div>
                             <div className="adaptiveCardContainer">
                             </div>

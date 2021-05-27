@@ -141,6 +141,7 @@
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<LangVersion>8.0</LangVersion>
+		<UserSecretsId>8778a099-bf7f-4481-8fa7-16c2a713dda2</UserSecretsId>
 	</PropertyGroup>
 
 </Project>
