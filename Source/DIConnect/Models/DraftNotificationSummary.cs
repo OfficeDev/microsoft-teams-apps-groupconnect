@@ -5,6 +5,8 @@
 
 namespace Microsoft.Teams.Apps.DIConnect.Models
 {
+    using System;
+
     /// <summary>
     /// Draft Notification Summary model class.
     /// </summary>
@@ -19,5 +21,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Models
         /// Gets or sets Title value.
         /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets ScheduledDate value.
+        /// </summary>
+        public DateTime? ScheduledDate { get; set; }
     }
 }

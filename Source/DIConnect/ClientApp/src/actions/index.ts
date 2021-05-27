@@ -4,7 +4,7 @@
 // </copyright>
 
 import { formatDate } from '../i18n';
-import { getSentNotifications, getDraftNotifications } from '../apis/messageListApi';
+import { getSentNotifications, getDraftNotifications, getScheduledNotifications } from '../apis/messageListApi';
 
 type Notification = {
     createdDateTime: string,
@@ -18,6 +18,7 @@ type Notification = {
     throttled: number,
     title: string,
     totalMessageCount: number,
+    scheduledDate: string,
 }
 
 export const selectMessage = (message: any) => {
@@ -40,4 +41,14 @@ export const getMessagesList = () => async (dispatch: any) => {
 export const getDraftMessagesList = () => async (dispatch: any) => {
     const response = await getDraftNotifications();
     dispatch({ type: 'FETCH_DRAFTMESSAGES', payload: response.data });
+};
+
+export const getScheduledMessagesList = () => async (dispatch: any) => {
+    const response = await getScheduledNotifications();
+    const notificationList: Notification[] = response.data;
+
+    notificationList.forEach(notification => {
+        notification.scheduledDate = formatDate(notification.scheduledDate);
+    });
+    dispatch({ type: 'FETCH_SCHEDULEDMESSAGES', payload: notificationList });
 };

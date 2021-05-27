@@ -6,6 +6,7 @@
 namespace Microsoft.Teams.Apps.DIConnect
 {
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
@@ -33,6 +34,10 @@ namespace Microsoft.Teams.Apps.DIConnect
                .ConfigureWebHostDefaults(webBuilder =>
                {
                    webBuilder.UseStartup<Startup>();
+               })
+               .ConfigureServices(services =>
+               {
+                   services.AddHostedService<SendMessageScheduler>();
                });
     }
 }

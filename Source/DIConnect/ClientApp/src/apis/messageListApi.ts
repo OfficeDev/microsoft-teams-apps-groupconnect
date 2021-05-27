@@ -18,6 +18,12 @@ export const getDraftNotifications = async (): Promise<any> => {
     return await axios.get(url);
 }
 
+export const getScheduledNotifications = async (): Promise<any> => {
+    let url = baseAxiosUrl + "/draftnotifications/scheduled";
+    return await axios.get(url);
+}
+
+
 export const verifyGroupAccess = async (): Promise<any> => {
     let url = baseAxiosUrl + "/groupdata/verifyaccess";
     return await axios.get(url, false);
@@ -48,6 +54,10 @@ export const getDraftNotification = async (id: number): Promise<any> => {
     return await axios.get(url);
 }
 
+export const getScheduledNotification = async (id: number): Promise<any> => {
+    let url = baseAxiosUrl + "/draftnotifications/scheduled/" + id;
+    return await axios.get(url);
+}
 
 export const deleteDraftNotification = async (id: number): Promise<any> => {
     let url = baseAxiosUrl + "/draftnotifications/" + id;

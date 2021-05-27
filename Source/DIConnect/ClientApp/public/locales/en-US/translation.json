@@ -163,5 +163,12 @@
   "EveryMonth": "Monthly",
   "ProfileMatchingInfo": "Allow the app to match you with people to meet in this employee group.",
   "UploadImage": "Upload",
-  "ErrorImageTooBig": "The image is too big!"
+  "ErrorImageTooBig": "The image is too big!",
+  "SendNow": "Send Now",
+  "ScheduledSend": "Scheduled Send",
+  "ScheduledMessagesSectionTitle": "Scheduled messages",
+  "EmptyScheduledMessages": "You have no scheduled messages.",
+  "ScheduledDate": "Scheduled to",
+  "FutureDateError": "You need to schedule communications at least 30 minutes in the future.",
+  "ScheduledSendDescription": "Select a date and time to schedule your message. Please schedule at least 30 minutes in the future."
 }
