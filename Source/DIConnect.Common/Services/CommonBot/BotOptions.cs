@@ -34,5 +34,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot
         /// Gets or sets application manifest id.
         /// </summary>
         public string ManifestId { get; set; }
+
+        /// <summary>
+        /// Gets or sets application OnlyAdminsRegisterERG.
+        /// </summary>
+        public string OnlyAdminsRegisterERG { get; set; }
     }
 }

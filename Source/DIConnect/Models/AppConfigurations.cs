@@ -14,5 +14,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Models
         /// Gets or sets the Microsoft app ID for the bot.
         /// </summary>
         public string AppId { get; set; }
+
+        /// <summary>
+        /// Gets or sets application OnlyAdminsRegisterERG.
+        /// </summary>
+        public string OnlyAdminsRegisterERG { get; set; }
     }
 }
