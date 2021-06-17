@@ -40,14 +40,17 @@ interface IFilterBarState {
     screenWidth: number;
     isFilterEnabled: boolean;
     hideFilter: boolean;
+    loading: boolean;
 }
 
 class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
     localize: TFunction;
     botId: string;
+    onlyadmins: boolean;
     constructor(props: IFilterBarProps) {
         super(props);
         this.botId = "";
+        this.onlyadmins = false;
         initializeIcons();
         this.localize = this.props.t;
         this.state = {
@@ -59,13 +62,18 @@ class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
             }),
             screenWidth: Constants.screenWidth,
             isFilterEnabled: false,
-            hideFilter: true
+            hideFilter: true,
+            loading: true
         }
     }
 
     componentDidMount() {
+        const setState = this.setState.bind(this);
+
         window.addEventListener("resize", this.resize.bind(this));
-        this.getAppSetting();
+        this.getAppSetting().then(function () {
+            setState({ loading: false });
+        });
         this.resize();
     }
 
@@ -76,6 +84,7 @@ class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
         let response = await getAppId();
         if (response.data) {
             this.botId = response.data.appId;
+            this.onlyadmins = (response.data.onlyAdminsRegisterERG === 'true');
         }
     }
 
@@ -148,15 +157,18 @@ class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
     * Renders the component
     */
     public render(): JSX.Element {
+        //alert("this.state.loading: " + this.state.loading);
+        //alert("this.onlyadmins: " + this.onlyadmins);
         return (
             <div>
                 {this.state.screenWidth > Constants.screenWidth &&
                     <div className="filter-bar">
                         <div>
                             <Flex gap="gap.small">
-                                <div className="filter-bar-title-container">
-                                <Button icon={<AddIcon xSpacing="before" size="smaller" />}
-                                    content={this.localize("NewERGTitleText")} onClick={this.handleAddClick} text />
+                            <div className="filter-bar-title-container">
+                                {(!this.onlyadmins && !this.state.loading) &&
+                                    <Button icon={<AddIcon xSpacing="before" size="smaller" />}
+                                        content={this.localize("NewERGTitleText")} onClick={this.handleAddClick} text />}
                                 </div>
                                 <div className="filter-bar-item-container" hidden={this.state.hideFilter}>
                                     <PopupMenuWrapper title={this.localize("Location")} checkboxes={this.state.locationsList} onCheckboxStateChange={this.onLocationCheckboxStateChange} />
@@ -177,7 +189,8 @@ class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
                         <Flex column gap="gap.small" vAlign="stretch">
                             <Flex className="mobile-filterbar-title-wrapper">
                                 <div className="title-container-mobile">
-                                    <Text content={this.localize("NewERGTitleText")} weight="semibold" onClick={this.handleAddClick} />
+                                    {(!this.onlyadmins && !this.state.loading) &&
+                                        <Text content={this.localize("NewERGTitleText")} weight="semibold" onClick={this.handleAddClick} />}
                                 </div>
                                 <Button className="filter-button" content={<Text content={this.localize("Filter")} />} icon={this.state.isFilterEnabled ? <Icon iconName="FilterSolid" className="filter-icon-filled" /> : <Icon iconName="Filter" className="filter-icon" />} text onClick={this.onFilterButtonClick} />
                                 <div className="searchbar-wrapper-mobile">

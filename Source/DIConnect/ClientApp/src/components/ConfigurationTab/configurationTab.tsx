@@ -12,6 +12,7 @@ import { TFunction } from "i18next";
 import { EmployeeResourceGroupResponse, EmployeeResourceGroupUpdate } from '../../models/employeeResourceGroup';
 import { getAllEmployeeResourceGroups, updateEmployeeResourceGroup, deleteEmployeeResourceGroup } from '../../apis/employeeResourceGroupApi';
 import { getBaseUrl } from '../../configVariables';
+import { getAppId } from "../../apis/appSettingsApi";
 import './configurationTab.scss';
 import Constants from '../../constants/constants';
 
@@ -31,10 +32,12 @@ export interface ConfigurationTabProps extends RouteComponentProps, WithTranslat
 class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
     readonly localize: TFunction;
     teamsAadGroupId: string = "";
+    botId: string;
     constructor(props: ConfigurationTabProps) {
         super(props);
         this.localize = this.props.t;
         this.teamsAadGroupId = "";
+        this.botId = "";
         this.state = {
             loader: false,
             menuOpen: true,
@@ -56,7 +59,18 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
             loader: true
         })
 
+        this.getAppSetting();
         await this.getResourceGroups();
+    }
+
+    /**
+    *Get bot id from API
+    */
+    private getAppSetting = async () => {
+        let response = await getAppId();
+        if (response.data) {
+            this.botId = response.data.appId;
+        }
     }
 
     /**
@@ -226,6 +240,23 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
     submiFaqtHandler = async () => {
     };
 
+    /**
+    * Method to handle create erg submit request
+    */
+    handleAddClick = () => {
+        microsoftTeams.tasks.startTask({
+            completionBotId: this.botId,
+            title: this.localize("NewERGHeader"),
+            height: Constants.editTaskModuleHeight,
+            width: Constants.editTaskModuleWidth,
+            url: `${getBaseUrl()}/createNewGroup`,
+        }, this.submitHandler);
+    }
+
+    submitHandler = async () => {
+        await this.getResourceGroups();
+    };
+
     public render(): JSX.Element {
         let keyCount = 0;
         const processItem = (group: any) => {
@@ -250,12 +281,13 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
         else {
             return (
                 <div>
-                    <Flex className="title-container">
+                    <Flex className="title-container" gap="gap.small">
                         <Text content={this.localize("GroupSetting")} weight="semibold" />
                         <Flex.Item push>
-                            <Flex>
-                                <Button primary className="faq-setting-button" content={this.localize("FaqSettingsText")} onClick={() => this.onFaqSettingButtonClick()} />
-                            </Flex>
+                            <Button primary content={this.localize("NewERGTitleText")} onClick={() => this.handleAddClick()} />
+                        </Flex.Item>
+                        <Flex.Item>
+                            <Button className="faq-setting-button" content={this.localize("FaqSettingsText")} onClick={() => this.onFaqSettingButtonClick()} />
                         </Flex.Item>
                     </Flex>
                     <List items={allGroups} className="list" />

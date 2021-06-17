@@ -26,8 +26,16 @@ export const draftmessagesListReducer = (draftMessages = [], action: { type: str
     return draftMessages;
 };
 
+export const scheduledmessagesListReducer = (scheduledMessages = [], action: { type: string; payload: any; }) => {
+    if (action.type === 'FETCH_SCHEDULEDMESSAGES') {
+        return action.payload
+    }
+    return scheduledMessages;
+};
+
 export default combineReducers({
     messagesList: messagesListReducer,
     draftMessagesList: draftmessagesListReducer,
+    scheduledMessagesList: scheduledmessagesListReducer,
     selectedMessage: selectedMessageReducer,
 });

@@ -38,7 +38,12 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         public IActionResult GetUserAppId()
         {
             var appId = this.botOptions.MicrosoftAppId;
-            var response = new AppConfigurations() { AppId = appId };
+            var onlyAdminsRegisterERG = this.botOptions.OnlyAdminsRegisterERG;
+            var response = new AppConfigurations()
+            {
+                AppId = appId,
+                OnlyAdminsRegisterERG = onlyAdminsRegisterERG,
+            };
 
             return this.Ok(response);
         }

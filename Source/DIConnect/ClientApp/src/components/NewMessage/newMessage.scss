@@ -40,6 +40,10 @@
                 }
             }
 
+            .hide {
+                display: none;
+            }
+
             .textArea {
                 margin: 0rem 3.2rem;
 
@@ -100,7 +104,7 @@
             }
 
             .noteText {
-                margin: 1rem 0rem 1rem 2.5rem;
+                margin: 1rem 0rem 1rem 0rem;
             }
 
             .hide {
@@ -113,6 +117,23 @@
                     visibility: hidden;
                 }
             }
+        }
+
+        .ScheduleCheckbox {
+            margin: 1.5rem 3.2rem;
+            font-size: 1.2rem;
+        }
+
+        .DateTimeSelector {
+            margin: 1.5rem 3.2rem;
+        }
+
+        .ErrorMessage {
+            margin: 1.5rem 3.2rem;
+        }
+
+        .ScheduleDatehide {
+            display: none;
         }
     }
 

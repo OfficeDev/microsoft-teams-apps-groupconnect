@@ -11,9 +11,10 @@ import './tabContainer.scss';
 import * as microsoftTeams from "@microsoft/teams-js";
 import { getBaseUrl } from '../../configVariables';
 import { Accordion, Button } from '@fluentui/react-northstar';
-import { getDraftMessagesList } from '../../actions';
+import { getDraftMessagesList, getScheduledMessagesList } from '../../actions';
 import { connect } from 'react-redux';
 import { TFunction } from "i18next";
+import ScheduledMessages from '../ScheduledMessages/ScheduledMessages';
 
 interface ITaskInfo {
     title?: string;
@@ -27,6 +28,7 @@ interface ITaskInfo {
 
 export interface ITaskInfoProps extends WithTranslation {
     getDraftMessagesList?: any;
+    getScheduledMessagesList?: any;
 }
 
 export interface ITabContainerState {
@@ -74,6 +76,17 @@ class TabContainer extends React.Component<ITaskInfoProps, ITabContainerState> {
                 },
             },
             {
+                title: this.localize('ScheduledMessagesSectionTitle'),
+                content: {
+                    key: 'scheduled',
+                    content: (
+                        <div className="messages">
+                            <ScheduledMessages></ScheduledMessages>
+                        </div>
+                    ),
+                },
+            },
+            {
                 title: this.localize('SentMessagesSectionTitle'),
                 content: {
                     key: 'draft',
@@ -108,6 +121,7 @@ class TabContainer extends React.Component<ITaskInfoProps, ITabContainerState> {
 
         let submitHandler = (err: any, result: any) => {
             this.props.getDraftMessagesList();
+            this.props.getScheduledMessagesList(); //refresh the list of scheduled messages
         };
 
         microsoftTeams.tasks.startTask(taskInfo, submitHandler);
@@ -119,4 +133,4 @@ const mapStateToProps = (state: any) => {
 }
 
 const tabContainerWithTranslation = withTranslation()(TabContainer);
-export default connect(mapStateToProps, { getDraftMessagesList })(tabContainerWithTranslation);
+export default connect(mapStateToProps, { getDraftMessagesList, getScheduledMessagesList })(tabContainerWithTranslation);

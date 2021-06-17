@@ -140,6 +140,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
                 Rosters = notification.Rosters,
                 Groups = notification.Groups,
                 AllUsers = notification.AllUsers,
+                IsScheduled = notification.IsScheduled,
+                ScheduledDate = notification.ScheduledDate,
             };
 
             await this.notificationDataRepository.CreateOrUpdateAsync(notificationEntity);
@@ -193,6 +195,32 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         }
 
         /// <summary>
+        /// Get scheduled notifications. Those are draft notifications with a scheduledate
+        /// </summary>
+        /// <returns>A list of <see cref="DraftNotificationSummary"/> instances.</returns>
+        [HttpGet("scheduled")]
+        public async Task<ActionResult<IEnumerable<DraftNotificationSummary>>> GetAllScheduledNotificationsAsync()
+        {
+            var notificationEntities = await this.notificationDataRepository.GetAllScheduledNotificationsAsync();
+
+            var result = new List<DraftNotificationSummary>();
+            foreach (var notificationEntity in notificationEntities)
+            {
+                var summary = new DraftNotificationSummary
+                {
+                    Id = notificationEntity.Id,
+                    Title = notificationEntity.Title,
+                    ScheduledDate = notificationEntity.ScheduledDate,
+                };
+
+                result.Add(summary);
+            }
+
+            result.Sort((r1, r2) => r1.ScheduledDate.Value.CompareTo(r2.ScheduledDate.Value));
+            return result;
+        }
+
+        /// <summary>
         /// Get a draft notification by Id.
         /// </summary>
         /// <param name="id">Draft notification Id.</param>
@@ -224,6 +252,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
                 Rosters = notificationEntity.Rosters,
                 Groups = notificationEntity.Groups,
                 AllUsers = notificationEntity.AllUsers,
+                IsScheduled = notificationEntity.IsScheduled,
+                ScheduledDate = notificationEntity.ScheduledDate,
             };
 
             return this.Ok(result);

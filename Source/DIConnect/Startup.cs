@@ -103,6 +103,7 @@ namespace Microsoft.Teams.Apps.DIConnect
                 .Configure<IConfiguration>((botOptions, configuration) =>
                 {
                     botOptions.MicrosoftAppId = configuration.GetValue<string>("MicrosoftAppId");
+                    botOptions.OnlyAdminsRegisterERG = configuration.GetValue<string>("OnlyAdminsRegisterERG");
                     botOptions.MicrosoftAppPassword = configuration.GetValue<string>("MicrosoftAppPassword");
                     botOptions.AppBaseUri = configuration.GetValue<string>("AppBaseUri");
                     botOptions.AdminTeamId = ParseTeamIdExtension.GetTeamIdFromDeepLink(configuration.GetValue<string>("AdminTeamLink"));

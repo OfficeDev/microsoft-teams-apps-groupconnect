@@ -10,7 +10,7 @@ import TabContainer from './components/TabContainer/tabContainer';
 import NewMessage from './components/NewMessage/newMessage';
 import StatusTaskModule from './components/StatusTaskModule/statusTaskModule';
 import './App.scss';
-import { Provider, themes } from '@fluentui/react-northstar';
+import { Provider, teamsTheme, teamsDarkTheme, teamsHighContrastTheme } from '@fluentui/react-northstar';
 import SendConfirmationTaskModule from './components/SendConfirmationTaskModule/sendConfirmationTaskModule';
 import * as microsoftTeams from "@microsoft/teams-js";
 import { TeamsThemeContext, getContext, ThemeStyle } from 'msteams-ui-components-react';
@@ -67,7 +67,7 @@ class App extends React.Component<{}, IAppState> {
     public setThemeComponent = () => {
         if (this.state.theme === "dark") {
             return (
-                <Provider theme={themes.teamsDark}>
+                <Provider theme={teamsDarkTheme}>
                     <div className="darkContainer">
                         {this.getAppDom()}
                     </div>
@@ -76,7 +76,7 @@ class App extends React.Component<{}, IAppState> {
         }
         else if (this.state.theme === "contrast") {
             return (
-                <Provider theme={themes.teamsHighContrast}>
+                <Provider theme={teamsHighContrastTheme}>
                     <div className="highContrastContainer">
                         {this.getAppDom()}
                     </div>
@@ -84,7 +84,7 @@ class App extends React.Component<{}, IAppState> {
             );
         } else {
             return (
-                <Provider theme={themes.teams}>
+                <Provider theme={teamsTheme}>
                     <div className="defaultContainer">
                         {this.getAppDom()}
                     </div>

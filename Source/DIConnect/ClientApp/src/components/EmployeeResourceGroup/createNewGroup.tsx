@@ -15,6 +15,7 @@ import { getBaseUrl } from "../../configVariables";
 import Constants from "../../constants/constants";
 import { GroupType } from "../../constants/groupType";
 import './group.scss';
+import Resizer from 'react-image-file-resizer';
 
 interface IState {
     loading: boolean,
@@ -47,6 +48,7 @@ interface IState {
     isExternalSelected: boolean;
     isTeamsSelected: boolean;
     errorMessage: string;
+    errorImageUrlMessage: string;
     submitLoading: boolean;
     selectedGroupType: number;
     isGroupSubmittedSuccessfully: boolean;
@@ -63,6 +65,7 @@ export interface ITagValidationParameters {
 class CreateNewGroup extends React.Component<WithTranslation, IState> {
     localize: TFunction;
     userObjectId: string = "";
+    fileInput: any;
     
     constructor(props: Readonly<WithTranslation>) {
         super(props);
@@ -99,9 +102,12 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
             isExternalSelected: false,
             isTeamsSelected: false,
             errorMessage: "",
+            errorImageUrlMessage: "",
             submitLoading: false,
             isGroupSubmittedSuccessfully: false,
         }
+        this.fileInput = React.createRef();
+        this.handleImageSelection = this.handleImageSelection.bind(this);
     }
 
     public componentDidMount() {
@@ -114,6 +120,51 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
             });
         });
     }
+
+    private _handleReaderLoaded = (readerEvt: any) => {
+        const binaryString = readerEvt.target.result;
+    }
+
+    //function to handle the selection of the OS file upload box
+    private handleImageSelection() {
+        //get the first file selected
+        const file = this.fileInput.current.files[0];
+        if (file) { //if we have a file
+            //resize the image to fit in the adaptivecard
+            Resizer.imageFileResizer(file, 400, 400, 'JPEG', 80, 0,
+                uri => {
+                    if (uri.toString().length < 32768) {
+                        //everything is ok with the image, lets set it on the card and update
+                        //lets set the state with the image value
+                        this.setState({
+                            imageLink: uri.toString()
+                        }, () => {
+                            this._handleReaderLoaded.bind(this);
+                        }
+                        );
+                    } else {
+                        //images bigger than 32K cannot be saved, set the error message to be presented
+                        this.setState({
+                            errorImageUrlMessage: this.localize("ErrorImageTooBig")
+                        });
+                    }
+
+                },
+                'base64'); //we need the image in base64
+        }
+    }
+
+    //Function calling a click event on a hidden file input
+    private handleUploadClick = (event: any) => {
+        //reset the error message and the image link as the upload will reset them potentially
+        this.setState({
+            errorImageUrlMessage: "",
+            imageLink: ""
+        });
+        //fire the fileinput click event and run the handleimageselection function
+        this.fileInput.current.click();
+    };
+
 
     /**
     *Submit new employee resource details
@@ -610,14 +661,28 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
                                 {this.getInvalidUrlError(this.state.isImageLinkValid)}
                             </Flex.Item>
                         </Flex>
-                        <Input
-                            className="between-space"
-                            fluid
-                            placeholder={this.localize("ImageLinkPlaceholder")}
-                            value={this.state.imageLink}
-                            onChange={this.onImageLinkChange}
-                            data-testid="image_url"
-                        />
+                        <Flex gap="gap.smaller" vAlign="end" >
+                            <Input
+                                className="between-space"
+                                fluid
+                                placeholder={this.localize("ImageLinkPlaceholder")}
+                                value={this.state.imageLink}
+                                onChange={this.onImageLinkChange}
+                                data-testid="image_url"
+                            />
+                            <input type="file" accept="image/"
+                                style={{ display: 'none' }}
+                                onChange={this.handleImageSelection}
+                                ref={this.fileInput} />
+                            <Flex.Item push>
+                                <Button onClick={this.handleUploadClick}
+                                    text
+                                    size="small"
+                                    content={this.localize("UploadImage")}
+                                />
+                            </Flex.Item>
+                        </Flex>
+                        <Text className={(this.state.errorImageUrlMessage === "") ? "hide" : "show"} error size="small" content={this.state.errorImageUrlMessage} />
                         <div>
                             <Flex className="top-padding">
                                 <Text data-testid="tags_field" size="small" content={this.localize("Tags")} />

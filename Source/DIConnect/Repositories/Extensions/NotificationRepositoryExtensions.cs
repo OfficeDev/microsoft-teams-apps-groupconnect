@@ -47,6 +47,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Repositories.Extensions
                 Rosters = notification.Rosters,
                 Groups = notification.Groups,
                 AllUsers = notification.AllUsers,
+                IsScheduled = notification.IsScheduled,
+                ScheduledDate = notification.ScheduledDate,
             };
 
             await notificationRepository.CreateOrUpdateAsync(notificationEntity);
