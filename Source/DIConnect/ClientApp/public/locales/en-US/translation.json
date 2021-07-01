@@ -185,7 +185,7 @@
   "ERGDiplayButtonPlaceholderText": "Enter text to display",
   "FaqSettingsText": "Configure",
   "RegisterNewERGDefaultButtonText": "Add group",
-  "TagNotAddedError": "Please press 'Enter' to save any unsaved tags from the Tags field",
+  "TagNotAddedError": "Tags field contains an unsaved tag, please press 'Enter' after entering a tag to save it.",
   "ResourceSearchPlaceholder": "Find resources",
   "ResourceTitle": "Resource name"
 }
