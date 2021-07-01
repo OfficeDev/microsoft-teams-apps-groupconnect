@@ -27,7 +27,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         /// <summary>
         /// Repository for app config data activity.
         /// </summary>
-        private readonly AppConfigRepository appConfigRepository;
+        private readonly IAppConfigRepository appConfigRepository;
 
         /// <summary>
         /// Represents question and answer maker service provider.
@@ -64,7 +64,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         /// <param name="localizer">Localization service.</param>
         /// <param name="logger">Logger implementation to send logs to the logger service.</param>
         public KnowledgeBaseResponse(
-            AppConfigRepository appConfigRepository,
+            IAppConfigRepository appConfigRepository,
             IQnAService qnaService,
             IOptions<BotOptions> botOptions,
             CardHelper cardHelper,
@@ -91,11 +91,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         {
             try
             {
-                var knowledgeBaseEntity = await this.appConfigRepository.GetAsync(AppConfigTableName.SettingsPartition, AppConfigTableName.KnowledgeBaseIdRowKey);
+                var knowledgeBaseEntity = await this.appConfigRepository.GetAsync(AppConfigTableName.SettingsPartition, AppConfigTableName.FAQConfigurationRowKey);
 
-                if (knowledgeBaseEntity == null || string.IsNullOrEmpty(knowledgeBaseEntity.Value))
+                if (knowledgeBaseEntity == null || string.IsNullOrEmpty(knowledgeBaseEntity.Value) || !knowledgeBaseEntity.IsEnabled)
                 {
-                    this.logger.LogInformation($"Unable to get the knowledge base ID from storage.");
+                    this.logger.LogInformation("Unable to get the knowledge base ID from storage.");
                     await turnContext.SendActivityAsync(this.localizer.GetString("KnowledgeBaseNotConfiguredText"));
 
                     return;

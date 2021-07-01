@@ -96,7 +96,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
             var conversationReference = new ConversationReference()
             {
                 ChannelId = TeamsBotFrameworkChannelId,
-                Bot = new ChannelAccount() { Id = $"28:{this.botOptions.Value.MicrosoftAppId}" },
+                Bot = new ChannelAccount() { Id = $"28:{this.botOptions.Value.AuthorAppId}" },
                 ServiceUrl = serviceUrl,
                 Conversation = new ConversationAccount() { Id = conversationId },
             };
@@ -109,7 +109,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
                 try
                 {
                     await ((BotFrameworkAdapter)this.adapter).ContinueConversationAsync(
-                            this.botOptions.Value.MicrosoftAppId,
+                            this.botOptions.Value.AuthorAppId,
                             conversationReference,
                             async (conversationTurnContext, conversationCancellationToken) =>
                             {

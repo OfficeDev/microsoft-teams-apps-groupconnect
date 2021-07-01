@@ -23,10 +23,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend
     /// </summary>
     public class SyncTeamsActivity
     {
-        private readonly TeamDataRepository teamDataRepository;
-        private readonly SentNotificationDataRepository sentNotificationDataRepository;
+        private readonly ITeamDataRepository teamDataRepository;
+        private readonly ISentNotificationDataRepository sentNotificationDataRepository;
         private readonly IStringLocalizer<Strings> localizer;
-        private readonly NotificationDataRepository notificationDataRepository;
+        private readonly INotificationDataRepository notificationDataRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SyncTeamsActivity"/> class.
@@ -36,10 +36,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend
         /// <param name="localizer">Localization service.</param>
         /// <param name="notificationDataRepository">Notification data entity repository.</param>
         public SyncTeamsActivity(
-            TeamDataRepository teamDataRepository,
-            SentNotificationDataRepository sentNotificationDataRepository,
+            ITeamDataRepository teamDataRepository,
+            ISentNotificationDataRepository sentNotificationDataRepository,
             IStringLocalizer<Strings> localizer,
-            NotificationDataRepository notificationDataRepository)
+            INotificationDataRepository notificationDataRepository)
         {
             this.teamDataRepository = teamDataRepository ?? throw new ArgumentNullException(nameof(teamDataRepository));
             this.sentNotificationDataRepository = sentNotificationDataRepository ?? throw new ArgumentNullException(nameof(sentNotificationDataRepository));
@@ -56,6 +56,16 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend
         [FunctionName(FunctionNames.SyncTeamsActivity)]
         public async Task RunAsync([ActivityTrigger] NotificationDataEntity notification, ILogger log)
         {
+            if (notification == null)
+            {
+                throw new ArgumentNullException(nameof(notification));
+            }
+
+            if (log == null)
+            {
+                throw new ArgumentNullException(nameof(log));
+            }
+
             // Get teams data.
             var teamsData = await this.GetTeamDataEntities(notification.Id, notification.Teams, log);
 

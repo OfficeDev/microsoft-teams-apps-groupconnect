@@ -23,7 +23,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Data.Func
     public class DIConnectCleanUpFunction
     {
         private readonly int cleanUpFileOlderThanDays;
-        private readonly ExportDataRepository exportDataRepository;
+        private readonly IExportDataRepository exportDataRepository;
         private readonly IFileCardService fileCardService;
         private readonly BlobContainerClient blobContainerClient;
 
@@ -35,7 +35,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Data.Func
         /// <param name="fileCardService">The service to manage the file card.</param>
         /// <param name="cleanUpFileOptions">The options to clean up file.</param>
         public DIConnectCleanUpFunction(
-            ExportDataRepository exportDataRepository,
+            IExportDataRepository exportDataRepository,
             BlobContainerClient blobContainerClient,
             IFileCardService fileCardService,
             IOptions<CleanUpFileOptions> cleanUpFileOptions)

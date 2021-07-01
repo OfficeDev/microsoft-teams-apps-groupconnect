@@ -1,4 +1,4 @@
-﻿// <copyright file="MetaDataMap.cs" company="Microsoft Corporation">
+﻿// <copyright file="MetadataMap.cs" company="Microsoft Corporation">
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 // </copyright>
@@ -12,7 +12,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Mappers
     using Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Model;
 
     /// <summary>
-    /// Mapper class for MetaData.
+    /// Mapper class for Metadata.
     /// </summary>
     public sealed class MetadataMap : ClassMap<Metadata>
     {

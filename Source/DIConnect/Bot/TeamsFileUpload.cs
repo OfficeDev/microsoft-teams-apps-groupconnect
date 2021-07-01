@@ -28,7 +28,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
     {
         private readonly BlobContainerClient blobContainerClient;
         private readonly IHttpClientFactory clientFactory;
-        private readonly ExportDataRepository exportDataRepository;
+        private readonly IExportDataRepository exportDataRepository;
         private readonly IStringLocalizer<Strings> localizer;
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         /// <param name="localizer">Localization service.</param>
         public TeamsFileUpload(
             IHttpClientFactory clientFactory,
-            ExportDataRepository exportDataRepository,
+            IExportDataRepository exportDataRepository,
             BlobContainerClient blobContainerClient,
             IStringLocalizer<Strings> localizer)
         {

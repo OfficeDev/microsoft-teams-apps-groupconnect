@@ -10,7 +10,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.UserPairu
     /// <summary>
     /// The message queue service connected to the "user-pairup-data" queue in Azure service bus.
     /// </summary>
-    public class UserPairUpQueue : BaseQueue<UserPairUpQueueMessageContent>
+    public class UserPairUpQueue : BaseQueue<UserPairUpQueueMessageContent>, IUserPairUpQueue
     {
         /// <summary>
         /// Queue name of the data queue.

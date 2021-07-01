@@ -37,5 +37,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services
         /// <param name="serviceUrl">Service url.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task SetServiceUrlAsync(string serviceUrl);
+
+        /// <summary>
+        /// Deletes the user app id from database if it exists, no-op otherwise.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task DeleteUserAppIdAsync();
     }
 }

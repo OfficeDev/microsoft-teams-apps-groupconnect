@@ -31,8 +31,13 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories
         public static readonly string UserAppIdRowKey = "UserAppId";
 
         /// <summary>
-        /// Knowledge base id row key.
+        /// FAQ configuration row key.
         /// </summary>
-        public static readonly string KnowledgeBaseIdRowKey = "KnowledgeBaseId";
+        public static readonly string FAQConfigurationRowKey = "FAQConfigurationData";
+
+        /// <summary>
+        /// ERG configuration row key.
+        /// </summary>
+        public static readonly string ERGConfigurationRowKey = "ERGConfigurationData";
     }
 }

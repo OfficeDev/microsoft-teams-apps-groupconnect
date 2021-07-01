@@ -15,7 +15,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserPairupMapping
     /// <summary>
     /// Repository of the user pair up data stored in the table storage.
     /// </summary>
-    public class TeamUserPairUpMappingRepository : BaseRepository<TeamUserPairUpMappingEntity>
+    public class TeamUserPairUpMappingRepository : BaseRepository<TeamUserPairUpMappingEntity>, ITeamUserPairUpMappingRepository
     {
         /// <summary>
         /// Table name for Team user pair up repository.

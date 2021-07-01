@@ -32,7 +32,7 @@ steps:
   displayName: npm install
   inputs:
     command: 'install'
-    workingDir: 'Source/Microsoft.Teams.Apps.DIConnect/ClientApp'
+    workingDir: 'Source/DIConnect/ClientApp'
     
 - task: RoslynAnalyzers@2
   displayName: 'Run Roslyn code analyzers'
@@ -49,14 +49,14 @@ steps:
     RuleLibrary: 'microsoft'
     RulesetMicrosoft: 'skypesdlrequired'
     FileSelectionType: 'projectFile'
-    Project: 'Source/Microsoft.Teams.Apps.DIConnect/ClientApp/tsconfig.json'
+    Project: 'Source/DIConnect/ClientApp/tsconfig.json'
     OutputFormat: 'json'
     TypeScriptVersion: 'latest'
 
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: 'Source/Microsoft.Teams.Apps.DIConnect/ClientApp/coverage/cobertura-coverage.xml'
+    summaryFileLocation: 'Source/DIConnect/ClientApp/coverage/cobertura-coverage.xml'
     displayName: 'Publish Code Coverage'
 
 - task: PoliCheck@1
@@ -66,6 +66,13 @@ steps:
     targetType: 'F'
     targetArgument: '$(Build.SourcesDirectory)'
     result: 'PoliCheck.xml'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run unit tests'
+  inputs:
+    command: test
+    projects: '$(solution)'
+    arguments: '--collect "Code coverage"'
 
 - task: SdtReport@1
   displayName: 'Generate tool reports'

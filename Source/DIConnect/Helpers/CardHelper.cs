@@ -129,11 +129,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Helpers
             IStringLocalizer<Strings> localizer,
             IOptions<BotOptions> botOptions)
         {
-            this.logger = logger;
-            this.memoryCache = memoryCache;
-            this.hostingEnvironment = hostingEnvironment;
-            this.localizer = localizer;
-            this.botOptions = botOptions;
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+            this.hostingEnvironment = hostingEnvironment ?? throw new ArgumentNullException(nameof(hostingEnvironment));
+            this.localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
+            this.botOptions = botOptions ?? throw new ArgumentNullException(nameof(botOptions));
         }
 
         /// <summary>

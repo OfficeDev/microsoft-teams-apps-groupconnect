@@ -10,9 +10,9 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData
     using Microsoft.Extensions.Options;
 
     /// <summary>
-    /// Repository for the entity that holds meta-data for all sending operations in the table storage.
+    /// Repository for the entity that holds metadata for all sending operations in the table storage.
     /// </summary>
-    public class GlobalSendingNotificationDataRepository : BaseRepository<GlobalSendingNotificationDataEntity>
+    public class GlobalSendingNotificationDataRepository : BaseRepository<GlobalSendingNotificationDataEntity>, IGlobalSendingNotificationDataRepository
     {
         private static readonly string GlobalSendingNotificationDataRowKey = "GlobalSendingNotificationData";
 
@@ -34,7 +34,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData
         }
 
         /// <summary>
-        /// Gets the entity that holds meta-data for all sending operations.
+        /// Gets the entity that holds metadata for all sending operations.
         /// </summary>
         /// <returns>The Global Sending Notification Data Entity.</returns>
         public async Task<GlobalSendingNotificationDataEntity> GetGlobalSendingNotificationDataEntityAsync()
@@ -45,10 +45,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData
         }
 
         /// <summary>
-        /// Insert or merges the entity that holds meta-data for all sending operations. Partition Key and Row Key do not need to be
+        /// Insert or merges the entity that holds metadata for all sending operations. Partition Key and Row Key do not need to be
         /// set on the incoming entity.
         /// </summary>
-        /// <param name="globalSendingNotificationDataEntity">Entity that holds meta-data for all sending operations. Partition Key and
+        /// <param name="globalSendingNotificationDataEntity">Entity that holds metadata for all sending operations. Partition Key and
         /// Row Key do not need to be set.</param>
         /// <returns>The Task.</returns>
         public async Task SetGlobalSendingNotificationDataEntityAsync(GlobalSendingNotificationDataEntity globalSendingNotificationDataEntity)

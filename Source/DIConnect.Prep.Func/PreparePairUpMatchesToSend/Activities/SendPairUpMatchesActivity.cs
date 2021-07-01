@@ -23,7 +23,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
         /// <summary>
         /// User pair-up queue service.
         /// </summary>
-        private readonly UserPairUpQueue userPairUpQueue;
+        private readonly IUserPairUpQueue userPairUpQueue;
 
         /// <summary>
         /// The maximum number of messages that can be in one batch request to the service bus queue.
@@ -35,7 +35,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
         /// </summary>
         /// <param name="userPairUpQueue">User pair up queue service.</param>
         public SendPairUpMatchesActivity(
-            UserPairUpQueue userPairUpQueue)
+            IUserPairUpQueue userPairUpQueue)
         {
             this.userPairUpQueue = userPairUpQueue ?? throw new ArgumentNullException(nameof(userPairUpQueue));
         }

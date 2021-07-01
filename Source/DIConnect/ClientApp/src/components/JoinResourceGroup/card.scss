@@ -62,6 +62,12 @@
     -webkit-box-orient: vertical;
 }
 
+.tags-label-wrapper .ui-box {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .tags-flex {
     height: 3rem;
     position: relative;
@@ -78,7 +84,6 @@
 .footer-flex {
     width: 100%;
     bottom: 0.9rem;
-    height: 7.5rem;
     position: relative;
     display: block;
 }
@@ -89,17 +94,18 @@
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     margin-top: 0.2rem !important;
-    height: 2.67rem !important;
     margin-right: 0.33rem !important;
+    display: flex;
 }
 
 .card-content-text {
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word !important;
-    word-break: break-word!important;
+    word-break: break-word !important;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5 !important;
 }
 
 .card-img {

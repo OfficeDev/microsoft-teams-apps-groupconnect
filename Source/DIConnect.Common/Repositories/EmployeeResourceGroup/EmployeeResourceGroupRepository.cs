@@ -15,7 +15,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGro
     /// <summary>
     /// Repository of the employee resource group data stored in the table storage.
     /// </summary>
-    public class EmployeeResourceGroupRepository : BaseRepository<EmployeeResourceGroupEntity>
+    public class EmployeeResourceGroupRepository : BaseRepository<EmployeeResourceGroupEntity>, IEmployeeResourceGroupRepository
     {
         /// <summary>
         /// Table name for employee resource group.

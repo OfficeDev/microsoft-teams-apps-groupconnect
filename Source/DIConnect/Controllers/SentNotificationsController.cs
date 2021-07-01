@@ -34,14 +34,14 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
     [Authorize(PolicyNames.MustBeAdminTeamMemberPolicy)]
     public class SentNotificationsController : ControllerBase
     {
-        private readonly NotificationDataRepository notificationDataRepository;
-        private readonly SentNotificationDataRepository sentNotificationDataRepository;
-        private readonly TeamDataRepository teamDataRepository;
-        private readonly PrepareToSendQueue prepareToSendQueue;
-        private readonly DataQueue dataQueue;
+        private readonly INotificationDataRepository notificationDataRepository;
+        private readonly ISentNotificationDataRepository sentNotificationDataRepository;
+        private readonly ITeamDataRepository teamDataRepository;
+        private readonly IPrepareToSendQueue prepareToSendQueue;
+        private readonly IDataQueue dataQueue;
         private readonly double forceCompleteMessageDelayInSeconds;
         private readonly IGroupsService groupsService;
-        private readonly ExportDataRepository exportDataRepository;
+        private readonly IExportDataRepository exportDataRepository;
         private readonly IAppCatalogService appCatalogService;
         private readonly IAppSettingsService appSettingsService;
         private readonly UserAppOptions userAppOptions;
@@ -63,14 +63,14 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <param name="userAppOptions">User app options.</param>
         /// <param name="loggerFactory">The logger factory.</param>
         public SentNotificationsController(
-            NotificationDataRepository notificationDataRepository,
-            SentNotificationDataRepository sentNotificationDataRepository,
-            TeamDataRepository teamDataRepository,
-            PrepareToSendQueue prepareToSendQueue,
-            DataQueue dataQueue,
+            INotificationDataRepository notificationDataRepository,
+            ISentNotificationDataRepository sentNotificationDataRepository,
+            ITeamDataRepository teamDataRepository,
+            IPrepareToSendQueue prepareToSendQueue,
+            IDataQueue dataQueue,
             IOptions<DataQueueMessageOptions> dataQueueMessageOptions,
             IGroupsService groupsService,
-            ExportDataRepository exportDataRepository,
+            IExportDataRepository exportDataRepository,
             IAppCatalogService appCatalogService,
             IAppSettingsService appSettingsService,
             IOptions<UserAppOptions> userAppOptions,
@@ -104,6 +104,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         public async Task<IActionResult> CreateSentNotificationAsync(
             [FromBody] DraftNotification draftNotification)
         {
+            if (draftNotification == null)
+            {
+                throw new ArgumentNullException(nameof(draftNotification));
+            }
+
             var draftNotificationDataEntity = await this.notificationDataRepository.GetAsync(
                 NotificationDataTableNames.DraftNotificationsPartition,
                 draftNotification.Id);
@@ -181,6 +186,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSentNotificationByIdAsync(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             var notificationEntity = await this.notificationDataRepository.GetAsync(
                 NotificationDataTableNames.SentNotificationsPartition,
                 id);

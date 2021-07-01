@@ -30,12 +30,12 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
         /// <summary>
         /// Repository for employee resource group.
         /// </summary>
-        private readonly EmployeeResourceGroupRepository employeeResourceGroupRepository;
+        private readonly IEmployeeResourceGroupRepository employeeResourceGroupRepository;
 
         /// <summary>
         /// Repository for team user pair-up mapping.
         /// </summary>
-        private readonly TeamUserPairUpMappingRepository teamUserPairUpMappingRepository;
+        private readonly ITeamUserPairUpMappingRepository teamUserPairUpMappingRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetActivePairUpUsersActivity"/> class.
@@ -45,8 +45,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
         /// <param name="employeeResourceGroupRepository">The employee resource group repository.</param>
         public GetActivePairUpUsersActivity(
             IUsersService usersService,
-            TeamUserPairUpMappingRepository teamUserPairUpMappingRepository,
-            EmployeeResourceGroupRepository employeeResourceGroupRepository)
+            ITeamUserPairUpMappingRepository teamUserPairUpMappingRepository,
+            IEmployeeResourceGroupRepository employeeResourceGroupRepository)
         {
             this.usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
             this.teamUserPairUpMappingRepository = teamUserPairUpMappingRepository ?? throw new ArgumentNullException(nameof(teamUserPairUpMappingRepository));

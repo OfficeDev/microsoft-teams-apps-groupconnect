@@ -61,7 +61,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stay updated on communications around diversity and inclusion.
+        ///   Looks up a localized string similar to Receive important communications about groups.
         /// </summary>
         public static string AboutGroupsBulletText {
             get {
@@ -396,9 +396,9 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Failed to create conversation. Request throttled. Error message: {0}&quot;.
         /// </summary>
-        public static string FailedToCreateConversationThrottledFormt {
+        public static string FailedToCreateConversationThrottledFormat {
             get {
-                return ResourceManager.GetString("FailedToCreateConversationThrottledFormt", resourceCulture);
+                return ResourceManager.GetString("FailedToCreateConversationThrottledFormat", resourceCulture);
             }
         }
         
@@ -408,6 +408,15 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         public static string FailedToFindTeamInDbFormat {
             get {
                 return ResourceManager.GetString("FailedToFindTeamInDbFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to find the User application: {0} in the organization&apos;s app catalog..
+        /// </summary>
+        public static string FailedToFindUserAppInAppCatalog {
+            get {
+                return ResourceManager.GetString("FailedToFindUserAppInAppCatalog", resourceCulture);
             }
         }
         
@@ -484,7 +493,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your feedback will go to the Group Connect team..
+        ///   Looks up a localized string similar to Share your feedback to help us improve..
         /// </summary>
         public static string FeedbackHeaderText {
             get {
@@ -970,6 +979,15 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to save because a resource with the same name or URL already exists..
+        /// </summary>
+        public static string ResourceAlreadyExistsErrorMessage {
+            get {
+                return ResourceManager.GetString("ResourceAlreadyExistsErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Looks like someone deleted this group. For that reason, you won&apos;t be able to update the details..
         /// </summary>
         public static string ResourceGroupNotExistsErrorMessage {
@@ -984,6 +1002,24 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         public static string ResourceGroupNullOrEmptyErrorMessage {
             get {
                 return ResourceManager.GetString("ResourceGroupNullOrEmptyErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Looks like someone deleted this resource. For that reason, you won&apos;t be able to update the details..
+        /// </summary>
+        public static string ResourceNotExistsErrorMessage {
+            get {
+                return ResourceManager.GetString("ResourceNotExistsErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Looks like a space was entered for the title. Please type the name you want..
+        /// </summary>
+        public static string ResourceNullOrEmptyErrorMessage {
+            get {
+                return ResourceManager.GetString("ResourceNullOrEmptyErrorMessage", resourceCulture);
             }
         }
         
@@ -1087,7 +1123,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, the Group Connect bot can&apos;t respond to you. Contact your IT admin to check that the bot is set up properly..
+        ///   Looks up a localized string similar to Sorry, I’m having trouble responding. Please ask your IT admin to check that Group Connect bot is set up properly..
         /// </summary>
         public static string UnSupportedBotCommand {
             get {
@@ -1110,6 +1146,15 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Resources {
         public static string UpdateMatchesCommand {
             get {
                 return ResourceManager.GetString("UpdateMatchesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User application not found. Make sure the User app is uploaded to your organization&apos;s app catalog..
+        /// </summary>
+        public static string UserAppNotFound {
+            get {
+                return ResourceManager.GetString("UserAppNotFound", resourceCulture);
             }
         }
         

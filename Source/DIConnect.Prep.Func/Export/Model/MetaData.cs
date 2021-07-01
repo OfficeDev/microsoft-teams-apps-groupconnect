@@ -1,4 +1,4 @@
-﻿// <copyright file="MetaData.cs" company="Microsoft Corporation">
+﻿// <copyright file="Metadata.cs" company="Microsoft Corporation">
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 // </copyright>
@@ -8,7 +8,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Model
     using System;
 
     /// <summary>
-    /// MetaData model class.
+    /// Metadata model class.
     /// </summary>
     public class Metadata
     {

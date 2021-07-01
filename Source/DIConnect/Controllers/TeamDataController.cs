@@ -27,7 +27,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <summary>
         /// Instance of team data repository.
         /// </summary>
-        private readonly TeamDataRepository teamDataRepository;
+        private readonly ITeamDataRepository teamDataRepository;
 
         /// <summary>
         /// Instance of Group data service.
@@ -46,7 +46,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <param name="loggerFactory">The logger factory.</param>
         /// <param name="groupDataService">Group data service instance.</param>
         public TeamDataController(
-            TeamDataRepository teamDataRepository,
+            ITeamDataRepository teamDataRepository,
             ILoggerFactory loggerFactory,
             IGroupsService groupDataService)
         {

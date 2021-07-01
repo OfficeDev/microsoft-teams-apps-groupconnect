@@ -86,6 +86,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend
         public const string GetRecipientsActivity = nameof(GetRecipientsActivity);
 
         /// <summary>
+        /// Get recipients acitvity by token function.
+        /// </summary>
+        public const string GetRecipientsByTokenActivity = nameof(GetRecipientsByTokenActivity);
+
+        /// <summary>
         /// Get resource group entities activity function.
         /// </summary>
         public const string GetResourceGroupEntitiesActivity = nameof(GetResourceGroupEntitiesActivity);
@@ -129,5 +134,35 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend
         /// Handle failure activity function.
         /// </summary>
         public const string HandleFailureActivity = nameof(HandleFailureActivity);
+
+        /// <summary>
+        /// Upload activity function.
+        /// </summary>
+        public const string UploadActivity = nameof(UploadActivity);
+
+        /// <summary>
+        /// Send file card activity function.
+        /// </summary>
+        public const string SendFileCardActivity = nameof(SendFileCardActivity);
+
+        /// <summary>
+        /// Get metadata activity function.
+        /// </summary>
+        public const string GetMetadataActivity = nameof(GetMetadataActivity);
+
+        /// <summary>
+        /// Update export data activity function.
+        /// </summary>
+        public const string UpdateExportDataActivity = nameof(UpdateExportDataActivity);
+
+        /// <summary>
+        /// Handle export failure activity function.
+        /// </summary>
+        public const string HandleExportFailureActivity = nameof(HandleExportFailureActivity);
+
+        /// <summary>
+        /// Export orechestration function.
+        /// </summary>
+        public const string ExportOrchestration = nameof(ExportOrchestration);
     }
 }

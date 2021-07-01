@@ -14,6 +14,10 @@
     max-width: 20rem;
 }
 
+.max-width-type {
+    width: 4rem;
+}
+
 .faq-setting-button {
     margin-right: 1px;
 }
@@ -23,12 +27,21 @@
     margin-right: 3.2rem;
 }
 
+.configuration-seperation {
+    margin-top: 1.5rem;
+}
+
+.checkbox {
+    margin-right: -2.25rem;
+    top: -0.4rem;
+}
+
 .knowledge-base-footer {
     position: fixed;
     bottom: 0;
     right: 0;
     width: 100vw;
-    padding-bottom: 1rem !important;
+    padding-bottom: 2.5rem !important;
     padding-left: 0.5rem;
     padding-right: 2.5rem;
 }
@@ -41,14 +54,23 @@
     .max-width-title {
         max-width: 18rem;
     }
+
+    .max-width-type {
+        width: 12rem;
+    }
 }
 
 @media only screen and (min-width : 851px) and (max-width : 1000px) {
     .max-width-description {
         max-width: 50rem;
     }
+
     .max-width-title {
         max-width: 15rem;
+    }
+
+    .max-width-type {
+        width: 8rem;
     }
 }
 
@@ -58,7 +80,11 @@
     }
 
     .max-width-title {
-        max-width: 20rem;
+        max-width: 10rem;
+    }
+
+    .max-width-type {
+        width: 1rem;
     }
 }
 
@@ -70,6 +96,10 @@
     .max-width-title {
         max-width: 15rem;
     }
+
+    .max-width-type {
+        width: 8rem;
+    }
 }
 
 @media screen and (min-width : 0px) and (max-width: 450px) {
@@ -79,5 +109,9 @@
 
     .max-width-title {
         max-width: 5rem;
+    }
+
+    .max-width-type {
+        width: 2rem;
     }
 }

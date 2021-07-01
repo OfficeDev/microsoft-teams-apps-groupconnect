@@ -8,6 +8,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData;
     using Microsoft.Teams.Apps.DIConnect.Common.Resources;
+    using Microsoft.Teams.Apps.DIConnect.Common.Services;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph;
     using Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview;
     using Microsoft.Teams.Apps.DIConnect.Models;
@@ -28,10 +30,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
     [Authorize(PolicyNames.MustBeAdminTeamMemberPolicy)]
     public class DraftNotificationsController : ControllerBase
     {
-        private readonly NotificationDataRepository notificationDataRepository;
-        private readonly TeamDataRepository teamDataRepository;
-        private readonly DraftNotificationPreviewService draftNotificationPreviewService;
+        private readonly INotificationDataRepository notificationDataRepository;
+        private readonly ITeamDataRepository teamDataRepository;
+        private readonly IDraftNotificationPreviewService draftNotificationPreviewService;
         private readonly IGroupsService groupsService;
+        private readonly IAppSettingsService appSettingsService;
         private readonly IStringLocalizer<Strings> localizer;
 
         /// <summary>
@@ -40,20 +43,23 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <param name="notificationDataRepository">Notification data repository instance.</param>
         /// <param name="teamDataRepository">Team data repository instance.</param>
         /// <param name="draftNotificationPreviewService">Draft notification preview service.</param>
+        /// <param name="appSettingsService">App Settings service.</param>
         /// <param name="localizer">Localization service.</param>
         /// <param name="groupsService">group service.</param>
         public DraftNotificationsController(
-            NotificationDataRepository notificationDataRepository,
-            TeamDataRepository teamDataRepository,
-            DraftNotificationPreviewService draftNotificationPreviewService,
+            INotificationDataRepository notificationDataRepository,
+            ITeamDataRepository teamDataRepository,
+            IDraftNotificationPreviewService draftNotificationPreviewService,
+            IAppSettingsService appSettingsService,
             IStringLocalizer<Strings> localizer,
             IGroupsService groupsService)
         {
-            this.notificationDataRepository = notificationDataRepository;
-            this.teamDataRepository = teamDataRepository;
-            this.draftNotificationPreviewService = draftNotificationPreviewService;
-            this.localizer = localizer;
-            this.groupsService = groupsService;
+            this.notificationDataRepository = notificationDataRepository ?? throw new ArgumentNullException(nameof(notificationDataRepository));
+            this.teamDataRepository = teamDataRepository ?? throw new ArgumentNullException(nameof(teamDataRepository));
+            this.draftNotificationPreviewService = draftNotificationPreviewService ?? throw new ArgumentNullException(nameof(draftNotificationPreviewService));
+            this.localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
+            this.groupsService = groupsService ?? throw new ArgumentNullException(nameof(groupsService));
+            this.appSettingsService = appSettingsService ?? throw new ArgumentNullException(nameof(appSettingsService));
         }
 
         /// <summary>
@@ -64,6 +70,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> CreateDraftNotificationAsync([FromBody] DraftNotification notification)
         {
+            if (notification == null)
+            {
+                throw new ArgumentNullException(nameof(notification));
+            }
+
             if (!notification.Validate(this.localizer, out string errorMessage))
             {
                 return this.BadRequest(errorMessage);
@@ -78,7 +89,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
             var notificationId = await this.notificationDataRepository.CreateDraftNotificationAsync(
                 notification,
                 this.HttpContext.User?.Identity?.Name);
-
             return this.Ok(notificationId);
         }
 
@@ -90,6 +100,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpPost("duplicates/{id}")]
         public async Task<IActionResult> DuplicateDraftNotificationAsync(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             var notificationEntity = await this.FindNotificationToDuplicate(id);
             if (notificationEntity == null)
             {
@@ -111,6 +126,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateDraftNotificationAsync([FromBody] DraftNotification notification)
         {
+            if (notification == null)
+            {
+                throw new ArgumentNullException(nameof(notification));
+            }
+
             var containsHiddenMembership = await this.groupsService.ContainsHiddenMembershipAsync(notification.Groups);
             if (containsHiddenMembership)
             {
@@ -143,7 +163,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
             };
 
             await this.notificationDataRepository.CreateOrUpdateAsync(notificationEntity);
-
             return this.Ok();
         }
 
@@ -155,6 +174,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDraftNotificationAsync(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             var notificationEntity = await this.notificationDataRepository.GetAsync(
                 NotificationDataTableNames.DraftNotificationsPartition,
                 id);
@@ -164,7 +188,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
             }
 
             await this.notificationDataRepository.DeleteAsync(notificationEntity);
-
             return this.Ok();
         }
 
@@ -202,6 +225,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<DraftNotification>> GetDraftNotificationByIdAsync(string id)
         {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             var notificationEntity = await this.notificationDataRepository.GetAsync(
                 NotificationDataTableNames.DraftNotificationsPartition,
                 id);
@@ -238,6 +266,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpGet("consentSummaries/{notificationId}")]
         public async Task<ActionResult<DraftNotificationSummaryForConsent>> GetDraftNotificationSummaryForConsentByIdAsync(string notificationId)
         {
+            if (notificationId == null)
+            {
+                throw new ArgumentNullException(nameof(notificationId));
+            }
+
             var notificationEntity = await this.notificationDataRepository.GetAsync(
                 NotificationDataTableNames.DraftNotificationsPartition,
                 notificationId);
@@ -293,19 +326,13 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
                 return this.BadRequest($"Notification {draftNotificationPreviewRequest.DraftNotificationId} not found.");
             }
 
-            var teamDataEntity = await this.teamDataRepository.GetAsync(
-                TeamDataTableNames.TeamDataPartition,
-                draftNotificationPreviewRequest.TeamsTeamId);
-            if (teamDataEntity == null)
-            {
-                return this.BadRequest($"Team {draftNotificationPreviewRequest.TeamsTeamId} not found.");
-            }
-
+            var teamDataEntity = new TeamDataEntity();
+            teamDataEntity.TenantId = this.HttpContext.User.FindFirstValue(Common.Constants.ClaimTypeTenantId);
+            teamDataEntity.ServiceUrl = await this.appSettingsService.GetServiceUrlAsync();
             var result = await this.draftNotificationPreviewService.SendPreview(
                 notificationEntity,
                 teamDataEntity,
                 draftNotificationPreviewRequest.TeamsChannelId);
-
             return this.StatusCode((int)result);
         }
 

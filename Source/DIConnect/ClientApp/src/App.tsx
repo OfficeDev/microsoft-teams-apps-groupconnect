@@ -18,12 +18,15 @@ import ErrorPage from "./components/ErrorPage/errorPage";
 import SignInPage from "./components/SignInPage/signInPage";
 import SignInSimpleStart from "./components/SignInPage/signInSimpleStart";
 import ConfigurationTab from "./components/ConfigurationTab/configurationTab";
+import AllResources from "./components/AllResources/allResources";
 import SignInSimpleEnd from "./components/SignInPage/signInSimpleEnd";
 import DiscoverResourceGroups from "./components/JoinResourceGroup/discoverResourceGroups";
 import { updateLocale } from './i18n';
 import CreateNewGroup from './components/EmployeeResourceGroup/createNewGroup';
+import CreateNewResource from './components/Resources/createNewResource';
 import UpdateResourceGroup from './components/EmployeeResourceGroup/updateResouceGroup';
-import UpdateKnowledgeBase from './components/ConfigurationTab/updateKnowledgeBaseId';
+import UpdateResource from './components/Resources/updateResource';
+import UpdateConfiguration from './components/ConfigurationTab/updateConfiguration';
 import TeamChannelTab from "./components/EmployeeResourceGroup/teamChannelTab";
 import TeamConfiguration from './components/teamChannelConfig'
 
@@ -123,6 +126,7 @@ class App extends React.Component<{}, IAppState> {
                                 <Route exact path="/configtab" component={Configuration} />
                                 <Route exact path="/messages" component={TabContainer} />
                                 <Route exact path="/createNewGroup" component={CreateNewGroup} />
+                                <Route exact path="/createNewResource" component={CreateNewResource} />
                                 <Route exact path="/discover" component={DiscoverResourceGroups} />
                                 <Route exact path="/newmessage" component={NewMessage} />
                                 <Route exact path="/newmessage/:id" component={NewMessage} />
@@ -134,8 +138,10 @@ class App extends React.Component<{}, IAppState> {
                                 <Route exact path="/signin-simple-start" component={SignInSimpleStart} />
                                 <Route exact path="/signin-simple-end" component={SignInSimpleEnd} />
                                 <Route exact path="/configurationTab" component={ConfigurationTab} />
+                                <Route exact path="/allResources" component={AllResources} />
                                 <Route exact path="/updateerg/:id" component={UpdateResourceGroup} />
-                                <Route exact path="/updateKnowledgeBaseId" component={UpdateKnowledgeBase} />
+                                <Route exact path="/updateResource/:id" component={UpdateResource} />
+                                <Route exact path="/updateConfiguration" component={UpdateConfiguration} />
                                 <Route exact path="/ergChannelConfigTab" component={TeamConfiguration} />
                                 <Route exact path="/ergChannelTab" component={TeamChannelTab} />
                             </Switch>

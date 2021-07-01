@@ -1,4 +1,4 @@
-﻿// <copyright file="GetMetaDataActivity.cs" company="Microsoft Corporation">
+﻿// <copyright file="GetMetadataActivity.cs" company="Microsoft Corporation">
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 // </copyright>
@@ -11,7 +11,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.DurableTask;
     using Microsoft.Extensions.Localization;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Graph;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData;
@@ -37,29 +36,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
             IUsersService usersService,
             IStringLocalizer<Strings> localizer)
         {
-            this.usersService = usersService;
+            this.usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
             this.localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
-        }
-
-        /// <summary>
-        /// Run the activity.
-        /// It creates and gets the metadata.
-        /// </summary>
-        /// <param name="context">Durable orchestration context.</param>
-        /// <param name="exportRequiredData">Tuple containing notification data entity and export data entity.</param>
-        /// <param name="log">Logging service.</param>
-        /// <returns>instance of metadata.</returns>
-        public async Task<Metadata> RunAsync(
-            IDurableOrchestrationContext context,
-            (NotificationDataEntity notificationDataEntity,
-            ExportDataEntity exportDataEntity) exportRequiredData,
-            ILogger log)
-        {
-            var metaData = await context.CallActivityWithRetryAsync<Metadata>(
-               nameof(GetMetadataActivity.GetMetaDataActivityAsync),
-               FunctionSettings.DefaultRetryOptions,
-               (exportRequiredData.notificationDataEntity, exportRequiredData.exportDataEntity));
-            return metaData;
         }
 
         /// <summary>
@@ -67,11 +45,21 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
         /// </summary>
         /// <param name="exportRequiredData">Tuple containing notification data entity and export data entity.</param>
         /// <returns>instance of metadata.</returns>
-        [FunctionName(nameof(GetMetaDataActivityAsync))]
-        public async Task<Metadata> GetMetaDataActivityAsync(
+        [FunctionName(FunctionNames.GetMetadataActivity)]
+        public async Task<Metadata> GetMetadataActivityAsync(
             [ActivityTrigger](NotificationDataEntity notificationDataEntity,
             ExportDataEntity exportDataEntity) exportRequiredData)
         {
+            if (exportRequiredData.notificationDataEntity == null)
+            {
+                throw new ArgumentNullException(nameof(exportRequiredData.notificationDataEntity));
+            }
+
+            if (exportRequiredData.exportDataEntity == null)
+            {
+                throw new ArgumentNullException(nameof(exportRequiredData.exportDataEntity));
+            }
+
             User user = default;
             try
             {
@@ -89,13 +77,13 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
                 user.UserPrincipalName :
                 this.localizer.GetString("AdminConsentError");
 
-            return this.Get(
+            return this.Create(
                 exportRequiredData.notificationDataEntity,
                 exportRequiredData.exportDataEntity,
                 userPrincipalName);
         }
 
-        private Metadata Get(
+        private Metadata Create(
             NotificationDataEntity notificationDataEntity,
             ExportDataEntity exportDataEntity,
             string userPrinicipalName)

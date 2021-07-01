@@ -63,10 +63,12 @@ export interface ITagValidationParameters {
 class CreateNewGroup extends React.Component<WithTranslation, IState> {
     localize: TFunction;
     userObjectId: string = "";
+    teamId: string = "";
     
     constructor(props: Readonly<WithTranslation>) {
         super(props);
         this.localize = this.props.t;
+        this.teamId = "";
         this.state = {
             loading: true,
             theme: "",
@@ -108,6 +110,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
         microsoftTeams.initialize();
         microsoftTeams.getContext((context) => {
             this.userObjectId = context.userObjectId!;
+            this.teamId = context.teamId!;
             this.setState({
                 theme: context.theme!,
                 loading: false
@@ -128,7 +131,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
                 groupLink: this.state.selectedGroupType === GroupType.external ? this.state.groupLink : this.state.teamLink,
                 imageLink: this.state.imageLink,
                 location: this.state.location,
-                includeInSearchResults: false,
+                includeInSearchResults: !this.teamId ? false : this.state.searchEnabled,
                 tags: JSON.stringify(this.state.tagsList),
             }
 
@@ -145,13 +148,20 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
             let response = await createNewGroup(groupDetails);
             if (response.status === 201 && response.data) {
                 this.setState({ submitLoading: false, errorMessage: "", isGroupSubmittedSuccessfully: true });
-                let toBot =
-                {
-                    command: Constants.groupCreatedBotCommand,
-                    GroupId: this.state.searchEnabled ? response.data.groupId : null,
-                };
-                microsoftTeams.tasks.submitTask(toBot);
-            }            
+                if (!this.teamId) {
+                    let toBot =
+                    {
+                        command: Constants.groupCreatedBotCommand,
+                        GroupId: this.state.searchEnabled ? response.data.groupId : null,
+                    };
+                    microsoftTeams.tasks.submitTask(toBot);
+                }
+                else {
+                    // Add delay for 2 seconds to hold task module for displaying success message
+                    await this.timeout(2000);
+                    microsoftTeams.tasks.submitTask();
+                }
+            }
         }
         catch (error) {
             if (error.response.status === 400 || error.response.status === 403) {
@@ -161,6 +171,13 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
                 this.setState({ submitLoading: false, errorMessage: this.localize('GeneralErrorMessage') });
             }
         }
+    }
+
+    /**
+   *Delay time in milli seconds
+   */
+    private timeout(delay: number) {
+        return new Promise(res => setTimeout(res, delay));
     }
 
     /**
@@ -201,8 +218,17 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
             return false;
         }
 
+        if (!this.isNullOrWhiteSpace(this.state.tag) && this.state.tagsList.length === 0) {
+            this.setState({ errorMessage: this.localize("TagNotAddedError") });
+            return false;
+        }
+
         if (this.isNullOrWhiteSpace(this.state.imageLink)) {
             this.setState({ isImageLinkPresent: false });
+            return false;
+        }
+
+        if (!this.state.isImageLinkValid) {
             return false;
         }
 
@@ -296,7 +322,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
         if (this.checkIfTagIsValid()) {
             let tagList = this.state.tagsList;
             tagList.push(this.state.tag.toLowerCase());
-            this.setState({ tagsList: tagList, tag: "" });
+            this.setState({ tagsList: tagList, tag: "", errorMessage: "" });
         }
     }
 
@@ -315,7 +341,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
 	*@param tag Tag string
 	*/
     private onTagChange = (tag: string) => {
-        this.setState({ tag: tag })
+        this.setState({ tag: tag, errorMessage: "" })
     }
 
     /**
@@ -431,6 +457,7 @@ class CreateNewGroup extends React.Component<WithTranslation, IState> {
     */
     private onImageLinkChange = (event: any) => {
         let url = event.target.value.toLowerCase();
+        this.setState({ imageLink: url, isImageLinkPresent: true });
         if (!((url === "") || (url.startsWith("https://") || (url.startsWith("data:image/png;base64,")) || (url.startsWith("data:image/jpeg;base64,")) || (url.startsWith("data:image/gif;base64,"))))) {
             this.setState({
                 isImageLinkValid: false, isImageLinkPresent: true

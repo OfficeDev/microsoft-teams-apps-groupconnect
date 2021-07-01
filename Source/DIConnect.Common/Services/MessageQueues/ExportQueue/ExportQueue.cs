@@ -10,7 +10,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.ExportQue
     /// <summary>
     /// The message queue service connected to the "di-connect-export" queue in Azure service bus.
     /// </summary>
-    public class ExportQueue : BaseQueue<ExportQueueMessageContent>
+    public class ExportQueue : BaseQueue<ExportQueueMessageContent>, IExportQueue
     {
         /// <summary>
         /// Queue name of the export queue.

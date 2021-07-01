@@ -10,7 +10,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Data.Func.Services.FileCardServices
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
-    using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Bot.Schema;
     using Microsoft.Extensions.Localization;
     using Microsoft.Extensions.Options;
@@ -24,8 +23,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Data.Func.Services.FileCardServices
     /// </summary>
     public class FileCardService : IFileCardService
     {
-        private readonly UserDataRepository userDataRepository;
-        private readonly string microsoftAppId;
+        private readonly IUserDataRepository userDataRepository;
+        private readonly string authorAppId;
         private readonly BotFrameworkHttpAdapter botAdapter;
         private readonly IStringLocalizer<Strings> localizer;
 
@@ -39,12 +38,18 @@ namespace Microsoft.Teams.Apps.DIConnect.Data.Func.Services.FileCardServices
         public FileCardService(
             IOptions<BotOptions> botOptions,
             BotFrameworkHttpAdapter botAdapter,
-            UserDataRepository userDataRepository,
+            IUserDataRepository userDataRepository,
             IStringLocalizer<Strings> localizer)
         {
-            this.botAdapter = botAdapter;
-            this.microsoftAppId = botOptions.Value.MicrosoftAppId;
-            this.userDataRepository = userDataRepository;
+            this.botAdapter = botAdapter ?? throw new ArgumentNullException(nameof(botAdapter));
+            var options = botOptions ?? throw new ArgumentNullException(nameof(botOptions));
+            if (string.IsNullOrEmpty(options.Value?.AuthorAppId))
+            {
+                throw new ArgumentException("AuthorAppId setting is missing in the configuration.");
+            }
+
+            this.authorAppId = options.Value.AuthorAppId;
+            this.userDataRepository = userDataRepository ?? throw new ArgumentNullException(nameof(userDataRepository));
             this.localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         }
 
@@ -57,10 +62,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Data.Func.Services.FileCardServices
         public async Task DeleteAsync(string userId, string fileConsentId)
         {
             var user = await this.userDataRepository.GetAsync(UserDataTableNames.UserDataPartition, userId);
-
-            // Set the service URL in the trusted list to ensure the SDK includes the token in the request.
-            MicrosoftAppCredentials.TrustServiceUrl(user.ServiceUrl);
-
             var conversationReference = new ConversationReference
             {
                 ServiceUrl = user.ServiceUrl,
@@ -73,7 +74,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Data.Func.Services.FileCardServices
 
             int maxNumberOfAttempts = 10;
             await this.botAdapter.ContinueConversationAsync(
-               botAppId: this.microsoftAppId,
+               botAppId: this.authorAppId,
                reference: conversationReference,
                callback: async (turnContext, cancellationToken) =>
                {

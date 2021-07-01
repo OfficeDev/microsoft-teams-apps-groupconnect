@@ -32,6 +32,8 @@ interface IFilterBarProps extends WithTranslation {
     onSearchInputChange: (searchString: string) => void;
     onLocationCheckboxStateChange: (currentValues: Array<ICheckBoxItem>) => void;
     onTagsCheckboxStateChange: (currentValues: Array<ICheckBoxItem>) => void;
+    isERGButtonEnabled: boolean;
+    ergDisplayButtonText: string;
 }
 
 interface IFilterBarState {
@@ -153,11 +155,11 @@ class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
                 {this.state.screenWidth > Constants.screenWidth &&
                     <div className="filter-bar">
                         <div>
-                            <Flex gap="gap.small">
-                                <div className="filter-bar-title-container">
+                        <Flex gap="gap.small">
+                            {!this.props.isERGButtonEnabled && <div className="filter-bar-title-container">
                                 <Button icon={<AddIcon xSpacing="before" size="smaller" />}
-                                    content={this.localize("NewERGTitleText")} onClick={this.handleAddClick} text />
-                                </div>
+                                    content={this.props.ergDisplayButtonText} onClick={this.handleAddClick} text />
+                                </div>}
                                 <div className="filter-bar-item-container" hidden={this.state.hideFilter}>
                                     <PopupMenuWrapper title={this.localize("Location")} checkboxes={this.state.locationsList} onCheckboxStateChange={this.onLocationCheckboxStateChange} />
                                     <PopupMenuWrapper title={this.localize("Tags")} checkboxes={this.state.tagsList} onCheckboxStateChange={this.onTagsCheckboxStateChange} />
@@ -176,9 +178,10 @@ class FilterBar extends React.Component<IFilterBarProps, IFilterBarState> {
                     <Flex.Item grow>
                         <Flex column gap="gap.small" vAlign="stretch">
                             <Flex className="mobile-filterbar-title-wrapper">
-                                <div className="title-container-mobile">
-                                    <Text content={this.localize("NewERGTitleText")} weight="semibold" onClick={this.handleAddClick} />
-                                </div>
+                                {!this.props.isERGButtonEnabled && <div className="title-container-mobile">
+                                    <Button icon={<AddIcon xSpacing="before" size="smaller" />}
+                                        content={this.props.ergDisplayButtonText} onClick={this.handleAddClick} text />
+                                </div>}
                                 <Button className="filter-button" content={<Text content={this.localize("Filter")} />} icon={this.state.isFilterEnabled ? <Icon iconName="FilterSolid" className="filter-icon-filled" /> : <Icon iconName="Filter" className="filter-icon" />} text onClick={this.onFilterButtonClick} />
                                 <div className="searchbar-wrapper-mobile">
                                     <Input className="filter-button-mobile" inverted fluid placeholder={this.localize("SearchPlaceholder")} onChange={(event: any) => this.props.onSearchInputChange(event.target.value)} value={this.props.commandBarSearchText} />

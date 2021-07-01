@@ -8,20 +8,24 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
+  
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Microsoft.Teams.App.DIConnect.Common.Test</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AdaptiveCards" Version="1.0.6" />
 		<PackageReference Include="Azure.Search.Documents" Version="11.1.1" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.4.4" />
 		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.16.0" />
 		<PackageReference Include="Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker" Version="2.0.1" />
 		<PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.1" />
 		<PackageReference Include="Microsoft.Azure.ServiceBus" Version="4.1.1" />
 		<PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.9.3" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
-		<PackageReference Include="Microsoft.Graph" Version="3.12.0" />
-		<PackageReference Include="Microsoft.Graph.Beta" Version="0.22.0-preview">
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
+		<PackageReference Include="Microsoft.Graph" Version="3.22.0" />
 		<PackageReference Include="Microsoft.Identity.Client" Version="4.15.0" />
 		<PackageReference Include="Microsoft.Spatial" Version="7.5.0" />
 		<PackageReference Include="Polly" Version="7.2.1" />
@@ -75,13 +79,4 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
-
-	<!-- Temporary work around until we upgrade to 3.1.401 sdk.-->
-	<Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
-		<ItemGroup>
-			<ReferencePath Condition="'%(FileName)' == 'Microsoft.Graph.Beta'">
-				<Aliases>BetaLib</Aliases>
-			</ReferencePath>
-		</ItemGroup>
-	</Target>
 </Project>

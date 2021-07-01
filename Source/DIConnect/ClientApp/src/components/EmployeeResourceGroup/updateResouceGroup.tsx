@@ -271,8 +271,17 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
             return false;
         }
 
+        if (!this.isNullorWhiteSpace(this.state.tag) && this.state.tagsList.length === 0) {
+            this.setState({ errorMessage: this.localize("TagNotAddedError") });
+            return false;
+        }
+
         if (this.isNullorWhiteSpace(this.state.imageLink)) {
             this.setState({ isImageLinkPresent: false });
+            return false;
+        }
+
+        if (!this.state.isImageLinkValid) {
             return false;
         }
 
@@ -372,7 +381,8 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
             let tags = [...this.state.tagsList, this.state.tag];
             this.setState({
                 tagsList: tags,
-                tag: ""
+                tag: "",
+                errorMessage: ""
             });
         }
     }
@@ -392,7 +402,7 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
 	*@param tag Tag string
 	*/
     private onTagChange = (tag: string) => {
-        this.setState({ tag: tag })
+        this.setState({ tag: tag, errorMessage: "" })
     }
 
     /**
@@ -521,6 +531,7 @@ class UpdateResouceGroup extends React.Component<IUpdateGroupProps, IState> {
     */
     private onImageLinkChange = (event: any) => {
         let url = event.target.value.toLowerCase();
+        this.setState({ imageLink: url, isImageLinkPresent: true });
         if (!((url === "") || (url.startsWith("https://") || (url.startsWith("data:image/png;base64,")) || (url.startsWith("data:image/jpeg;base64,")) || (url.startsWith("data:image/gif;base64,"))))) {
             this.setState({
                 isImageLinkValid: false, isImageLinkPresent: true

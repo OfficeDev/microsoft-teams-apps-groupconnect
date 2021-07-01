@@ -1,0 +1,211 @@
+﻿.card {
+    background-color: #fff;
+    position: relative;
+    width: 35rem !important;
+    height: 24rem !important;
+    padding: 0rem !important;
+    border-radius: 0.7rem !important;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+}
+
+.card-image {
+    height: 130px !important;
+    width: 100%;
+    border-radius: 0.7rem;
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+}
+
+.card-grid-tile {
+    display: flex;
+    padding-top: 10px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #6264A7;
+    margin-top: 2rem;
+    margin-left: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical;
+}
+
+.card-content {
+    padding: 1.33rem;
+    padding-bottom: 0rem;
+    margin-top: -8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2 !important;
+}
+
+.card-type {
+    padding: 1.33rem;
+    padding-bottom: 0rem;
+    margin-top: -4px;
+    background-color: dimgrey;
+    border-radius: 1.4rem;
+    padding-top:0px;
+    position:absolute;
+    right:10px;
+    color:white;
+}
+
+.desktop-search-box {
+    cursor: pointer !important;
+    right: 3rem;
+    position: absolute !important;
+    border-radius: 0.25rem;
+}
+
+.discover-search-icon {
+    right: 2rem;
+    position: absolute;
+    margin-top: 1rem;
+    margin-right: 2rem;
+    background-color: white !important;
+}
+
+.mobile-filterbar-title-wrapper {
+    width: 90vw !important;
+    margin-left: 0.2rem !important;
+    margin-top: 0.2rem !important;
+}
+
+.searchbar-wrapper-mobile {
+    padding-top: 4px;
+}
+
+.discover-search-icon-mobile {
+    cursor: pointer !important;
+    margin-left: -2rem;
+}
+
+.tile-render {
+    grid-gap: 1rem;
+}
+
+.site-div {
+    height: 100vh !important;
+    width: 100%;
+    position: absolute;
+}
+
+.container-subdiv-cardview {
+    height: 100vh;
+    overflow: hidden;
+    max-width: 170rem;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.scroll-bar {
+    margin-top: 4rem;
+    height: 90vh;
+    overflow-Y: auto;
+    overflow-X: hidden;
+    bottom: 1px;
+}
+
+.app-logo {
+    margin-top: 8rem;
+}
+
+.no-data-preview {
+    width: 100%;
+    font-weight: bold;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+/*If the screen zoom level is 50% or less */
+@media (min-width: 2500px) {
+    .tile-render {
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+}
+
+/* If the screen zoom level is 80% or less */
+@media (min-width: 1450px ) and (max-width:2499px) {
+    .tile-render {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* If the screen zoom level is between 90% to 110% */
+@media (max-width: 1449px ) and (min-width: 1090px) {
+    .tile-render {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* If the screen zoom level is 125% or more */
+@media (max-width: 1090px) {
+    .tile-render {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* For mobile view */
+@media (max-width: 800px) {
+    .tile-render {
+        grid-template-columns: repeat(1, 0fr) !important;
+    }
+    .mobile-view-search-box {
+        border-radius: 0.25rem;
+        border-color: #E1DFDD;
+        right: 15rem;
+        position: absolute !important;
+    }
+    .discover-search-icon-mobile {
+        cursor: pointer !important;
+        right: 14rem;
+        padding-top: 10px;
+        padding-right: 17px;
+        position: absolute !important;
+    }
+}
+
+/*If the screen zoom level is 50% or less */
+@media (min-width: 2500px) {
+    .container-subdiv-cardview {
+        max-width: 180rem !important;
+    }
+}
+
+/*If the screen zoom level is 80% to 50% */
+@media (min-width: 1450px) and (max-width:2499px) {
+    .container-subdiv-cardview {
+        max-width: 148rem !important;
+    }
+}
+
+/* If the screen zoom level is between 90% to 110% */
+@media (max-width: 1440px ) and (min-width: 1020px) {
+    .container-subdiv-cardview {
+        max-width: 110rem !important;
+    }
+}
+
+/* If the screen zoom level is 125% or more */
+@media (max-width: 1020px) {
+    .container-subdiv-cardview {
+        max-width: 76rem !important;
+    }
+}
+
+@media only screen and (min-width: 651px) {
+    .card-bg {
+        height: 40rem;
+    }
+}

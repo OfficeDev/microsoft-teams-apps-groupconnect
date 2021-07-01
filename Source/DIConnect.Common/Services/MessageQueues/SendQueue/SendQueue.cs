@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 // </copyright>
+
 namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.SendQueue
 {
     using Microsoft.Extensions.Options;
@@ -9,7 +10,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.SendQueue
     /// <summary>
     /// The message queue service connected to the "di-connect-send" queue in Azure service bus.
     /// </summary>
-    public class SendQueue : BaseQueue<SendQueueMessageContent>
+    public class SendQueue : BaseQueue<SendQueueMessageContent>, ISendQueue
     {
         /// <summary>
         /// Queue name of the send queue.

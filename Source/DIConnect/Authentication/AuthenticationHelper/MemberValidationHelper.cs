@@ -96,7 +96,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Authentication.AuthenticationHelper
                     }
 
                     // Sync members.
-                    var teamMembers = await this.memberService.GetMembersAsync(
+                    var teamMembers = await this.memberService.GetAuthorsAsync(
                     teamId: this.adminTeamId,
                     tenantId: this.tenantId,
                     serviceUrl: serviceUrl);

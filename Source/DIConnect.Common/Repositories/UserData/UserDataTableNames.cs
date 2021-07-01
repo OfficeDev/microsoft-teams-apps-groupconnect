@@ -29,5 +29,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData
         /// All users delta link row key.
         /// </summary>
         public static readonly string AllUsersDeltaLinkRowKey = "AllUsersDeltaLink";
+
+        /// <summary>
+        /// Authors data partition key name.
+        /// </summary>
+        public static readonly string AuthorDataPartition = "AuthorData";
     }
 }

@@ -5,32 +5,28 @@
 
 namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph
 {
-    extern alias BetaLib;
-
     using System;
     using System.Threading.Tasks;
     using Microsoft.Graph;
-
-    using Beta = BetaLib::Microsoft.Graph;
 
     /// <summary>
     /// Chats Service.
     /// </summary>
     internal class ChatsService : IChatsService
     {
-        private readonly Beta.IGraphServiceClient betaServiceClient;
         private readonly IAppManagerService appManagerService;
+        private readonly IGraphServiceClient graphServiceClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ChatsService"/> class.
         /// </summary>
-        /// <param name="betaServiceClient">Beta graph service client.</param>
+        /// <param name="graphServiceClient">Graph service client.</param>
         /// <param name="appManagerService">App manager service.</param>
         internal ChatsService(
-            Beta.IGraphServiceClient betaServiceClient,
+            IGraphServiceClient graphServiceClient,
             IAppManagerService appManagerService)
         {
-            this.betaServiceClient = betaServiceClient ?? throw new ArgumentNullException(nameof(betaServiceClient));
+            this.graphServiceClient = graphServiceClient ?? throw new ArgumentNullException(nameof(graphServiceClient));
             this.appManagerService = appManagerService ?? throw new ArgumentNullException(nameof(appManagerService));
         }
 
@@ -48,7 +44,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph
             }
 
             var installationId = await this.appManagerService.GetAppInstallationIdForUserAsync(appId, userId);
-            var chat = await this.betaServiceClient.Users[userId]
+            var chat = await this.graphServiceClient.Users[userId]
                 .Teamwork
                 .InstalledApps[installationId]
                 .Chat

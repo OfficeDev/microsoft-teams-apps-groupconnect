@@ -11,8 +11,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Schema;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData;
-    using Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData;
     using Microsoft.Teams.Apps.DIConnect.Common.Services;
+    using Microsoft.Teams.Apps.DIConnect.Common.Services.User;
     using Microsoft.Teams.Apps.DIConnect.Helpers;
     using Microsoft.Teams.Apps.DIConnect.Repositories.Extensions;
 
@@ -24,8 +24,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         private const string PersonalType = "personal";
         private const string ChannelType = "channel";
 
-        private readonly TeamDataRepository teamDataRepository;
-        private readonly UserDataRepository userDataRepository;
+        private readonly ITeamDataRepository teamDataRepository;
+        private readonly IUserDataService userDataService;
         private readonly IAppSettingsService appSettingsService;
         private readonly CardHelper cardHelper;
 
@@ -33,17 +33,17 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         /// Initializes a new instance of the <see cref="TeamsDataCapture"/> class.
         /// </summary>
         /// <param name="teamDataRepository">Team data repository instance.</param>
-        /// <param name="userDataRepository">User data repository instance.</param>
+        /// <param name="userDataService">User data service instance.</param>
         /// <param name="appSettingsService">App Settings service.</param>
         /// <param name="cardHelper">Instance of class that handles adaptive card helper methods.</param>
         public TeamsDataCapture(
-            TeamDataRepository teamDataRepository,
-            UserDataRepository userDataRepository,
+            ITeamDataRepository teamDataRepository,
+            IUserDataService userDataService,
             IAppSettingsService appSettingsService,
             CardHelper cardHelper)
         {
             this.teamDataRepository = teamDataRepository ?? throw new ArgumentNullException(nameof(teamDataRepository));
-            this.userDataRepository = userDataRepository ?? throw new ArgumentNullException(nameof(userDataRepository));
+            this.userDataService = userDataService ?? throw new ArgumentNullException(nameof(userDataService));
             this.appSettingsService = appSettingsService ?? throw new ArgumentNullException(nameof(appSettingsService));
             this.cardHelper = cardHelper ?? throw new ArgumentNullException(nameof(cardHelper));
         }
@@ -70,7 +70,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
                     break;
                 case TeamsDataCapture.PersonalType:
                     await turnContext.SendActivityAsync(MessageFactory.Attachment(this.cardHelper.GetWelcomeNotificationCard()));
-                    await this.userDataRepository.SaveUserDataAsync(activity);
+                    await this.userDataService.SaveUserDataAsync(activity);
                     break;
                 default: break;
             }
@@ -105,7 +105,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
                 case TeamsDataCapture.PersonalType:
                     // The event triggered (when a user is removed from the tenant) doesn't
                     // include the bot in the member list being removed.
-                    await this.userDataRepository.RemoveUserDataAsync(activity);
+                    await this.userDataService.RemoveUserDataAsync(activity);
                     break;
                 default: break;
             }

@@ -8,7 +8,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Send.Func.Services
     using System;
     using System.Net;
     using System.Threading.Tasks;
-    using Microsoft.Teams.Apps.DIConnect.Common.Extensions;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.SentNotificationData;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.SendQueue;
@@ -18,8 +17,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Send.Func.Services
     /// </summary>
     public class NotificationService : INotificationService
     {
-        private readonly GlobalSendingNotificationDataRepository globalSendingNotificationDataRepository;
-        private readonly SentNotificationDataRepository sentNotificationDataRepository;
+        private readonly IGlobalSendingNotificationDataRepository globalSendingNotificationDataRepository;
+        private readonly ISentNotificationDataRepository sentNotificationDataRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationService"/> class.
@@ -27,8 +26,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Send.Func.Services
         /// <param name="globalSendingNotificationDataRepository">The global sending notification data repository.</param>
         /// <param name="sentNotificationDataRepository">The sent notification data repository.</param>
         public NotificationService(
-            GlobalSendingNotificationDataRepository globalSendingNotificationDataRepository,
-            SentNotificationDataRepository sentNotificationDataRepository)
+            IGlobalSendingNotificationDataRepository globalSendingNotificationDataRepository,
+            ISentNotificationDataRepository sentNotificationDataRepository)
         {
             this.globalSendingNotificationDataRepository = globalSendingNotificationDataRepository ?? throw new ArgumentNullException(nameof(globalSendingNotificationDataRepository));
             this.sentNotificationDataRepository = sentNotificationDataRepository ?? throw new ArgumentNullException(nameof(sentNotificationDataRepository));
@@ -108,7 +107,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Send.Func.Services
             notification.IsStatusCodeFromCreateConversation = false;
             notification.StatusCode = (int)statusCode;
             notification.ErrorMessage = errorMessage;
-            notification.NumberOfFunctionAttemptsToSend += 1;
+            notification.NumberOfFunctionAttemptsToSend = notification.NumberOfFunctionAttemptsToSend + 1;
             notification.AllSendStatusCodes = $"{notification.AllSendStatusCodes ?? string.Empty}{allSendStatusCodes}";
 
             if (statusCode == (int)HttpStatusCode.Created)
