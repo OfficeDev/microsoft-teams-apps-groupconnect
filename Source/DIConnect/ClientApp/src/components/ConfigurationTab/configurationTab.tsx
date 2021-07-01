@@ -66,7 +66,8 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
         this.setState({
             loader: true
         })
-
+            
+        await this.getERGDetails();
         await this.getResourceGroups();
         await this.getAllResourcesDetails();
     }
