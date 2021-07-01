@@ -13,6 +13,7 @@ import Card from "./card";
 import FilterBar from "../FilterBar/filterBar";
 import { ICheckBoxItem } from "../FilterBar/filterBar";
 import { getSearchableResourceGroupsAsync } from '../../apis/employeeResourceGroupApi';
+import { getERGConfiguration } from '../../apis/configurationSettingsApi';
 import './card.scss';
 import Constants from '../../constants/constants';
 import { GroupType } from '../../constants/groupType';
@@ -37,6 +38,8 @@ export interface IDiscoverResourceGroupsState {
     selectedLocationsList: Array<string>;
     selectedTagsList: Array<string>;
     searchText: string;
+    isERGEnabledForTeam: boolean;
+    ergDisplayButtonText: string;
 }
 
 class DiscoverResourceGroups extends React.Component<WithTranslation, IDiscoverResourceGroupsState> {
@@ -53,11 +56,14 @@ class DiscoverResourceGroups extends React.Component<WithTranslation, IDiscoverR
             selectedLocationsList: [],
             selectedTagsList: [],
             searchText: "",
+            isERGEnabledForTeam : false,
+            ergDisplayButtonText: this.localize('RegisterNewERGDefaultButtonText')
         }
     }
-    public componentDidMount() {
+    public async componentDidMount() {
         microsoftTeams.initialize();
         window.addEventListener("resize", this.setWindowWidth);
+        await this.getERGDetails();
         this.discoverResourceGroupsAsync();
     }
 
@@ -80,6 +86,31 @@ class DiscoverResourceGroups extends React.Component<WithTranslation, IDiscoverR
         this.setState({
             loader: false
         });
+    }
+
+    /**
+     Method to get ERG details.
+    */
+    private getERGDetails = async () => {
+        try {
+            const response = await getERGConfiguration();
+            if (response.status === 200 && response.data) {
+                this.setState({
+                    isERGEnabledForTeam : response.data.isEnabled,
+                    ergDisplayButtonText : response.data.value,
+                });
+            }
+        } catch (error) {
+            // For first run experience we are limiting the create/request new group to global team. Handling 404 error to provide input from user.
+            if (error.response.status === 404) {
+                this.setState({
+                    loader: false
+                });
+            }
+            else {
+                throw error;
+            }
+        }
     }
 
     /**
@@ -204,6 +235,8 @@ class DiscoverResourceGroups extends React.Component<WithTranslation, IDiscoverR
                             onSearchInputChange={this.handleSearchInputChange}
                             onLocationCheckboxStateChange={this.onLocationCheckboxStateChange}
                             onTagsCheckboxStateChange={this.onTagsCheckboxStateChange}
+                            isERGButtonEnabled={this.state.isERGEnabledForTeam}
+                            ergDisplayButtonText={this.state.ergDisplayButtonText}
                         />
                         <div className="scroll-view" style={scrollViewStyle}>
                             {

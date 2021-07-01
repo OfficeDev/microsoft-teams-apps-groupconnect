@@ -22,14 +22,14 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
         /// <summary>
         /// Repository for employee resource group.
         /// </summary>
-        private readonly EmployeeResourceGroupRepository employeeResourceGroupRepository;
+        private readonly IEmployeeResourceGroupRepository employeeResourceGroupRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetResourceGroupEntitiesActivity"/> class.
         /// </summary>
         /// <param name="employeeResourceGroupRepository">The employee resource group repository.</param>
         public GetResourceGroupEntitiesActivity(
-            EmployeeResourceGroupRepository employeeResourceGroupRepository)
+            IEmployeeResourceGroupRepository employeeResourceGroupRepository)
         {
             this.employeeResourceGroupRepository = employeeResourceGroupRepository ?? throw new ArgumentNullException(nameof(employeeResourceGroupRepository));
         }

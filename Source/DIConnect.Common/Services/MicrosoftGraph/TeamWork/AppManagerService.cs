@@ -5,34 +5,26 @@
 
 namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph
 {
-    extern alias BetaLib;
-
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.Graph;
-    using Beta = BetaLib::Microsoft.Graph;
 
     /// <summary>
     /// Manage Teams Apps for a user or a team.
     /// </summary>
     internal class AppManagerService : IAppManagerService
     {
-        private readonly Beta.IGraphServiceClient betaServiceClient;
         private readonly IGraphServiceClient serviceClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppManagerService"/> class.
         /// </summary>
-        /// <param name="betaServiceClient">Beta Graph service client.</param>
         /// <param name="serviceClient">V1 Graph service client.</param>
-        internal AppManagerService(
-            Beta.IGraphServiceClient betaServiceClient,
-            IGraphServiceClient serviceClient)
+        internal AppManagerService(IGraphServiceClient serviceClient)
         {
-            this.betaServiceClient = betaServiceClient ?? throw new ArgumentNullException(nameof(betaServiceClient));
             this.serviceClient = serviceClient ?? throw new ArgumentNullException(nameof(serviceClient));
         }
 
@@ -49,7 +41,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph
                 throw new ArgumentNullException(nameof(userId));
             }
 
-            var userScopeTeamsAppInstallation = new Beta.UserScopeTeamsAppInstallation
+            var userScopeTeamsAppInstallation = new UserScopeTeamsAppInstallation
             {
                 AdditionalData = new Dictionary<string, object>()
                 {
@@ -57,7 +49,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph
                 },
             };
 
-            await this.betaServiceClient.Users[userId]
+            await this.serviceClient.Users[userId]
                 .Teamwork
                 .InstalledApps
                 .Request()
@@ -106,7 +98,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph
                 throw new ArgumentNullException(nameof(userId));
             }
 
-            var pagedApps = await this.betaServiceClient.Users[userId]
+            var pagedApps = await this.serviceClient.Users[userId]
                 .Teamwork
                 .InstalledApps
                 .Request()
@@ -155,7 +147,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph
                 throw new ArgumentNullException(nameof(userId));
             }
 
-            var collection = await this.betaServiceClient.Users[userId]
+            var collection = await this.serviceClient.Users[userId]
                 .Teamwork
                 .InstalledApps
                 .Request()

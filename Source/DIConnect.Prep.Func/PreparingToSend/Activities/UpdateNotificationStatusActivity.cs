@@ -16,13 +16,13 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend
     /// </summary>
     public class UpdateNotificationStatusActivity
     {
-        private readonly NotificationDataRepository notificationRepository;
+        private readonly INotificationDataRepository notificationRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateNotificationStatusActivity"/> class.
         /// </summary>
         /// <param name="notificationRepository">Notification data repository.</param>
-        public UpdateNotificationStatusActivity(NotificationDataRepository notificationRepository)
+        public UpdateNotificationStatusActivity(INotificationDataRepository notificationRepository)
         {
             this.notificationRepository = notificationRepository ?? throw new ArgumentNullException(nameof(notificationRepository));
         }
@@ -36,6 +36,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend
         public async Task RunAsync(
             [ActivityTrigger](string notificationId, NotificationStatus status) input)
         {
+            if (input.notificationId == null)
+            {
+                throw new ArgumentNullException(nameof(input.notificationId));
+            }
+
             await this.notificationRepository.UpdateNotificationStatusAsync(input.notificationId, input.status);
         }
     }

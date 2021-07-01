@@ -17,7 +17,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories
     /// Base repository for the data stored in the Azure Table Storage.
     /// </summary>
     /// <typeparam name="T">Entity class type.</typeparam>
-    public class BaseRepository<T>
+    public class BaseRepository<T> : IRepository<T>
         where T : TableEntity, new()
     {
         private readonly string defaultPartitionKey;
@@ -215,6 +215,29 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories
                 this.Logger.LogError(ex, ex.Message);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Get paged data entities from the table storage in a partition.
+        /// </summary>
+        /// <param name="partition">Partition key value.</param>
+        /// <param name="count">The max number of desired entities.</param>
+        /// <param name="token">The continuation token.</param>
+        /// <returns>All data entities and continuation token.</returns>
+        public async Task<(IEnumerable<T>, TableContinuationToken)> GetPagedAsync(string partition = null, int? count = null, TableContinuationToken token = null)
+        {
+            var partitionKeyFilter = this.GetPartitionKeyFilter(partition);
+            var query = new TableQuery<T>().Where(partitionKeyFilter);
+            query.TakeCount = count;
+            TableQuerySegment<T> seg;
+            if (token == null)
+            {
+                seg = await this.Table.ExecuteQuerySegmentedAsync<T>(query, null);
+                return (seg.Results, seg.ContinuationToken);
+            }
+
+            seg = await this.Table.ExecuteQuerySegmentedAsync<T>(query, token);
+            return (seg.Results, seg.ContinuationToken);
         }
 
         /// <summary>

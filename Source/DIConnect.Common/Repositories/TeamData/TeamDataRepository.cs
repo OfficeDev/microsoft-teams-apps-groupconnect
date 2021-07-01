@@ -14,7 +14,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData
     /// <summary>
     /// Repository of the team data stored in the table storage.
     /// </summary>
-    public class TeamDataRepository : BaseRepository<TeamDataEntity>
+    public class TeamDataRepository : BaseRepository<TeamDataEntity>, ITeamDataRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TeamDataRepository"/> class.

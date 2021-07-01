@@ -18,7 +18,8 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "Group Connect"
+    "short": "Group Connect",
+    "full": "Group Connect"
   },
   "description": {
     "short": "Discover and join employee groups in your organization",
@@ -51,6 +52,15 @@
       "name": "Discover groups",
       "contentUrl": "https://<<appDomain>>/discover",
       "websiteUrl": "https://<<appDomain>>/discover",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "entityId": "Allresources",
+      "name": "All resources",
+      "contentUrl": "https://<<appDomain>>/allResources",
+      "websiteUrl": "https://<<appDomain>>/allResources",
       "scopes": [
         "personal"
       ]

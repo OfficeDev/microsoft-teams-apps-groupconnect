@@ -8,17 +8,14 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using global::Azure.Storage.Blobs;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.DurableTask;
     using Microsoft.Bot.Builder;
-    using Microsoft.Bot.Builder.Integration.AspNet.Core;
-    using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Bot.Schema;
     using Microsoft.Extensions.Localization;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Microsoft.Teams.Apps.DIConnect.Common.Repositories;
+    using Microsoft.Teams.Apps.DIConnect.Common.Adapter;
+    using Microsoft.Teams.Apps.DIConnect.Common.Clients;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData;
     using Microsoft.Teams.Apps.DIConnect.Common.Resources;
@@ -32,56 +29,36 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
     /// </summary>
     public class HandleExportFailureActivity
     {
-        private readonly ExportDataRepository exportDataRepository;
-        private readonly string storageConnectionString;
-        private readonly BlobContainerClient blobContainerClient;
-        private readonly UserDataRepository userDataRepository;
-        private readonly string microsoftAppId;
-        private readonly BotFrameworkHttpAdapter botAdapter;
+        private readonly IExportDataRepository exportDataRepository;
+        private readonly IStorageClientFactory storageClientFactory;
+        private readonly IUserDataRepository userDataRepository;
+        private readonly string authorAppId;
+        private readonly IDIBotFrameworkHttpAdapter botAdapter;
         private readonly IStringLocalizer<Strings> localizer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HandleExportFailureActivity"/> class.
         /// </summary>
-        /// <param name="exportDataRepository">the export data repository.</param>
-        /// <param name="repositoryOptions">the repository options.</param>
+        /// <param name="exportDataRepository">the export data respository.</param>
+        /// <param name="storageClientFactory">the storage client factory.</param>
         /// <param name="botOptions">the bot options.</param>
         /// <param name="botAdapter">the users service.</param>
         /// <param name="userDataRepository">the user data repository.</param>
         /// <param name="localizer">Localization service.</param>
         public HandleExportFailureActivity(
-            ExportDataRepository exportDataRepository,
-            IOptions<RepositoryOptions> repositoryOptions,
+            IExportDataRepository exportDataRepository,
+            IStorageClientFactory storageClientFactory,
             IOptions<BotOptions> botOptions,
-            BotFrameworkHttpAdapter botAdapter,
-            UserDataRepository userDataRepository,
+            IDIBotFrameworkHttpAdapter botAdapter,
+            IUserDataRepository userDataRepository,
             IStringLocalizer<Strings> localizer)
         {
-            this.exportDataRepository = exportDataRepository;
-            this.storageConnectionString = repositoryOptions.Value.StorageAccountConnectionString;
-            this.blobContainerClient = new BlobContainerClient(this.storageConnectionString, Common.Constants.BlobContainerName);
-            this.botAdapter = botAdapter;
-            this.microsoftAppId = botOptions.Value.MicrosoftAppId;
-            this.userDataRepository = userDataRepository;
+            this.exportDataRepository = exportDataRepository ?? throw new ArgumentNullException(nameof(exportDataRepository));
+            this.storageClientFactory = storageClientFactory ?? throw new ArgumentNullException(nameof(storageClientFactory));
+            this.botAdapter = botAdapter ?? throw new ArgumentNullException(nameof(botAdapter));
+            this.authorAppId = botOptions?.Value?.AuthorAppId ?? throw new ArgumentNullException(nameof(botOptions));
+            this.userDataRepository = userDataRepository ?? throw new ArgumentNullException(nameof(userDataRepository));
             this.localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
-        }
-
-        /// <summary>
-        /// Run the activity.
-        /// </summary>
-        /// <param name="context">Durable orchestration context.</param>
-        /// <param name="exportDataEntity">export data entity.</param>
-        /// <param name="log">Logging service.</param>
-        /// <returns>instance of metadata.</returns>
-        public async Task RunAsync(
-            IDurableOrchestrationContext context,
-            ExportDataEntity exportDataEntity,
-            ILogger log)
-        {
-            await context.CallActivityWithRetryAsync<Task>(
-                      nameof(HandleExportFailureActivity.HandleFailureActivityAsync),
-                      FunctionSettings.DefaultRetryOptions,
-                      exportDataEntity);
         }
 
         /// <summary>
@@ -91,10 +68,15 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
         /// </summary>
         /// <param name="exportDataEntity">export data entity.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        [FunctionName(nameof(HandleFailureActivityAsync))]
+        [FunctionName(FunctionNames.HandleExportFailureActivity)]
         public async Task HandleFailureActivityAsync(
             [ActivityTrigger] ExportDataEntity exportDataEntity)
         {
+            if (exportDataEntity == null)
+            {
+                throw new ArgumentNullException(nameof(exportDataEntity));
+            }
+
             await this.DeleteFileAsync(exportDataEntity.FileName);
             await this.SendFailureMessageAsync(exportDataEntity.PartitionKey);
             await this.exportDataRepository.DeleteAsync(exportDataEntity);
@@ -107,18 +89,17 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
                 return;
             }
 
-            await this.blobContainerClient.CreateIfNotExistsAsync();
-            await this.blobContainerClient
-                    .GetBlobClient(fileName)
-                    .DeleteIfExistsAsync();
+            var blobContainerClient = this.storageClientFactory.CreateBlobContainerClient();
+
+            await blobContainerClient.CreateIfNotExistsAsync();
+            await blobContainerClient
+                .GetBlobClient(fileName)
+                .DeleteIfExistsAsync();
         }
 
         private async Task SendFailureMessageAsync(string userId)
         {
-            var user = await this.userDataRepository.GetAsync(UserDataTableNames.UserDataPartition, userId);
-
-            // Set the service URL in the trusted list to ensure the SDK includes the token in the request.
-            MicrosoftAppCredentials.TrustServiceUrl(user.ServiceUrl);
+            var user = await this.userDataRepository.GetAsync(UserDataTableNames.AuthorDataPartition, userId);
 
             var conversationReference = new ConversationReference
             {
@@ -132,7 +113,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities
 
             int maxNumberOfAttempts = 10;
             await this.botAdapter.ContinueConversationAsync(
-               botAppId: this.microsoftAppId,
+               botId: this.authorAppId,
                reference: conversationReference,
                callback: async (turnContext, cancellationToken) =>
                {

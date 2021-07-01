@@ -37,7 +37,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         [HttpGet]
         public IActionResult GetUserAppId()
         {
-            var appId = this.botOptions.MicrosoftAppId;
+            var appId = this.botOptions.UserAppId;
             var response = new AppConfigurations() { AppId = appId };
 
             return this.Ok(response);

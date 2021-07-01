@@ -26,12 +26,12 @@ namespace Microsoft.Teams.Apps.DIConnect.Helpers
         /// <summary>
         /// Repository for employee resource group.
         /// </summary>
-        private readonly EmployeeResourceGroupRepository employeeResourceGroupRepository;
+        private readonly IEmployeeResourceGroupRepository employeeResourceGroupRepository;
 
         /// <summary>
         /// Repository for team pair matching.
         /// </summary>
-        private readonly TeamUserPairUpMappingRepository teamUserPairupMappingRepository;
+        private readonly ITeamUserPairUpMappingRepository teamUserPairupMappingRepository;
 
         /// <summary>
         /// Instance of class that handles user pair-up matches card helper methods.
@@ -51,8 +51,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Helpers
         /// <param name="cardHelper">Instance of class that handles user pair-up matches card helper methods.</param>
         /// <param name="localizer">The current culture's string localizer.</param>
         public UserTeamMappingsHelper(
-            TeamUserPairUpMappingRepository teamUserPairupMappingRepository,
-            EmployeeResourceGroupRepository employeeResourceGroupRepository,
+            ITeamUserPairUpMappingRepository teamUserPairupMappingRepository,
+            IEmployeeResourceGroupRepository employeeResourceGroupRepository,
             CardHelper cardHelper,
             IStringLocalizer<Strings> localizer)
         {

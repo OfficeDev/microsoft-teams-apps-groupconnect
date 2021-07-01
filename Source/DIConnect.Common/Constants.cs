@@ -46,6 +46,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Common
         public const string ClaimTypeUserId = "http://schemas.microsoft.com/identity/claims/objectidentifier";
 
         /// <summary>
+        /// claim type tenant id.
+        /// </summary>
+        public const string ClaimTypeTenantId = "http://schemas.microsoft.com/identity/claims/tenantid";
+
+        /// <summary>
         /// blob container name.
         /// </summary>
         public const string BlobContainerName = "exportdatablobs";
@@ -84,6 +89,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Common
         /// Default partition key for employee resource group.
         /// </summary>
         public const string ResourceGroupTablePartitionKey = "Group";
+
+        /// <summary>
+        /// Default partition key for resource.
+        /// </summary>
+        public const string ResourceTablePartitionKey = "Resource";
 
         /// <summary>
         /// Represents employee resource group table name.

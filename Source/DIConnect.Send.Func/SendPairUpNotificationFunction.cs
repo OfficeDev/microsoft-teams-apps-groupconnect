@@ -83,7 +83,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Send.Func
         /// <summary>
         /// User data repository.
         /// </summary>
-        private readonly UserDataRepository userDataRepository;
+        private readonly IUserDataRepository userDataRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SendPairUpNotificationFunction"/> class.
@@ -95,7 +95,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Send.Func
         /// <param name="localizer">Localization service.</param>
         public SendPairUpNotificationFunction(
             IMessageService messageService,
-            UserDataRepository userDataRepository,
+            IUserDataRepository userDataRepository,
             IAppSettingsService appSettingsService,
             IMemoryCache memoryCache,
             IStringLocalizer<Strings> localizer)

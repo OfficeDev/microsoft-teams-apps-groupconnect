@@ -18,7 +18,8 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "Group Connect (Comms)"
+    "short": "Group Connect (Comms)",
+    "full": "Group Connect (Comms)"
   },
   "description": {
     "short": "A tool for communication and settings management for Group Connect app",
@@ -38,10 +39,11 @@
     {
       "botId": "<<botId>>",
       "scopes": [
+        "personal",
         "team"
       ],
       "supportsFiles": true,
-      "isNotificationOnly": false
+      "isNotificationOnly": true
     }
   ],
   "permissions": [

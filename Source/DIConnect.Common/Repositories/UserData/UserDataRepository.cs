@@ -14,7 +14,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData
     /// <summary>
     /// Repository of the user data stored in the table storage.
     /// </summary>
-    public class UserDataRepository : BaseRepository<UserDataEntity>
+    public class UserDataRepository : BaseRepository<UserDataEntity>, IUserDataRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserDataRepository"/> class.

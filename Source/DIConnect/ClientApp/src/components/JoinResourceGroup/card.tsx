@@ -44,7 +44,7 @@ class Card extends React.Component<ICardProps> {
                                 {
                                     this.props.resourceGroupDetails.tags!.map((value: string, index: number) => {
                                         if (value.trim().length > 0) {
-                                            return < Label className="tags-label-wrapper" circular content={value.trim()} data-testid={"group-tag" + index} />
+                                            return <Label title={value} className="tags-label-wrapper" circular content={value.trim()} data-testid={"group-tag" + index} />
                                         }
                                     })
                                 }

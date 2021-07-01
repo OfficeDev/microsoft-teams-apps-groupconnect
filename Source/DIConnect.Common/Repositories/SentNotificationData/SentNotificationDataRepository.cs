@@ -12,7 +12,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.SentNotificationDat
     /// <summary>
     /// Repository of the notification data in the table storage.
     /// </summary>
-    public class SentNotificationDataRepository : BaseRepository<SentNotificationDataEntity>
+    public class SentNotificationDataRepository : BaseRepository<SentNotificationDataEntity>, ISentNotificationDataRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SentNotificationDataRepository"/> class.

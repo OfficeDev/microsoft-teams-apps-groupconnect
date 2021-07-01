@@ -11,14 +11,24 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.CommonBot
     public class BotOptions
     {
         /// <summary>
-        /// Gets or sets the Microsoft app ID for the bot.
+        /// Gets or sets the Microsoft app ID for the user bot.
         /// </summary>
-        public string MicrosoftAppId { get; set; }
+        public string UserAppId { get; set; }
 
         /// <summary>
-        /// Gets or sets the Microsoft app password for the bot.
+        /// Gets or sets the Microsoft app password for the user bot.
         /// </summary>
-        public string MicrosoftAppPassword { get; set; }
+        public string UserAppPassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Microsoft app ID for the author bot.
+        /// </summary>
+        public string AuthorAppId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Microsoft app password for the author bot.
+        /// </summary>
+        public string AuthorAppPassword { get; set; }
 
         /// <summary>
         /// Gets or sets admin team id. Where team notification will be sent for approval to enable any ERG group searchable for all end users.

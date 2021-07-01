@@ -219,7 +219,7 @@
   <data name="FailedToCreateConversationForUserFormat" xml:space="preserve">
     <value>Failed to create conversation with teams user: {0}. Exception: {1}</value>
   </data>
-  <data name="FailedToCreateConversationThrottledFormt" xml:space="preserve">
+  <data name="FailedToCreateConversationThrottledFormat" xml:space="preserve">
     <value>Failed to create conversation. Request throttled. Error message: {0}"</value>
   </data>
   <data name="FailedToFindTeamInDbFormat" xml:space="preserve">
@@ -247,7 +247,7 @@
     <value>Review this feedback</value>
   </data>
   <data name="FeedbackHeaderText" xml:space="preserve">
-    <value>Share your feedback to help us improve</value>
+    <value>Share your feedback to help us improve.</value>
   </data>
   <data name="FeedbackSubHeaderText" xml:space="preserve">
     <value>Submitted by **{0}**</value>
@@ -476,5 +476,20 @@
   </data>
   <data name="KnowledgeBaseNotConfiguredText" xml:space="preserve">
     <value>Sorry, this app is not set up to respond to questions.</value>
+  </data>
+  <data name="FailedToFindUserAppInAppCatalog" xml:space="preserve">
+    <value>Failed to find the User application: {0} in the organization's app catalog.</value>
+  </data>
+  <data name="UserAppNotFound" xml:space="preserve">
+    <value>User application not found. Make sure the User app is uploaded to your organization's app catalog.</value>
+  </data>
+  <data name="ResourceAlreadyExistsErrorMessage" xml:space="preserve">
+    <value>Unable to save because a resource with the same name or URL already exists.</value>
+  </data>
+  <data name="ResourceNotExistsErrorMessage" xml:space="preserve">
+    <value>Looks like someone deleted this resource. For that reason, you won't be able to update the details.</value>
+  </data>
+  <data name="ResourceNullOrEmptyErrorMessage" xml:space="preserve">
+    <value>Looks like a space was entered for the title. Please type the name you want.</value>
   </data>
 </root>

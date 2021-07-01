@@ -12,7 +12,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData
     /// <summary>
     /// Repository of the export data stored in the table storage.
     /// </summary>
-    public class ExportDataRepository : BaseRepository<ExportDataEntity>
+    public class ExportDataRepository : BaseRepository<ExportDataEntity>, IExportDataRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExportDataRepository"/> class.

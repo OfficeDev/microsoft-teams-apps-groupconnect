@@ -8,8 +8,6 @@
 
 namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
 {
-    extern alias BetaLib;
-
     using System;
     using System.Globalization;
     using Microsoft.Azure.Functions.Extensions.DependencyInjection;
@@ -20,6 +18,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
     using Microsoft.Extensions.Options;
     using Microsoft.Graph;
     using Microsoft.Identity.Client;
+    using Microsoft.Teams.Apps.DIConnect.Common.Adapter;
+    using Microsoft.Teams.Apps.DIConnect.Common.Clients;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.EmployeeResourceGroup;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData;
@@ -38,13 +38,9 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
     using Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.UserPairupQueue;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.Teams;
-    using Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Activities;
-    using Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Orchestrator;
     using Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Streams;
     using Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Activities;
     using Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend;
-
-    using Beta = BetaLib::Microsoft.Graph;
 
     /// <summary>
     /// Register services in DI container of the Azure functions system.
@@ -76,10 +72,14 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
             builder.Services.AddOptions<BotOptions>()
                 .Configure<IConfiguration>((botOptions, configuration) =>
                 {
-                    botOptions.MicrosoftAppId =
-                        configuration.GetValue<string>("MicrosoftAppId");
-                    botOptions.MicrosoftAppPassword =
-                        configuration.GetValue<string>("MicrosoftAppPassword");
+                    botOptions.UserAppId =
+                        configuration.GetValue<string>("UserAppId");
+                    botOptions.UserAppPassword =
+                        configuration.GetValue<string>("UserAppPassword");
+                    botOptions.AuthorAppId =
+                        configuration.GetValue<string>("AuthorAppId");
+                    botOptions.AuthorAppPassword =
+                        configuration.GetValue<string>("AuthorAppPassword");
                 });
             builder.Services.AddOptions<DataQueueMessageOptions>()
                 .Configure<IConfiguration>((dataQueueMessageOptions, configuration) =>
@@ -98,14 +98,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
                         configuration.GetValue<int>("MaxAttemptsToCreateConversation", 2);
                 });
 
-            builder.Services.AddOptions<ConfidentialClientApplicationOptions>().
-                Configure<IConfiguration>((confidentialClientApplicationOptions, configuration) =>
-                {
-                 confidentialClientApplicationOptions.ClientId = configuration.GetValue<string>("MicrosoftAppId");
-                 confidentialClientApplicationOptions.ClientSecret = configuration.GetValue<string>("MicrosoftAppPassword");
-                 confidentialClientApplicationOptions.TenantId = configuration.GetValue<string>("TenantId");
-                });
-
             builder.Services.AddLocalization();
 
             // Set current culture.
@@ -113,43 +105,36 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(culture);
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(culture);
 
-            // Add orchestration.
-            builder.Services.AddTransient<ExportOrchestration>();
-
-            // Add activities.
-            builder.Services.AddTransient<UpdateExportDataActivity>();
-            builder.Services.AddTransient<GetMetadataActivity>();
-            builder.Services.AddTransient<UploadActivity>();
-            builder.Services.AddTransient<SendFileCardActivity>();
-            builder.Services.AddTransient<HandleExportFailureActivity>();
-
             // Add bot services.
-            builder.Services.AddSingleton<CommonMicrosoftAppCredentials>();
-            builder.Services.AddSingleton<ICredentialProvider, CommonBotCredentialProvider>();
+            builder.Services.AddSingleton<UserAppCredentials>();
+            builder.Services.AddSingleton<AuthorAppCredentials>();
+            builder.Services.AddSingleton<ICredentialProvider, ConfigurationCredentialProvider>();
+            builder.Services.AddSingleton<IDIBotFrameworkHttpAdapter, DIBotFrameworkHttpAdapter>();
             builder.Services.AddSingleton<BotFrameworkHttpAdapter>();
 
             // Add repositories.
-            builder.Services.AddSingleton<NotificationDataRepository>();
-            builder.Services.AddSingleton<SendingNotificationDataRepository>();
-            builder.Services.AddSingleton<SentNotificationDataRepository>();
-            builder.Services.AddSingleton<UserDataRepository>();
-            builder.Services.AddSingleton<TeamDataRepository>();
-            builder.Services.AddSingleton<ExportDataRepository>();
-            builder.Services.AddSingleton<AppConfigRepository>();
-            builder.Services.AddSingleton<EmployeeResourceGroupRepository>();
-            builder.Services.AddSingleton<TeamUserPairUpMappingRepository>();
+            builder.Services.AddSingleton<INotificationDataRepository, NotificationDataRepository>();
+            builder.Services.AddSingleton<ISendingNotificationDataRepository, SendingNotificationDataRepository>();
+            builder.Services.AddSingleton<ISentNotificationDataRepository, SentNotificationDataRepository>();
+            builder.Services.AddSingleton<IUserDataRepository, UserDataRepository>();
+            builder.Services.AddSingleton<ITeamDataRepository, TeamDataRepository>();
+            builder.Services.AddSingleton<IExportDataRepository, ExportDataRepository>();
+            builder.Services.AddSingleton<IAppConfigRepository, AppConfigRepository>();
+            builder.Services.AddSingleton<IEmployeeResourceGroupRepository, EmployeeResourceGroupRepository>();
+            builder.Services.AddSingleton<ITeamUserPairUpMappingRepository, TeamUserPairUpMappingRepository>();
 
             // Add service bus message queues.
-            builder.Services.AddSingleton<SendQueue>();
-            builder.Services.AddSingleton<DataQueue>();
-            builder.Services.AddSingleton<ExportQueue>();
-            builder.Services.AddSingleton<UserPairUpQueue>();
+            builder.Services.AddSingleton<ISendQueue, SendQueue>();
+            builder.Services.AddSingleton<IDataQueue, DataQueue>();
+            builder.Services.AddSingleton<IExportQueue, ExportQueue>();
+            builder.Services.AddSingleton<IUserPairUpQueue, UserPairUpQueue>();
 
             // Add miscellaneous dependencies.
             builder.Services.AddTransient<TableRowKeyGenerator>();
             builder.Services.AddTransient<AdaptiveCardCreator>();
             builder.Services.AddSingleton<SendPairUpMatchesActivity>();
-            builder.Services.AddSingleton<IAppSettingsService, AppSettingsService>();
+            builder.Services.AddTransient<IAppSettingsService, AppSettingsService>();
+            builder.Services.AddTransient<IStorageClientFactory, StorageClientFactory>();
 
             // Add Teams services.
             builder.Services.AddTransient<ITeamMembersService, TeamMembersService>();
@@ -171,8 +156,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
             builder.Services.AddOptions<ConfidentialClientApplicationOptions>().
                 Configure<IConfiguration>((confidentialClientApplicationOptions, configuration) =>
                 {
-                    confidentialClientApplicationOptions.ClientId = configuration.GetValue<string>("MicrosoftAppId");
-                    confidentialClientApplicationOptions.ClientSecret = configuration.GetValue<string>("MicrosoftAppPassword");
+                    confidentialClientApplicationOptions.ClientId = configuration.GetValue<string>("AuthorAppId");
+                    confidentialClientApplicationOptions.ClientSecret = configuration.GetValue<string>("AuthorAppPassword");
                     confidentialClientApplicationOptions.TenantId = configuration.GetValue<string>("TenantId");
                 });
 
@@ -193,8 +178,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
             builder.Services.AddSingleton<IGraphServiceClient>(
                 serviceProvider =>
                 new GraphServiceClient(serviceProvider.GetRequiredService<IAuthenticationProvider>()));
-            builder.Services.AddSingleton<Beta.IGraphServiceClient>(
-                sp => new Beta.GraphServiceClient(sp.GetRequiredService<IAuthenticationProvider>()));
 
             // Add Service Factory
             builder.Services.AddSingleton<IGraphServiceFactory, GraphServiceFactory>();

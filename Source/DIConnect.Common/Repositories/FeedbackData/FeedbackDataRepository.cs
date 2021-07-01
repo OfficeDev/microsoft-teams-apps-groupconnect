@@ -12,7 +12,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.FeedbackData
     /// <summary>
     /// Repository to store user feedback in the table storage.
     /// </summary>
-    public class FeedbackDataRepository : BaseRepository<FeedbackEntity>
+    public class FeedbackDataRepository : BaseRepository<FeedbackEntity>, IFeedbackDataRepository
     {
         /// <summary>
         /// Feedback table name.

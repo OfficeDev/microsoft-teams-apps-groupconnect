@@ -10,7 +10,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.PrepareTo
     /// <summary>
     /// The message queue service connected to the "di-connect-prep" queue in Azure service bus.
     /// </summary>
-    public class PrepareToSendQueue : BaseQueue<PrepareToSendQueueMessageContent>
+    public class PrepareToSendQueue : BaseQueue<PrepareToSendQueueMessageContent>, IPrepareToSendQueue
     {
         /// <summary>
         /// Queue name of the prepare to send queue.

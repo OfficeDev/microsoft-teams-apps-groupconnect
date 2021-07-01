@@ -14,7 +14,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData
     /// <summary>
     /// Repository of the notification data in the table storage.
     /// </summary>
-    public class NotificationDataRepository : BaseRepository<NotificationDataEntity>
+    public class NotificationDataRepository : BaseRepository<NotificationDataEntity>, INotificationDataRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationDataRepository"/> class.

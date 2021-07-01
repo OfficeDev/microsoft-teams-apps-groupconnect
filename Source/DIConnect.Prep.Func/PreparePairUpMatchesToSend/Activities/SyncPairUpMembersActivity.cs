@@ -36,7 +36,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
         /// <summary>
         /// Repository for team user pair-up mapping.
         /// </summary>
-        private readonly TeamUserPairUpMappingRepository teamUserPairUpMappingRepository;
+        private readonly ITeamUserPairUpMappingRepository teamUserPairUpMappingRepository;
 
         /// <summary>
         /// A set of key/value application configuration properties for application settings.
@@ -53,7 +53,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
         public SyncPairUpMembersActivity(
             ITeamMembersService memberService,
             IAppSettingsService appSettingsService,
-            TeamUserPairUpMappingRepository teamUserPairUpMappingRepository,
+            ITeamUserPairUpMappingRepository teamUserPairUpMappingRepository,
             IOptions<ConfidentialClientApplicationOptions> options)
         {
             this.memberService = memberService ?? throw new ArgumentNullException(nameof(memberService));
@@ -78,7 +78,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparePairUpMatchesToSend.Ac
                 var serviceUrl = await this.appSettingsService.GetServiceUrlAsync();
 
                 // Get team members.
-                var userEntities = await this.memberService.GetMembersAsync(
+                var userEntities = await this.memberService.GetUsersAsync(
                     teamId: resourceGroupEntity.TeamId,
                     tenantId: this.options.Value.TenantId,
                     serviceUrl: serviceUrl);

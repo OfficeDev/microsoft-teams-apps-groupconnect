@@ -10,12 +10,13 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.DurableTask;
     using Microsoft.Extensions.Localization;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData;
     using Microsoft.Teams.Apps.DIConnect.Common.Resources;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.ExportQueue;
     using Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Model;
-    using Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Orchestrator;
+    using Microsoft.Teams.Apps.DIConnect.Prep.Func.PreparingToSend;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -27,8 +28,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
     /// </summary>
     public class ExportFunction
     {
-        private readonly NotificationDataRepository notificationDataRepository;
-        private readonly ExportDataRepository exportDataRepository;
+        private readonly INotificationDataRepository notificationDataRepository;
+        private readonly IExportDataRepository exportDataRepository;
         private readonly IStringLocalizer<Strings> localizer;
 
         /// <summary>
@@ -38,13 +39,13 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
         /// <param name="exportDataRepository">Export data repository.</param>
         /// <param name="localizer">Localization service.</param>
         public ExportFunction(
-            NotificationDataRepository notificationDataRepository,
-            ExportDataRepository exportDataRepository,
+            INotificationDataRepository notificationDataRepository,
+            IExportDataRepository exportDataRepository,
             IStringLocalizer<Strings> localizer)
         {
-            this.notificationDataRepository = notificationDataRepository;
-            this.exportDataRepository = exportDataRepository;
-            this.localizer = localizer;
+            this.notificationDataRepository = notificationDataRepository ?? throw new ArgumentNullException(nameof(notificationDataRepository));
+            this.exportDataRepository = exportDataRepository ?? throw new ArgumentNullException(nameof(exportDataRepository));
+            this.localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         }
 
         /// <summary>
@@ -53,31 +54,46 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func
         /// </summary>
         /// <param name="myQueueItem">The Service Bus queue item.</param>
         /// <param name="starter">Durable orchestration client.</param>
+        /// <param name="log">Logger.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [FunctionName("DIConnectExportFunction")]
         public async Task Run(
             [ServiceBusTrigger(
-             ExportQueue.QueueName,
-             Connection = ExportQueue.ServiceBusConnectionConfigurationKey)]
+            ExportQueue.QueueName,
+            Connection = ExportQueue.ServiceBusConnectionConfigurationKey)]
             string myQueueItem,
-            [DurableClient]
-            IDurableOrchestrationClient starter)
+            [DurableClient] IDurableOrchestrationClient starter,
+            ILogger log)
         {
+            if (myQueueItem == null)
+            {
+                throw new ArgumentNullException(nameof(myQueueItem));
+            }
+
+            if (starter == null)
+            {
+                throw new ArgumentNullException(nameof(starter));
+            }
+
             var messageContent = JsonConvert.DeserializeObject<ExportMessageQueueContent>(myQueueItem);
             var notificationId = messageContent.NotificationId;
-
             var sentNotificationDataEntity = await this.notificationDataRepository.GetAsync(
                 partitionKey: NotificationDataTableNames.SentNotificationsPartition,
                 rowKey: notificationId);
             var exportDataEntity = await this.exportDataRepository.GetAsync(messageContent.UserId, notificationId);
             exportDataEntity.FileName = this.GetFileName();
             var requirement = new ExportDataRequirement(sentNotificationDataEntity, exportDataEntity, messageContent.UserId);
-            if (requirement.IsValid())
+            if (!requirement.IsValid())
             {
-                string instanceId = await starter.StartNewAsync(
-                    nameof(ExportOrchestration.ExportOrchestrationAsync),
-                    requirement);
+                log.LogError("Export data requirement is not valid.");
+                return;
             }
+
+            string instanceId = await starter.StartNewAsync(
+                FunctionNames.ExportOrchestration,
+                requirement);
+
+            log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
         }
 
         private string GetFileName()

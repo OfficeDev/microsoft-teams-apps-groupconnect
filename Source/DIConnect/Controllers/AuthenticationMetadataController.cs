@@ -28,6 +28,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <param name="authenticationOptions">The authentication options.</param>
         public AuthenticationMetadataController(IOptions<AuthenticationOptions> authenticationOptions)
         {
+            if (authenticationOptions is null)
+            {
+                throw new ArgumentNullException(nameof(authenticationOptions));
+            }
+
             this.tenantId = authenticationOptions.Value.AzureAdTenantId;
             this.clientId = authenticationOptions.Value.AzureAdClientId;
         }
@@ -43,6 +48,16 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
             [FromQuery]string windowLocationOriginDomain,
             [FromQuery]string loginHint)
         {
+            if (windowLocationOriginDomain == null)
+            {
+                throw new ArgumentNullException(nameof(windowLocationOriginDomain));
+            }
+
+            if (loginHint == null)
+            {
+                throw new ArgumentNullException(nameof(loginHint));
+            }
+
             var consentUrlComponentDictionary = new Dictionary<string, string>
             {
                 ["redirect_uri"] = $"https://{windowLocationOriginDomain}/signin-simple-end",

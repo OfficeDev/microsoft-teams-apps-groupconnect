@@ -10,7 +10,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.DataQueue
     /// <summary>
     /// The message queue service connected to the "di-connect-data" queue in Azure service bus.
     /// </summary>
-    public class DataQueue : BaseQueue<DataQueueMessageContent>
+    public class DataQueue : BaseQueue<DataQueueMessageContent>, IDataQueue
     {
         /// <summary>
         /// Queue name of the data queue.

@@ -35,7 +35,10 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Extensions
                 }
             }
 
-            yield return buffer;
+            if (buffer.Count > 0)
+            {
+                yield return buffer;
+            }
         }
     }
 }

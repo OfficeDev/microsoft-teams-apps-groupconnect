@@ -69,7 +69,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         /// <summary>
         /// Instance of employee resource group repository.
         /// </summary>
-        private readonly EmployeeResourceGroupRepository employeeResourceGroupRepository;
+        private readonly IEmployeeResourceGroupRepository employeeResourceGroupRepository;
 
         /// <summary>
         /// Retry policy with jitter, retry twice with a jitter delay of up to 1 sec. Retry for HTTP 429(transient error)/502 bad gateway.
@@ -96,7 +96,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
         /// <param name="localizer">Localization service.</param>
         /// <param name="cardHelper">Instance of class that handles Approval card helper methods.</param>
         public AdminTeamNotifier(
-            EmployeeResourceGroupRepository employeeResourceGroupRepository,
+            IEmployeeResourceGroupRepository employeeResourceGroupRepository,
             IOptions<BotOptions> botOptions,
             BotFrameworkHttpAdapter adapter,
             ILogger<AdminTeamNotifier> logger,
@@ -171,7 +171,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
             var conversationReference = new ConversationReference()
             {
                 ChannelId = TeamsBotFrameworkChannelId,
-                Bot = new ChannelAccount() { Id = $"28:{this.botOptions.Value.MicrosoftAppId}" },
+                Bot = new ChannelAccount() { Id = $"28:{this.botOptions.Value.AuthorAppId}" },
                 ServiceUrl = serviceBasePath,
                 Conversation = new ConversationAccount() { Id = this.botOptions.Value.AdminTeamId },
             };
@@ -184,7 +184,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Bot
                 try
                 {
                     await ((BotFrameworkAdapter)this.adapter).ContinueConversationAsync(
-                            this.botOptions.Value.MicrosoftAppId,
+                            this.botOptions.Value.AuthorAppId,
                             conversationReference,
                             async (conversationTurnContext, conversationCancellationToken) =>
                             {

@@ -5,8 +5,6 @@
 
 namespace Microsoft.Teams.Apps.DIConnect
 {
-    extern alias BetaLib;
-
     using System;
     using System.Linq;
     using System.Net;
@@ -21,7 +19,6 @@ namespace Microsoft.Teams.Apps.DIConnect
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
-    using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Integration.AspNet.Core;
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Extensions.Configuration;
@@ -39,6 +36,7 @@ namespace Microsoft.Teams.Apps.DIConnect
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.ExportData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.FeedbackData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.NotificationData;
+    using Microsoft.Teams.Apps.DIConnect.Common.Repositories.ResourceData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.SentNotificationData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.TeamData;
     using Microsoft.Teams.Apps.DIConnect.Common.Repositories.UserData;
@@ -52,12 +50,12 @@ namespace Microsoft.Teams.Apps.DIConnect
     using Microsoft.Teams.Apps.DIConnect.Common.Services.MessageQueues.PrepareToSendQueue;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.MicrosoftGraph;
     using Microsoft.Teams.Apps.DIConnect.Common.Services.Teams;
+    using Microsoft.Teams.Apps.DIConnect.Common.Services.User;
     using Microsoft.Teams.Apps.DIConnect.Controllers;
     using Microsoft.Teams.Apps.DIConnect.DraftNotificationPreview;
     using Microsoft.Teams.Apps.DIConnect.Helpers;
     using Microsoft.Teams.Apps.DIConnect.Localization;
     using Microsoft.Teams.Apps.DIConnect.Models;
-    using Beta = BetaLib::Microsoft.Graph;
 
     /// <summary>
     /// Register services in DI container, and setup middle-wares in the pipeline.
@@ -102,8 +100,10 @@ namespace Microsoft.Teams.Apps.DIConnect
             services.AddOptions<BotOptions>()
                 .Configure<IConfiguration>((botOptions, configuration) =>
                 {
-                    botOptions.MicrosoftAppId = configuration.GetValue<string>("MicrosoftAppId");
-                    botOptions.MicrosoftAppPassword = configuration.GetValue<string>("MicrosoftAppPassword");
+                    botOptions.UserAppId = configuration.GetValue<string>("UserAppId");
+                    botOptions.UserAppPassword = configuration.GetValue<string>("UserAppPassword");
+                    botOptions.AuthorAppId = configuration.GetValue<string>("AuthorAppId");
+                    botOptions.AuthorAppPassword = configuration.GetValue<string>("AuthorAppPassword");
                     botOptions.AppBaseUri = configuration.GetValue<string>("AppBaseUri");
                     botOptions.AdminTeamId = ParseTeamIdExtension.GetTeamIdFromDeepLink(configuration.GetValue<string>("AdminTeamLink"));
                     botOptions.ManifestId = configuration.GetValue<string>("ManifestId");
@@ -189,6 +189,8 @@ namespace Microsoft.Teams.Apps.DIConnect
             services.AddSingleton<BotFrameworkHttpAdapter>();
 
             // Add bot services.
+            services.AddTransient<UserTeamsActivityHandler>();
+            services.AddTransient<AuthorTeamsActivityHandler>();
             services.AddSingleton<ICredentialProvider, ConfigurationCredentialProvider>();
             services.AddTransient<DIConnectBotFilterMiddleware>();
             services.AddSingleton<DIConnectBotAdapter>();
@@ -197,31 +199,30 @@ namespace Microsoft.Teams.Apps.DIConnect
             services.AddTransient<TeamsFileUpload>();
             services.AddTransient<KnowledgeBaseResponse>();
             services.AddTransient<NotificationCardHelper>();
-            services.AddTransient<IBot, DIConnectBot>();
 
             // Add repositories.
-            services.AddSingleton<TeamDataRepository>();
-            services.AddSingleton<EmployeeResourceGroupRepository>();
-            services.AddSingleton<UserDataRepository>();
-            services.AddSingleton<SentNotificationDataRepository>();
-            services.AddSingleton<NotificationDataRepository>();
-            services.AddSingleton<ExportDataRepository>();
-            services.AddSingleton<AppConfigRepository>();
-            services.AddSingleton<FeedbackDataRepository>();
-            services.AddSingleton<TeamUserPairUpMappingRepository>();
+            services.AddSingleton<ITeamDataRepository, TeamDataRepository>();
+            services.AddSingleton<IEmployeeResourceGroupRepository, EmployeeResourceGroupRepository>();
+            services.AddSingleton<IUserDataRepository, UserDataRepository>();
+            services.AddSingleton<ISentNotificationDataRepository, SentNotificationDataRepository>();
+            services.AddSingleton<INotificationDataRepository, NotificationDataRepository>();
+            services.AddSingleton<IExportDataRepository, ExportDataRepository>();
+            services.AddSingleton<IAppConfigRepository, AppConfigRepository>();
+            services.AddSingleton<IFeedbackDataRepository, FeedbackDataRepository>();
+            services.AddSingleton<ITeamUserPairUpMappingRepository, TeamUserPairUpMappingRepository>();
+            services.AddSingleton<IResourceDataRepository, ResourceDataRepository>();
 
             // Add service bus message queues.
-            services.AddSingleton<PrepareToSendQueue>();
-            services.AddSingleton<DataQueue>();
-            services.AddSingleton<ExportQueue>();
+            services.AddSingleton<IPrepareToSendQueue, PrepareToSendQueue>();
+            services.AddSingleton<IDataQueue, DataQueue>();
+            services.AddSingleton<IExportQueue, ExportQueue>();
 
             // Add draft notification preview services.
-            services.AddTransient<DraftNotificationPreviewService>();
+            services.AddSingleton<IDraftNotificationPreviewService, DraftNotificationPreviewService>();
 
             // Add Microsoft graph services.
             services.AddScoped<IAuthenticationProvider, GraphTokenProvider>();
             services.AddScoped<IGraphServiceClient, GraphServiceClient>();
-            services.AddScoped<Beta.IGraphServiceClient, Beta.GraphServiceClient>();
             services.AddScoped<IGraphServiceFactory, GraphServiceFactory>();
             services.AddScoped<IGroupMembersService>(sp => sp.GetRequiredService<IGraphServiceFactory>().GetGroupMembersService());
             services.AddScoped<IGroupsService>(sp => sp.GetRequiredService<IGraphServiceFactory>().GetGroupsService());
@@ -241,8 +242,10 @@ namespace Microsoft.Teams.Apps.DIConnect
             services.AddTransient<TableRowKeyGenerator>();
             services.AddTransient<AdaptiveCardCreator>();
             services.AddSingleton<IAppSettingsService, AppSettingsService>();
+            services.AddSingleton<IUserDataService, UserDataService>();
             services.AddSingleton<ITeamMembersService, TeamMembersService>();
             services.AddSingleton<IMemberValidationHelper, MemberValidationHelper>();
+            services.AddTransient<ITeamMembersService, TeamMembersService>();
 
             // Add helper class.
             services.AddSingleton<UserTeamMappingsHelper>();
@@ -348,7 +351,8 @@ namespace Microsoft.Teams.Apps.DIConnect
                 vaultUri: new Uri($"{this.Configuration["KeyVault:BaseUrl"]}/"),
                 credential: new DefaultAzureCredential());
 
-            this.Configuration["MicrosoftAppPassword"] = client.GetSecret("MicrosoftAppPassword").Value.Value;
+            this.Configuration["AuthorAppPassword"] = client.GetSecret("AuthorAppPassword").Value.Value;
+            this.Configuration["UserAppPassword"] = client.GetSecret("UserAppPassword").Value.Value;
             this.Configuration["StorageAccountConnectionString"] = client.GetSecret("StorageAccountConnectionString--SecretKey").Value.Value;
             this.Configuration["ServiceBusConnection"] = client.GetSecret("ServiceBusConnection--SecretKey").Value.Value;
             this.Configuration["QnAMakerSubscriptionKey"] = client.GetSecret("QnAMakerSubscriptionKey").Value.Value;

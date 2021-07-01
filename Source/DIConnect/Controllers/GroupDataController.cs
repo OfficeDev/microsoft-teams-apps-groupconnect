@@ -5,6 +5,7 @@
 
 namespace Microsoft.Teams.Apps.DIConnect.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
     [Authorize(PolicyNames.MustBeAdminTeamMemberPolicy)]
     public class GroupDataController : Controller
     {
-        private readonly NotificationDataRepository notificationDataRepository;
+        private readonly INotificationDataRepository notificationDataRepository;
         private readonly IGroupsService groupsService;
 
         /// <summary>
@@ -31,11 +32,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <param name="notificationDataRepository">Notification data repository instance.</param>
         /// <param name="groupsService">Microsoft Graph service instance.</param>
         public GroupDataController(
-            NotificationDataRepository notificationDataRepository,
+            INotificationDataRepository notificationDataRepository,
             IGroupsService groupsService)
         {
-            this.notificationDataRepository = notificationDataRepository;
-            this.groupsService = groupsService;
+            this.notificationDataRepository = notificationDataRepository ?? throw new ArgumentNullException(nameof(notificationDataRepository));
+            this.groupsService = groupsService ?? throw new ArgumentNullException(nameof(groupsService));
         }
 
         /// <summary>
@@ -96,7 +97,6 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
                     Name = group.DisplayName,
                     Mail = group.Mail,
                 }).ToListAsync();
-
             return this.Ok(groups);
         }
     }

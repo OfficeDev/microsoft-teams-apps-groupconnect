@@ -37,7 +37,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <summary>
         /// Repository for employee resource group activity.
         /// </summary>
-        private readonly EmployeeResourceGroupRepository employeeResourceGroupRepository;
+        private readonly IEmployeeResourceGroupRepository employeeResourceGroupRepository;
 
         /// <summary>
         /// Helper class to generate new row key.
@@ -74,7 +74,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Controllers
         /// <param name="localizer">The current culture's string localizer.</param>
         /// <param name="logger">Logs errors and information.</param>
         public EmployeeResourceGroupController(
-            EmployeeResourceGroupRepository employeeResourceGroupRepository,
+            IEmployeeResourceGroupRepository employeeResourceGroupRepository,
             TableRowKeyGenerator tableRowKeyGenerator,
             IGroupMembersService groupMembersService,
             IOptions<BotFilterMiddlewareOptions> options,

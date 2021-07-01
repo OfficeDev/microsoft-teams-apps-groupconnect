@@ -11,7 +11,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Common.Repositories
     /// <summary>
     /// App configuration repository.
     /// </summary>
-    public class AppConfigRepository : BaseRepository<AppConfigEntity>
+    public class AppConfigRepository : BaseRepository<AppConfigEntity>, IAppConfigRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AppConfigRepository"/> class.

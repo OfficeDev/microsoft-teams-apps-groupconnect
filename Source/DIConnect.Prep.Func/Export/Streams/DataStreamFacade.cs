@@ -24,8 +24,8 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Streams
     /// </summary>
     public class DataStreamFacade : IDataStreamFacade
     {
-        private readonly SentNotificationDataRepository sentNotificationDataRepository;
-        private readonly TeamDataRepository teamDataRepository;
+        private readonly ISentNotificationDataRepository sentNotificationDataRepository;
+        private readonly ITeamDataRepository teamDataRepository;
         private readonly IUsersService usersService;
         private readonly IStringLocalizer<Strings> localizer;
 
@@ -37,14 +37,14 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Streams
         /// <param name="usersService">the users service.</param>
         /// <param name="localizer">Localization service.</param>
         public DataStreamFacade(
-            SentNotificationDataRepository sentNotificationDataRepository,
-            TeamDataRepository teamDataRepository,
+            ISentNotificationDataRepository sentNotificationDataRepository,
+            ITeamDataRepository teamDataRepository,
             IUsersService usersService,
             IStringLocalizer<Strings> localizer)
         {
-            this.sentNotificationDataRepository = sentNotificationDataRepository;
-            this.teamDataRepository = teamDataRepository;
-            this.usersService = usersService;
+            this.sentNotificationDataRepository = sentNotificationDataRepository ?? throw new ArgumentNullException(nameof(sentNotificationDataRepository));
+            this.teamDataRepository = teamDataRepository ?? throw new ArgumentNullException(nameof(teamDataRepository));
+            this.usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
             this.localizer = localizer ?? throw new ArgumentNullException(nameof(localizer));
         }
 
@@ -55,6 +55,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Streams
         /// <returns>the streams of user data.</returns>
         public async IAsyncEnumerable<IEnumerable<UserData>> GetUserDataStreamAsync(string notificationId)
         {
+            if (notificationId == null)
+            {
+                throw new ArgumentNullException(nameof(notificationId));
+            }
+
             var sentNotificationDataEntitiesStream = this.sentNotificationDataRepository.GetStreamsAsync(notificationId);
             await foreach (var sentNotifcations in sentNotificationDataEntitiesStream)
             {
@@ -89,6 +94,11 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Streams
         /// <returns>the streams of team data.</returns>
         public async IAsyncEnumerable<IEnumerable<TeamData>> GetTeamDataStreamAsync(string notificationId)
         {
+            if (notificationId == null)
+            {
+                throw new ArgumentNullException(nameof(notificationId));
+            }
+
             var sentNotificationDataEntitiesStream = this.sentNotificationDataRepository.GetStreamsAsync(notificationId);
             await foreach (var sentNotificationDataEntities in sentNotificationDataEntitiesStream)
             {
@@ -99,7 +109,7 @@ namespace Microsoft.Teams.Apps.DIConnect.Prep.Func.Export.Streams
                     var teamData = new TeamData
                     {
                         Id = sentNotificationDataEntity.RowKey,
-                        Name = team.Name,
+                        Name = team?.Name,
                         DeliveryStatus = this.localizer.GetString(sentNotificationDataEntity.DeliveryStatus),
                         StatusReason = this.GetStatusReason(sentNotificationDataEntity.ErrorMessage, sentNotificationDataEntity.StatusCode.ToString()),
                     };
