@@ -386,8 +386,8 @@ class ConfigurationTab extends React.Component<ConfigurationTabProps, IState> {
     * Method to get ERG details.
     */
     private getERGDetails = async () => {
-        const response = await getERGConfiguration();
         try {
+            const response = await getERGConfiguration();
             if (response.status === 200 && response.data) {
                 this.setState({
                     ergDisplayButtonText: response.data.value,
