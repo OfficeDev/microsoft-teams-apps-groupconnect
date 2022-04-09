@@ -12,7 +12,7 @@
     "i18next": "^19.5.1",
     "i18next-browser-languagedetector": "^5.0.0",
     "i18next-http-backend": "^1.0.21",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "msteams-ui-components-react": "^0.8.1",
     "msteams-ui-icons-react": "^0.4.1",
     "node-sass": "^4.14.1",
